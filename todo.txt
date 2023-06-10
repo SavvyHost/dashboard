@@ -1,0 +1,8 @@
+get hotel exceptions - make user permisions - modify calender - allow admin to add users 
+
+-----------------------------------------------------------------------------------------
+
+
+allow users to book in hotels
+
+
