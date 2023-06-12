@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 11:40 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.0.19
+-- Generation Time: Jun 12, 2023 at 02:12 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ CREATE TABLE `apps_countries` (
   `id` int(11) NOT NULL,
   `country_code` varchar(2) NOT NULL DEFAULT '',
   `country_name` varchar(100) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `apps_countries`
@@ -301,7 +301,7 @@ CREATE TABLE `booking` (
   `payment_method` int(11) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `invoice_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
@@ -325,26 +325,30 @@ CREATE TABLE `hotels` (
   `banner` text NOT NULL,
   `images` text NOT NULL DEFAULT ' ',
   `terms` text NOT NULL DEFAULT ' ',
-  `creation_date` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `creation_date` text NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hotels`
 --
 
-INSERT INTO `hotels` (`id`, `name`, `price`, `location`, `description`, `banner`, `images`, `terms`, `creation_date`) VALUES
-(1, 'Test Hotel Edit', '450.00', 'Maadi', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579962910.jpg,168579962917.jpg,168579962987.jpg', ' 1,2,3,4,5,6,7,8,9', '2023-05-31'),
-(2, 'Hotel 2', '400.00', 'Alexandria', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '1685795520.jpg,1685795520.jpg', '  1,2,3,4,5,6,7,8,9', '2023-05-31'),
-(3, 'Hotel 3', '350.00', 'Alexandria', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-05-31'),
-(4, 'Hotel 4', '500.00', 'Hurghada', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', ' 1,2,3,4,5,6,7,8,9', '2023-05-31'),
-(5, 'Hotel 6', '650.00', 'Sharm El-shiekh', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-05-31'),
-(6, 'Hotel 10', '150.00', 'Cairo', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-01'),
-(7, 'Hotel 10', '420.00', 'Maaddi', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-01'),
-(8, 'Hotel 1', '250.00', 'Cairo', 'test', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03'),
-(9, 'Al Maza Hotel', '700.00', 'Cairo', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03'),
-(10, 'Hotel Pics', '250.00', 'Cairo', '<h1>TEST</h1>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03'),
-(11, 'Hotel 1', '350.00', 'Alexandria', '<p>daaddada</p>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', ' 1,2,3,4,5,6,7,8,9', '2023-06-03'),
-(12, 'Test Hotel', '40.00', 'Test', '<p>test</p>', '168622302524.jpg', '168622302533.jpeg,168622302555.jpg,168622302540.PNG', '1,2,3,8,9,10,11,18,19,21', '2023-06-08');
+INSERT INTO `hotels` (`id`, `name`, `price`, `location`, `description`, `banner`, `images`, `terms`, `creation_date`, `updated_at`) VALUES
+(1, 'Test Hotel Edit', '450.00', 'Maadi', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579962910.jpg,168579962917.jpg,168579962987.jpg', ' 1,2,3,4,5,6,7,8,9', '2023-05-31', '2023-06-11 07:44:38'),
+(2, 'Hotel 2', '400.00', 'Alexandria', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '1685795520.jpg,1685795520.jpg', '  1,2,3,4,5,6,7,8,9', '2023-05-31', '2023-06-11 07:44:38'),
+(3, 'Hotel 3', '350.00', 'Alexandria', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-05-31', '2023-06-11 07:44:38'),
+(4, 'Hotel 4', '500.00', 'Hurghada', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', ' 1,2,3,4,5,6,7,8,9', '2023-05-31', '2023-06-11 07:44:38'),
+(5, 'Hotel 6', '650.00', 'Sharm El-shiekh', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-05-31', '2023-06-11 07:44:38'),
+(6, 'Hotel 10', '150.00', 'Cairo', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-01', '2023-06-11 07:44:38'),
+(7, 'Hotel 10', '420.00', 'Maaddi', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-01', '2023-06-11 07:44:38'),
+(8, 'Hotel 1', '250.00', 'Cairo', 'test', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03', '2023-06-11 07:44:38'),
+(9, 'Al Maza Hotel', '700.00', 'Cairo', '<h2>Al Maza Hotel</h2><ul><li><strong>Test 1</strong></li><li><strong>Test 2</strong></li><li><strong>Test 3</strong></li><li><strong>Test 4</strong></li></ul>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03', '2023-06-11 07:44:38'),
+(10, 'Hotel Pics', '250.00', 'Cairo', '<h1>TEST</h1>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', '  1,2,3,4,5,6,7,8,9', '2023-06-03', '2023-06-11 07:44:38'),
+(11, 'Hotel 1', '350.00', 'Alexandria', '<p>daaddada</p>', '', '168579890438.jpg,168579890469.jpg,168579890416.jpeg', ' 1,2,3,4,5,6,7,8,9', '2023-06-03', '2023-06-11 07:44:38'),
+(12, 'Test Hotel', '40.00', 'Test', '<p>test</p>', '168622302524.jpg', '168622302533.jpeg,168622302555.jpg,168622302540.PNG', '1,2,3,8,9,10,11,18,19,21', '2023-06-08', '2023-06-11 07:44:38'),
+(13, 'subs2', '100.00', 'locatin', 'qwerty', '168647361938.jpg', '', '', '2023-06-11', '2023-06-11 08:53:39'),
+(14, 'subs2', '100.00', 'locatin', 'qwerty', '168647364350.jpg', '', '', '2023-06-11', '2023-06-11 08:54:03'),
+(16, 'Hotel ABC', '150.00', 'City XYZ', 'Lorem ipsum dolor sit amet', '168648036461.jpg', '', '', '2023-06-11', '2023-06-11 10:46:04');
 
 -- --------------------------------------------------------
 
@@ -355,7 +359,7 @@ INSERT INTO `hotels` (`id`, `name`, `price`, `location`, `description`, `banner`
 CREATE TABLE `hotel_attr` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hotel_attr`
@@ -364,7 +368,8 @@ CREATE TABLE `hotel_attr` (
 INSERT INTO `hotel_attr` (`id`, `name`) VALUES
 (1, 'Hotel Service'),
 (5, 'Property type'),
-(6, 'Facilities');
+(6, 'Facilities'),
+(9, 'new-attr');
 
 -- --------------------------------------------------------
 
@@ -378,7 +383,7 @@ CREATE TABLE `hotel_exceptions` (
   `start_date` text NOT NULL,
   `end_date` text NOT NULL,
   `new_price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hotel_exceptions`
@@ -386,9 +391,12 @@ CREATE TABLE `hotel_exceptions` (
 
 INSERT INTO `hotel_exceptions` (`id`, `hotel_id`, `start_date`, `end_date`, `new_price`) VALUES
 (2, 3, '2023-07-05', '2023-08-05', '500.00'),
-(3, 1, '2023-07-07', '2023-07-10', '50.00'),
+(3, 1, '2023-06-15', '2023-06-20', '150.00'),
 (4, 1, '2023-06-13', '2023-06-23', '140.00'),
-(5, 2, '2023-07-29', '2023-08-10', '700.00');
+(5, 2, '2023-07-29', '2023-08-10', '700.00'),
+(6, 1, '2023-06-15', '2023-06-20', '150.00'),
+(7, 1, '2023-06-15', '2023-06-20', '150.00'),
+(9, 1, '2023-06-15', '2023-06-20', '1.00');
 
 -- --------------------------------------------------------
 
@@ -400,7 +408,7 @@ CREATE TABLE `hotel_terms` (
   `id` int(11) NOT NULL,
   `attr_id` int(11) NOT NULL,
   `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hotel_terms`
@@ -414,7 +422,6 @@ INSERT INTO `hotel_terms` (`id`, `attr_id`, `name`) VALUES
 (5, 1, 'Laundry Services'),
 (6, 1, 'Pets welcome'),
 (7, 1, 'Tickets'),
-(8, 5, 'Apartments'),
 (9, 5, 'Hotels'),
 (10, 5, 'Homestays'),
 (11, 5, 'Villas'),
@@ -430,7 +437,10 @@ INSERT INTO `hotel_terms` (`id`, `attr_id`, `name`) VALUES
 (21, 6, 'Flat Tv'),
 (22, 6, 'Laundry and dry cleaning'),
 (23, 6, 'Internet – Wifi'),
-(24, 6, 'Coffee and tea');
+(24, 6, 'Coffee and tea'),
+(25, 1, 'new-term'),
+(29, 1, 'new-term'),
+(30, 1, 'new-term');
 
 -- --------------------------------------------------------
 
@@ -441,16 +451,18 @@ INSERT INTO `hotel_terms` (`id`, `attr_id`, `name`) VALUES
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
   `role_name` text NOT NULL,
-  `created_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp(4) NOT NULL DEFAULT current_timestamp(4)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `roles`
 --
 
-INSERT INTO `roles` (`id`, `role_name`, `created_at`) VALUES
-(1, 'Admin', '2023-06-01'),
-(2, 'User', '2023-06-01');
+INSERT INTO `roles` (`id`, `role_name`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', '2023-06-01 00:00:00', '2023-06-11 07:01:58.4448'),
+(2, 'User', '2023-06-01 00:00:00', '2023-06-11 07:01:58.4448'),
+(4, 'Updated new', '2023-06-11 00:00:00', '2023-06-10 21:00:00.0000');
 
 -- --------------------------------------------------------
 
@@ -462,15 +474,17 @@ CREATE TABLE `subcribers` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `email` text NOT NULL,
-  `created_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `created_at` text NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `subcribers`
 --
 
-INSERT INTO `subcribers` (`id`, `name`, `email`, `created_at`) VALUES
-(1, 'Test Subscriber', 'subscriber@gmail.com', '2023-06-03');
+INSERT INTO `subcribers` (`id`, `name`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'Test Subscriber', 'subscriber@gmail.com', '2023-06-03', '2023-06-11 07:36:23'),
+(2, 'updatedsubs', 'updatedsubs@new.com', '2023-06-11', '2023-06-10 21:00:00');
 
 -- --------------------------------------------------------
 
@@ -487,19 +501,20 @@ CREATE TABLE `tours` (
   `max_people` int(11) NOT NULL,
   `location` text NOT NULL,
   `latitude` text DEFAULT NULL,
-  `longtuide` text DEFAULT NULL,
+  `longitude` text DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `sale_price` decimal(10,2) DEFAULT NULL,
   `tour_date` text NOT NULL,
   `created_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tours`
 --
 
-INSERT INTO `tours` (`id`, `title`, `category_id`, `duration`, `min_people`, `max_people`, `location`, `latitude`, `longtuide`, `price`, `sale_price`, `tour_date`, `created_at`) VALUES
-(1, 'Dream Park Edited', 1, '12 hours', 10, 50, 'Madinat Nasr', NULL, NULL, '300.00', NULL, '2023-06-14', '2023-06-02');
+INSERT INTO `tours` (`id`, `title`, `category_id`, `duration`, `min_people`, `max_people`, `location`, `latitude`, `longitude`, `price`, `sale_price`, `tour_date`, `created_at`) VALUES
+(1, 'Dream Park Edited', 2, '12 hours', 10, 50, 'Madinat Nasr', NULL, NULL, '300.00', NULL, '2023-06-14', '2023-06-02'),
+(2, 'test', 1, '2', 20, 50, 'cairo', NULL, NULL, '200.00', '50.00', '2023-06-26', '2023-06-10');
 
 -- --------------------------------------------------------
 
@@ -510,7 +525,7 @@ INSERT INTO `tours` (`id`, `title`, `category_id`, `duration`, `min_people`, `ma
 CREATE TABLE `tour_attr` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tour_attr`
@@ -518,7 +533,8 @@ CREATE TABLE `tour_attr` (
 
 INSERT INTO `tour_attr` (`id`, `name`) VALUES
 (1, 'Travel Styles'),
-(2, 'Facilities');
+(2, 'Facilities'),
+(3, 'Updated2 attr');
 
 -- --------------------------------------------------------
 
@@ -530,7 +546,7 @@ CREATE TABLE `tour_category` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `created_at` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tour_category`
@@ -538,7 +554,10 @@ CREATE TABLE `tour_category` (
 
 INSERT INTO `tour_category` (`id`, `name`, `created_at`) VALUES
 (1, 'Daytour', '2023-06-02'),
-(2, 'Multi-Day Packages', '2023-06-02');
+(2, 'Multi-Day Packages', '2023-06-02'),
+(3, 'new category', '2023-06-12'),
+(5, 'Updated2 category', '2023-06-12'),
+(6, 'new attributes', '2023-06-12');
 
 -- --------------------------------------------------------
 
@@ -550,7 +569,7 @@ CREATE TABLE `tour_terms` (
   `id` int(11) NOT NULL,
   `attr_id` int(11) NOT NULL,
   `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tour_terms`
@@ -589,26 +608,29 @@ CREATE TABLE `users` (
   `country` text NOT NULL,
   `bio` text NOT NULL,
   `role_id` int(11) NOT NULL,
-  `created_at` text NOT NULL,
-  `updated_at` text NOT NULL DEFAULT ' '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `gender`, `phone`, `country`, `bio`, `role_id`, `created_at`, `updated_at`) VALUES
-(2, 'hotels admin', 'admin_hotels', 'admin@yahoo.com', '$2y$10$D3wRvyUHjMpKAuskS.T6JuuAin8u0OLYtyYHZ0XgfmROjp1Jc1zTC', 1, '01007046215', 'Egypt', '<p><em>Admin</em></p><p><br></p>', 1, '2023-06-01', '2023-06-01'),
-(3, 'test user', 'user_hotels', 'user@gmail.com', '$2y$10$1H3KzNc8U44NhiYBhvFPPeLRMc58fowrz0yC7ZH8U2uREOhep6TDi', 1, '01024178367', 'Egypt', '<p><strong>User Test</strong></p>', 2, '2023-06-01', '2023-06-01'),
-(4, 'user 1', 'user1', 'user1@gmail.com', '$2y$10$A4rNmMq9wQaLgXQzPCROiePZgcutyipOUYsCKvoy/IC.QCgbeERcy', 1, '01007046258', 'Egypt', '', 2, '2023-06-01', ''),
-(5, 'ahmed samy', 'ahmed_samy15', 'ahmed@gmail.com', '$2y$10$CKUVuqfubenx1dObxwsAcuCOpqY6MYO5GJU9ob5nnZOuPi5nrvZra', 1, '0100405421', 'Egypt', '', 2, '2023-06-01', ''),
-(6, 'Farida samy', 'farida_samy', 'farida@gmail.com', '$2y$10$F.9ombsnLYNGgitNOvn8Yu5ct1EMyLq3hAYjUVJiCSmQRDI8F4./6', 2, '01004536987', 'Egypt', '', 2, '2023-06-01', ''),
-(7, 'samy mohamed', 'samy_admin', 'samy@gmail.com', '$2y$10$7QfN9t5TeTOpmoj2ab0CF.hormy0H9fFGmdY15Uy4SxQBk3A/kWhm', 1, '01002547852', 'Egypt', '', 1, '2023-06-01', ''),
-(8, 'Mohamed Wael', 'wael74_', 'wael@gmail.com', '$2y$10$q0LgBTsDJH3wAHUTej8fnOcvaIx4ZQrMtEUcyedvua7HmxZotGxLa', 1, '01147856932', 'Egypt', '', 2, '2023-06-01', ''),
-(9, 'Mahmoud Adel', 'mahmoud_adel77', 'mahmoud_adel@gmail.com', '$2y$10$e5.EWYmCFNoWE1FiE1OIY.l1kArN6r24yG/aULPuRj3i85jcaKWpm', 1, '01002536987', 'Egypt', '', 2, '2023-06-01', ''),
-(10, 'Ahmed Samy', 'ahmed_samy2020', 'ahmed_samy@gmail.com', '$2y$10$1iAw5o0DNDrGA2P03QEN6Obw5mDDz4r2iC8e/SgQ7zqPiEIeXDsdy', 1, '01007046215', 'Egypt', '<p><strong>Ahmed Samy</strong></p>', 2, '2023-06-01', ''),
-(11, 'Mohamed Essam', 'mo_essam', 'mo_essam@gmail.com', '$2y$10$D4NIyp9ppiBf0MCwlKmNp.z/zaP2Z4dwfkXtGF7kluf9K87jI34q.', 1, '01024178367', 'United Arab Emirates', '<p><br></p>', 2, '2023-06-01', ' '),
-(12, 'Test Admin Aadd', 'test_admin', 'test@gmail.com', '$2y$10$fcwmaJ2lNjZZykRwWhR0ru0oqikYO4Cc/ZEORt0jWvGwFzZ79TKVO', 1, '01123654789', 'Afghanistan', '<p><u>Test</u></p>', 1, '2023-06-01', ' ');
+(2, 'hotels admin', 'admin_hotels', 'admin@yahoo.com', '$2y$10$D3wRvyUHjMpKAuskS.T6JuuAin8u0OLYtyYHZ0XgfmROjp1Jc1zTC', 1, '01007046215', 'Egypt', '<p><em>Admin</em></p><p><br></p>', 1, '2023-05-31 21:00:00', '2023-05-31 21:00:00'),
+(3, 'test user', 'user_hotels', 'user@gmail.com', '$2y$10$1H3KzNc8U44NhiYBhvFPPeLRMc58fowrz0yC7ZH8U2uREOhep6TDi', 1, '01024178367', 'Egypt', '<p><strong>User Test</strong></p>', 2, '2023-05-31 21:00:00', '2023-05-31 21:00:00'),
+(4, 'user 1', 'user1', 'user1@gmail.com', '$2y$10$A4rNmMq9wQaLgXQzPCROiePZgcutyipOUYsCKvoy/IC.QCgbeERcy', 1, '01007046258', 'Egypt', '', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(5, 'ahmed samy', 'ahmed_samy15', 'ahmed@gmail.com', '$2y$10$CKUVuqfubenx1dObxwsAcuCOpqY6MYO5GJU9ob5nnZOuPi5nrvZra', 1, '0100405421', 'Egypt', '', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(6, 'Farida samy', 'farida_samy', 'farida@gmail.com', '$2y$10$F.9ombsnLYNGgitNOvn8Yu5ct1EMyLq3hAYjUVJiCSmQRDI8F4./6', 2, '01004536987', 'Egypt', '', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(7, 'samy mohamed', 'samy_admin', 'samy@gmail.com', '$2y$10$7QfN9t5TeTOpmoj2ab0CF.hormy0H9fFGmdY15Uy4SxQBk3A/kWhm', 1, '01002547852', 'Egypt', '', 1, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(8, 'Mohamed Wael', 'wael74_', 'wael@gmail.com', '$2y$10$q0LgBTsDJH3wAHUTej8fnOcvaIx4ZQrMtEUcyedvua7HmxZotGxLa', 1, '01147856932', 'Egypt', '', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(9, 'Mahmoud Adel', 'mahmoud_adel77', 'mahmoud_adel@gmail.com', '$2y$10$e5.EWYmCFNoWE1FiE1OIY.l1kArN6r24yG/aULPuRj3i85jcaKWpm', 1, '01002536987', 'Egypt', '', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(10, 'Ahmed Samy', 'ahmed_samy2020', 'ahmed_samy@gmail.com', '$2y$10$1iAw5o0DNDrGA2P03QEN6Obw5mDDz4r2iC8e/SgQ7zqPiEIeXDsdy', 1, '01007046215', 'Egypt', '<p><strong>Ahmed Samy</strong></p>', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(11, 'Mohamed Essam', 'mo_essam', 'mo_essam@gmail.com', '$2y$10$D4NIyp9ppiBf0MCwlKmNp.z/zaP2Z4dwfkXtGF7kluf9K87jI34q.', 1, '01024178367', 'United Arab Emirates', '<p><br></p>', 2, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(12, 'Test Admin Aadd', 'test_admin', 'test@gmail.com', '$2y$10$fcwmaJ2lNjZZykRwWhR0ru0oqikYO4Cc/ZEORt0jWvGwFzZ79TKVO', 1, '01123654789', 'Afghanistan', '<p><u>Test</u></p>', 1, '2023-05-31 21:00:00', '0000-00-00 00:00:00'),
+(13, 'dev', 'dev_test', 'dev@mail.com', '$2y$10$.fP3nN1P5OPdrDVxvlQWyekhKjsduFVg3Z7j9kJhgr94MlCF43VUe', 1, '123456789', 'Afghanistan', '<p><br></p>', 1, '2023-06-09 21:00:00', '0000-00-00 00:00:00'),
+(15, 'testto', 'DELETEUser', 'new2@user.com', '$2y$10$WYebbG7Qn.5WZfOkgfn9ROTSS7qhFDkv/iuSTwvOn1Vad9L96ZWre', 1, '0123', 'Egypt', 'qwerty', 2, '2023-06-10 21:00:00', '0000-00-00 00:00:00'),
+(16, 'testto', 'admin_new', 'newadmin@user.com', '$2y$10$bg6yHO4/2fAHecA9vRt55.7/TjRrHebt2f70rhW5YX/Wvb5Olwdsu', 1, '0123', 'Egypt', 'qwerty', 1, '2023-06-10 21:00:00', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -712,67 +734,67 @@ ALTER TABLE `booking`
 -- AUTO_INCREMENT for table `hotels`
 --
 ALTER TABLE `hotels`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `hotel_attr`
 --
 ALTER TABLE `hotel_attr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `hotel_exceptions`
 --
 ALTER TABLE `hotel_exceptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `hotel_terms`
 --
 ALTER TABLE `hotel_terms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `subcribers`
 --
 ALTER TABLE `subcribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tour_attr`
 --
 ALTER TABLE `tour_attr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tour_category`
 --
 ALTER TABLE `tour_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tour_terms`
 --
 ALTER TABLE `tour_terms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
