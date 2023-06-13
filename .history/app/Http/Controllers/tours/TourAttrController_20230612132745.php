@@ -32,12 +32,7 @@ class TourAttrController extends Controller
 
 
 
-    return [
-        'id' => $this->id,
-        'name' => $this->name,
 
-
-    ];
 
 
 

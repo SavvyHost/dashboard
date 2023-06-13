@@ -20,7 +20,7 @@ class RoleResource extends JsonResource
         return[
             'id'=>$this->id,
             'role_name'=>$this->name,
-            'created_at' => $this->created_at->/* format('Y-m-d') */,
+            'created_at' => $this->created_at,
 
         ];
 

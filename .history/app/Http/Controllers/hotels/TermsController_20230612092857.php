@@ -63,7 +63,7 @@ class TermsController extends Controller
         ]);
         $term = HotelTerm::create([
             'name'  =>  $request->name,
-            'attr_id'   =>  $request$attr_id,
+            'attr_id'   =>  $request->$attr_id,
         ]);
         return redirect()->back()->with('success','Term Added Successfully');
     }

@@ -45,11 +45,12 @@ class RolesController extends Controller
         $request->validate([
             'name' => 'string|between:2,100',]);
 
-    }
+
 
     $user->updated_at = date('Y-m-d');
     $user->save();
 
 
 
+}
 }

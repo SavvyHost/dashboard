@@ -10,11 +10,7 @@ use App\Models\HotelExcep;
 
 class AvailabiltyController extends Controller
 {
-    public function index-excep ()
-    {
-        // $hotels = Hotel::all();
-        // return view('hotels.availabilty',compact('hotels'));
-    }
+
 
     public function add()
     {

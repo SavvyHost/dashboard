@@ -44,6 +44,6 @@ class EditUserController extends Controller
 
 
        $updated= new UserResource($user);
-        return
+
     }
 }

@@ -14,7 +14,7 @@ class UsersController extends Controller
     {
         $users =UserResource::make($User::where('role_id',2)->get());
 
-        return response()->json['data'=>$users,];
+        return response()->json(['data'=>$users,]);
 
     }
 

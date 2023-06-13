@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Country;
-use App\Http\Controllers\user\UserResource&quot;
+use App\Http\Controllers\user\UserResource;
 
 
 class UsersController extends Controller

@@ -42,7 +42,7 @@ class EditUserController extends Controller
         $user->updated_at = date('Y-m-d');
         $user->save();
 
-        dd($request->all())
+        dd($request->all());
 
 
         $updatedUser = $user;

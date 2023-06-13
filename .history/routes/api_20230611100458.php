@@ -41,8 +41,8 @@ Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
     Route::get('/user/role', [RolesController::class, 'index']);
     Route::post('/user/role/new', [RolesController::class, 'add']);
     Route::put('/user/role/{role_id}', [RolesController::class, 'update']);
-    Route::delete('/user/role/delete/{user_id}', [    Route::put('/user/role/{role_id}', [RolesController::class, 'update']);
-    ::class, 'delete']);
+        Route::put('/user/role/{role_id}', [RolesController::class, 'update']);
+
 
 
 

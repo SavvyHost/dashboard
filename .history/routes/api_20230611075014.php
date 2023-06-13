@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::group(['middleware' => , 'prefix' => 'dashboard'], function () {
+Route::group(['middleware' => '', 'prefix' => 'dashboard'], function () {
 
     Route::get('/users', [UsersController::class, 'index']);
 });

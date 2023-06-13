@@ -12,9 +12,8 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users =
 
-        return UserResource::make($User::where('role_id',2)->get(););
+        return UserResource::make($User::where('role_id',2)->get());
 
     }
 

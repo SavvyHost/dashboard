@@ -104,7 +104,7 @@ class AddHotelController extends Controller
     ]);
 
     $craeted= new UserResource($user);
-    return response()->json(['data'=>$craeted,'error'=>'','message'=>'Hotel Added Successfully'],200);('success', '');
+    return response()->json(['data'=>$craeted,'error'=>'','message'=>'Hotel Added Successfully'],200);
 }
 
 

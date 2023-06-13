@@ -27,7 +27,7 @@ class EditTourController extends Controller
             'category' => 'required|exists:tour_category,id',
             'duration' => 'required',
             'tour_date' => 'required',
- tour_date           'tour_date' => 'required|date',
+          'tour_date' => 'required|date',
             'min_people' => 'required',
             'max_people' => 'required',
             'latitude' => 'required',
