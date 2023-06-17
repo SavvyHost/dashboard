@@ -20,7 +20,7 @@ class RolesController extends Controller
         return view ('roles.add-role',compact('countries','roles'));
     }
 
-    public function 1show()
+    public function show1()
     {
         $countries = Country::all();
         $roles = Role::all();

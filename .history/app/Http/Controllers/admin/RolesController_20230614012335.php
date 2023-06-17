@@ -27,7 +27,7 @@ class RolesController extends Controller
         $roles = Role::find($id);
         $countries = Country::all();
         // return view('roles.edit-role',compact('roles'));
-        return view('roles.edit-role'compact('countries','roles'));
+        return view('roles.edit-role',compact('countries','roles'));
     }
 
     public function index()
