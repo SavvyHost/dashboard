@@ -78,7 +78,8 @@ class AddTourController extends Controller
 
 
         $images = '';
-    if(){
+    if(images){
+
         foreach ($request->file('image') as $pic) {
             if ($images != '') {
                 $images = $images . ',';
@@ -87,6 +88,7 @@ class AddTourController extends Controller
             $images = $images . $image_name;
             $pic->move(public_path('assets/hotel-photos'), $image_name);
         }}
+
 
         $banner = time() . rand(1, 100) . '.' . $request->file('banner')->getClientOriginalExtension();
         $request->file('banner')->move(public_path('assets/hotel-photos'), $banner);

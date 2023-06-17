@@ -97,7 +97,6 @@ class AddTourController extends Controller
         return redirect()->back()->with('success','Tour Added Successfully');
 
     }
-}
 
 
 

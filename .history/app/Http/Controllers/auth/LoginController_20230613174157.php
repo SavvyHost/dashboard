@@ -83,8 +83,6 @@ public function login(Request $request)
 
             return redirect()->route('dashboard.show');
 
-    }elseif(1){
-
     }else
     {
         return redirect()->back()->with('success','These credentials do not match our records');
