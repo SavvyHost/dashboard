@@ -93,11 +93,11 @@ class AddTourController extends Controller
             'terms'     =>  $terms,
             'description'     =>  $requests->description,
             'created_at'    =>  date('Y-m-d'),
-        ]);`
+        ]);
         return redirect()->back()->with('success','Tour Added Successfully');
 
     }
-}
+
 
 
 

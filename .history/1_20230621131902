@@ -1,0 +1,106 @@
+                    <form class="space-y-5" method="POST" action="{{route('room.form.save',$id)}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="name" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Room Name</label>
+                            <input id="name" type="text"  placeholder="Enter Room Name"
+                                class="form-input flex-1" name="name" required />
+                        </div>
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="max_adult" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Max Adult</label>
+                            <input id="max_adult" type="text"  placeholder="Enter Max Adult"
+                                class="form-input flex-1" name="max_adult" required />
+                        </div>
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="max_child" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Max Child</label>
+                            <input id="max_child" type="text"  placeholder="Enter Max Child"
+                                class="form-input flex-1" name="max_child" required />
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col ">
+                            <div style="margin-right: 10px">
+                                <label for="ctnFile">Banner Image</label>
+                                <input id="ctnFile" type="file"  name="banner" class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file-ml-5 file:text-white file:hover:bg-primary" required>
+                                <output></output>
+                            </div>
+                            <div style="margin-right: 10px">
+                                <label for="ctnFile">Images</label>
+                                <input id="ctnFile" type="file" multiple="multiple" name="image[]" class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file-ml-5 file:text-white file:hover:bg-primary" required>
+                                <output></output>
+                            </div>
+
+
+                        </div>
+                        <div class="flex sm:flex-row flex-col">
+
+                        </div>
+
+                        <div>
+                            <div class="flex sm:flex-row flex-col">
+                                @foreach ($attrs as $attr)
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">{{$attr->name}}</label>
+                                    <select class="selectize" name="terms[]" multiple='multiple'>
+                                        @foreach ($attr->terms as $term)
+                                        <option value="{{$term->id}}">{{$term->name}}{{$term->price}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endforeach
+                            </div>
+
+                            <div class="flex sm:flex-row flex-col">
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">Type</label>
+                                    <select class="selectize" name="type">
+                                        @foreach ($types as $type)
+                                        <option value="{{ $type->id }}" data-price="{{ $type->price }}">{{ $type->name }} {{$type->price}}</option>
+
+
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex sm:flex-row flex-col">
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">Supplements</label>
+                                    <select class="selectize" name="sups[]" multiple='multiple'>
+                                        @foreach ($sups as $sup)
+                                        <option value="{{ $sup->id }}">{{ $sup->name }} {{$sup->price}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                        <div class="mb-5">
+                            <label for="editor">Description</label>
+                            <input  style="display:none" name="description">
+
+                            <div id="editor"></div>
+                        </div>
+
+                        <div>
+                            <div class="flex sm:flex-row flex-col">
+                                <label for="price" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Room Price</label>
+                                <input id="price" type="text"  placeholder="Enter Room Price"
+                                    class="form-input flex-1" name="price" required />
+                            </div>
+                        </div>
+
+
+                        <div style="display: flex; align-items: center;">
+                            <button class="btn btn-primary !mt-6" onclick="calculateAndShowTotal()">Suggested Price</button>
+
+                            <span id="total" class="btn btn-primary !mt-6" style="margin-left: 5px;">0</span>
+                        </div>
+
+
+
+
+                        <div>
+                        <button type="submit" class="btn btn-primary !mt-6">Submit</button>
+                        </div>
+
+
+
+                    </form>

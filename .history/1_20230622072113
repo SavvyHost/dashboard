@@ -1,0 +1,336 @@
+                    <form class="space-y-5" method="POST" action="{{route('room.form.save',$id)}}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="name" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Room Name</label>
+                            <input id="name" type="text"  placeholder="Enter Room Name"
+                                class="form-input flex-1" name="name" required />
+                        </div>
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="max_adult" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Max Adult</label>
+                            <input id="max_adult" type="text"  placeholder="Enter Max Adult"
+                                class="form-input flex-1" name="max_adult" required />
+                        </div>
+                        <div class="flex sm:flex-row flex-col ">
+                            <label for="max_child" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Max Child</label>
+                            <input id="max_child" type="text"  placeholder="Enter Max Child"
+                                class="form-input flex-1" name="max_child" required />
+                        </div>
+
+                        <div class="flex sm:flex-row flex-col ">
+                            <div style="margin-right: 10px">
+                                <label for="ctnFile">Banner Image</label>
+                                <input id="ctnFile" type="file"  name="banner" class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file-ml-5 file:text-white file:hover:bg-primary" required>
+                                <output></output>
+                            </div>
+                            <div style="margin-right: 10px">
+                                <label for="ctnFile">Images</label>
+                                <input id="ctnFile" type="file" multiple="multiple" name="image[]" class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file-ml-5 file:text-white file:hover:bg-primary" required>
+                                <output></output>
+                            </div>
+
+
+                        </div>
+                        <div class="flex sm:flex-row flex-col">
+
+                        </div>
+
+                        <div>
+                            <div class="flex sm:flex-row flex-col">
+                                @foreach ($attrs as $attr)
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">{{$attr->name}}</label>
+                                    <select class="selectize" name="terms[]" multiple='multiple'>
+                                        @foreach ($attr->terms as $term)
+                                        <option value="{{$term->id}}">{{$term->name}}{{$term->price}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endforeach
+                            </div>
+
+                            <div class="flex sm:flex-row flex-col">
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">Type</label>
+                                    <select class="selectize" name="type">
+                                        @foreach ($types as $type)
+                                        <option value="{{ $type->id }}" data-price="{{ $type->price }}">{{ $type->name }} {{$type->price}}</option>
+
+
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex sm:flex-row flex-col">
+                                <div class="w-full" style="margin-right: 10px">
+                                    <label for="ctnFile">Supplements</label>
+                                    <select class="selectize" name="sups[]" multiple='multiple'>
+                                        @foreach ($sups as $sup)
+                                        <option value="{{ $sup->id }}">{{ $sup->name }} {{$sup->price}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                        <div class="mb-5">
+                            <label for="editor">Description</label>
+                            <input  style="display:none" name="description">
+
+                            <div id="editor"></div>
+                        </div>
+
+                        <div>
+                            <div class="flex sm:flex-row flex-col">
+                                <label for="price" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Room Price</label>
+                                <input id="price" type="text"  placeholder="Enter Room Price"
+                                    class="form-input flex-1" name="price" required />
+                            </div>
+                        </div>
+
+
+                        <div style="display: flex; align-items: center;">
+                            <button class="btn btn-primary !mt-6" onclick="calculateAndShowTotal()">Suggested Price</button>
+
+                            <span id="total" class="btn btn-primary !mt-6" style="margin-left: 5px;">0</span>
+                        </div>
+
+
+
+
+                        <div>
+                        <button type="submit" class="btn btn-primary !mt-6">Submit</button>
+                        </div>
+
+
+
+                    </form>
+
+
+
+
+
+
+
+
+                    ///////////////////////////////////////////////////////////////////////
+                    <div class="flex sm:flex-row flex-col">
+                        <div class="w-full" style="margin-right: 10px">
+                            <label for="ctnFile">Meal</label>
+                            <select class="selectize" name="meals[]">
+                                <option value="">Select a meal</option>
+                                @foreach ($meals as $meal)
+                                    <option value="{{ $meal->id }}">{{ $meal->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="w-full" style="margin-right: 10px">
+                            <label for="ctnFile">Meal Price</label>
+                            <input id="meal_price" type="text" placeholder="Enter Meal Price" class="form-input flex-1" name="meal_price" />
+                        </div>
+                    </div>
+                    <div class="flex sm:flex-row flex-col">
+                        <div class="w-full" style="margin-right: 10px">
+                            <label for="has_meal">Has Meal?</label>
+                            <input id="has_meal" type="checkbox" name="has_meal" onchange="toggleMealOptions(this)" />
+                        </div>
+                        <div class="w-full" style="margin-right: 10px">
+                            <label for="free_meal">Free Meal?</label>
+                            <input id="free_meal" type="checkbox" name="free_meal" onchange="toggleMealPriceField(this)" />
+                        </div>
+                    </div>
+
+
+
+
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////
+
+
+                    AddRoomController
+
+
+
+
+
+
+
+
+    public function save1(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'image' => 'nullable',
+            'description' => 'required',
+            'terms' => 'nullable|array',
+            'terms.*' => 'nullable', // If terms is an array, each item is nullable
+            'sups' => 'nullable|array',
+            'sups.*' => 'nullable', // If terms is an array, each item is nullable
+            'meals' => 'nullable|array',
+            'meals.*' => 'nullable', // If terms is an array, each item is nullable
+            'type.*' => 'nullable', // If terms is an array, each item is nullable
+            'banner' => 'required',
+            'has_meal' => '',
+            'free_meal' => '',
+            'prices' => 'nullable|array', // Add the validation for the 'prices' attribute
+            'prices.*' => 'nullable|numeric', // If prices is an array, each item should be numeric
+        ]);
+
+        $terms = '';
+        $sups = '';
+        $meals = '';
+        $images = '';
+
+        if ($request->has('terms')) {
+            foreach ($request->terms as $term) {
+                if ($terms != '') {
+                    $terms = $terms . ',';
+                }
+                $terms = $terms . $term;
+            }
+        }
+        if ($request->has('sups')) {
+            foreach ($request->sups as $sup) {
+                if ($sups != '') {
+                    $sups = $sup . ',';
+                }
+                $sups = $sups . $sup;
+            }
+        }
+        if ($request->has('meals')) {
+            foreach ($request->meals as $meal) {
+                if ($meals != '') {
+                    $meals = $meal . ',';
+                }
+                $meals = $meals . $meal;
+            }
+        }
+
+
+        foreach ($request->file('image') as $pic) {
+            if ($images != '') {
+                $images = $images . ',';
+            }
+            $image_name = time() . rand(1, 100) . '.' . $pic->getClientOriginalExtension();
+            $images = $images . $image_name;
+            $pic->move(public_path('assets/hotel-photos'), $image_name);
+        }
+
+        $banner = time() . rand(1, 100) . '.' . $request->file('banner')->getClientOriginalExtension();
+        $request->file('banner')->move(public_path('assets/hotel-photos'), $banner);
+
+        $room = Room::create([
+            'name' => $request->name,
+            'hotel_id' => $id,
+            'max_adult' => $request->max_adult,
+            'max_child' => $request->max_child,
+            // 'has_meal' => $request->has_meal,
+            // 'free_meal' => $request->free_meal,
+
+            'has_meal' => $request->has_meal,
+            'free_meal' => $request->free_meal,
+            'meal_type' => $request->free_meal ? $meals : null,
+            'meal_price' => $request->free_meal ? null : $request->meal_price,
+
+            'prices' => $request->prices, // Store the prices as an array
+            'banner' => $banner,
+            'images' => $images,
+            'terms' => $terms,
+            'sups' => $sups,
+            'meal_type' => $meals,
+            'type' => $request->type,
+            'description' => $request->description,
+            'creation_date' => date('Y-m-d'),
+        ]);
+
+        return redirect()->back()->with('success', 'Hotel Added Successfully');
+    }
+
+
+
+    public function save2(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'image' => 'nullable',
+            'description' => 'required',
+            'terms' => 'nullable|array',
+            'terms.*' => 'nullable', // If terms is an array, each item is nullable
+            'sups' => 'nullable|array',
+            'sups.*' => 'nullable', // If sups is an array, each item is nullable
+            'meals' => 'nullable|array',
+            'meals.*' => 'nullable', // If meals is an array, each item is nullable
+            'type.*' => 'nullable', // If type is an array, each item is nullable
+            'banner' => 'required',
+            'has_meal' => 'nullable',
+            'free_meal' => 'nullable',
+            // 'meal_id' => 'required_if:free_meal,1', // Added validation for meal_id if free_meal is selected
+            // 'meal_price' => 'required_if:free_meal,0', // Added validation for meal_price if free_meal is not selected
+            'meal_price' => 'nullable', // Added validation for meal_price if free_meal is not selected
+            'prices' => 'nullable|array', // Add the validation for the 'prices' attribute
+            'prices.*' => 'nullable|numeric', // If prices is an array, each item should be numeric
+        ]);
+
+        $terms = '';
+        $sups = '';
+        $meals = '';
+        $images = '';
+        $hasMeal = $request->has('has_meal') ? true : false;
+
+        if ($request->has('terms')) {
+            $terms = implode(',', $request->terms);
+        }
+
+        if ($request->has('sups')) {
+            $sups = implode(',', $request->sups);
+        }
+
+        if ($request->has('meals')) {
+            $meals = implode(',', $request->meals);
+        }
+        if ($request->has('meal_price')) {
+            $mealPrice = $request->input('meal_price');
+        } else {
+            $mealPrice = null; // or set a default value if necessary
+        }
+
+        // foreach ($request->file('image') as $pic) {
+        //     $image_name = time() . rand(1, 100) . '.' . $pic->getClientOriginalExtension();
+        //     $pic->move(public_path('assets/hotel-photos'), $image_name);
+        //     $images[] = $image_name;
+        // }
+          foreach ($request->file('image') as $pic) {
+            if ($images != '') {
+                $images = $images . ',';
+            }
+            $image_name = time() . rand(1, 100) . '.' . $pic->getClientOriginalExtension();
+            $images = $images . $image_name;
+            $pic->move(public_path('assets/hotel-photos'), $image_name);
+        }
+
+        $banner = time() . rand(1, 100) . '.' . $request->file('banner')->getClientOriginalExtension();
+        $request->file('banner')->move(public_path('assets/hotel-photos'), $banner);
+
+        $roomData = [
+            'name' => $request->name,
+            'hotel_id' => $id,
+            'max_adult' => $request->max_adult,
+            'max_child' => $request->max_child,
+            'has_meal' => $hasMeal ,
+            'free_meal' => $request->free_meal,
+
+            'banner' => $banner,
+            'price' => $request->price, // Store the prices as an array
+            'images' =>  $images,
+            'terms' => $terms,
+            'sups' => $sups,
+            'meal_price' => $mealPrice,
+            'meal_type' => $meals,
+            'type' => $request->type,
+            'description' => $request->description,
+            'creation_date' => date('Y-m-d'),
+        ];
+
+        $room = Room::create($roomData);
+
+        return redirect()->back()->with('success', 'Room Added Successfully');
+    }
