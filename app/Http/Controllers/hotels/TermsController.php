@@ -38,6 +38,7 @@ class TermsController extends Controller
 
 
 
+
         return view('hotels.hotel-terms-add',compact('attr_id','attr'));
     }
     public function save($attr_id,Request $request)

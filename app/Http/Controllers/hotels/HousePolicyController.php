@@ -63,6 +63,7 @@ class HousePolicyController extends Controller
 
 
 
+
     public function save(Request $request , $hotel_id)
     {
         $request->validate([
@@ -74,11 +75,8 @@ class HousePolicyController extends Controller
             'description'  =>  $request->description,
             'hotel_id'  =>  $hotel_id,
         ]);
-        // return redirect()->back()->with('success','Policy Added Successfully');
-        return redirect()->route('hotel.attr.form.save');
-        // return redirect()->route('hotels.hotels-list');
 
-
+        return redirect()->back()->with('success','Policy Added Successfully');
 
     }
     public function save_edit(Request $request, $id)

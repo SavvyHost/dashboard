@@ -490,11 +490,11 @@
                                     </svg>
                                 </span>
                                 <div class="px-3 flex-1">
-                                    <div>Netflix</div>
+                                    <div>Hotel Booking</div>
                                     <div class="text-xs text-white-dark dark:text-gray-500">04 Jan 1:00PM</div>
                                 </div>
                                 <span
-                                    class="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-$32.00</span>
+                                    class="text-danger text-base px-1 ltr:ml-auto rtl:mr-auto whitespace-pre">-$132.00</span>
                             </div>
                             <div class="flex">
                                 <span
@@ -520,7 +520,7 @@
                                     </svg>
                                 </span>
                                 <div class="px-3 flex-1">
-                                    <div>Electricity Bill</div>
+                                    <div>bookings Bill</div>
                                     <div class="text-xs text-white-dark dark:text-gray-500">04 Jan 1:00PM</div>
                                 </div>
                                 <span
@@ -604,7 +604,7 @@
                     </div>
                 </div>
             </div>
-
+{{--
             <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
                 <div class="panel h-full w-full">
                     <div class="flex items-center justify-between mb-5">
@@ -883,7 +883,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <script>
@@ -1162,7 +1162,7 @@
                                 },
                             },
                         },
-                        labels: ['Apparel', 'Sports', 'Others'],
+                        labels: ['Hotels', 'Tickets', 'Others'],
                         states: {
                             hover: {
                                 filter: {

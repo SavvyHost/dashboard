@@ -1,4 +1,4 @@
-<div x-data="customizer">
+<div x-data="customizer" class="hidden">
     <div class="fixed inset-0 bg-[black]/60 z-[51] px-4 hidden transition-[display]" :class="{ '!block': showCustomizer }"
         @click="showCustomizer = false"></div>
 

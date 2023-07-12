@@ -107,6 +107,7 @@
                                 <label for="attrName" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Policy Name</label>
                                 <input id="attrName" type="text"  placeholder="Enter Policy Name"
                                     class="form-input flex-1" name="name" required />
+
                             </div>
                             <div class="flex sm:flex-row flex-col ">
                                 <label for="attrName" class="mb-0 sm:w-1/4 sm:ltr:mr-2 rtl:ml-2">Policy Description</label>

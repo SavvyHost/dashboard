@@ -41,6 +41,8 @@ use  App\Http\Controllers\booking\BookingController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/room/{id}/book', [BookingController::class,'store_api']);
+Route::post('/room/{id}/book/c', [BookingController::class,'confirm_booking_api']);
 
 
 Route::post('/register', [RegisterController::class, 'register'])/* ->name('api.register') */;

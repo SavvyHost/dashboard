@@ -34,7 +34,6 @@ class CancellationPolicyController extends Controller
             $view->with('attr', $attr);
         });
 
-
         return view('hotels.hotels-cancel-add',/* compact('attr') */);
     }
 
