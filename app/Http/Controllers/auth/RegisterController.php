@@ -10,11 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Country;
 use Illuminate\Validation\ValidationException;
-
-
-
-
-
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -57,16 +53,27 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all() , [
             'name' => 'required',
             'username' => 'required',
             'email' => 'required|unique:users,email',
-            'phone' => 'required|unique:users,phone',
+            'phone' => 'nullable|unique:users,phone',
             'password'  =>  'required',
-            'bio'       =>  'nullable',
-            'country'   =>  'required',
-            'gender'    =>  'required',
+            'bio' => 'nullable',
+            'country'   =>  'nullable',
+            'gender'    =>  'nullable',
+			'type' => 'required'
         ]);
+		
+		if ($validator->fails() ) {
+			return response()->json([
+				'message' => 'Validation Error',
+				'errors' => $validator->errors()
+			
+			], 401);
+		
+		}
+
         #dd($request->bio);
         $user = User::create([
             'name'      => $request->name,
@@ -77,7 +84,8 @@ class RegisterController extends Controller
             'bio'       =>  $request->bio,
             'country'   =>  $request->country,
             'gender'    =>  $request->gender,
-            'role_id'   =>  2,
+			'type'    =>  $request->type,
+			'role_id'   =>  2,
             'created_at'=>  date('Y-m-d'),
         ]);
         // return redirect()->route('login.show');
