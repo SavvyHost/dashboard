@@ -28,6 +28,11 @@ class CancellationPolicyController extends Controller
     public function add()
     {
         // $attr = CancellationPolicy::all();
+        view()->share('attr', $attr);
+
+        view()->composer('hotels.add-hotel', function ($view) use ($attr) {
+            $view->with('attr', $attr);
+        });
 
         return view('hotels.hotels-cancel-add',/* compact('attr') */);
     }

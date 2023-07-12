@@ -43,10 +43,22 @@ class HousePolicyController extends Controller
         return view('hotels.hotel-policy-edit',compact('pol'));
     }
 
+    // public function add($hotel_id)
+    // {
+    //     // view()->share('hotel_id', $hotel_id);
+
+    //     // view()->composer('hotels.add-hotel', function ($view) use ($hotel_id) {
+    //     //     $view->with('hotel_id', $hotel_id);
+    //     // });
+    //     return view('hotels.hotel-policy-add',compact('hotel_id'));
+    // }
+
+
+
     public function add($hotel_id)
-    {
-        return view('hotels.hotel-policy-add',compact('hotel_id'));
-    }
+{
+    return view('hotels.add-hotel', ['hotel_id' => $hotel_id]);
+}
 
 
 
@@ -63,6 +75,7 @@ class HousePolicyController extends Controller
             'description'  =>  $request->description,
             'hotel_id'  =>  $hotel_id,
         ]);
+
         return redirect()->back()->with('success','Policy Added Successfully');
 
     }

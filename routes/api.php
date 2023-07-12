@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use  App\Http\Controllers\auth\RegisterController;
+use  App\Http\Controllers\auth\LoginController;
+use  App\Http\Controllers\auth\LogoutController;
 use  App\Http\Controllers\admin\AdminsController;
 use  App\Http\Controllers\admin\RolesController;
 use  App\Http\Controllers\user\UsersController;
@@ -40,6 +43,23 @@ use  App\Http\Controllers\booking\BookingController;
 */
 Route::post('/room/{id}/book', [BookingController::class,'store_api']);
 Route::post('/room/{id}/book/c', [BookingController::class,'confirm_booking_api']);
+
+
+Route::post('/register', [RegisterController::class, 'register'])/* ->name('api.register') */;
+Route::post('/login', [LoginController::class, 'loginApi'])->name('api.login');
+Route::post('/logout', [LogoutController::class, 'logoutApi'])->name('api.logout')->middleware('auth:sanctum');
+
+
+
+
+
+
+
+Route::post('/room/{id}/book', [BookingController::class,'store_api']);
+Route::post('/room/{id}/book/c', [BookingController::class,'confirm_booking_api']);
+
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

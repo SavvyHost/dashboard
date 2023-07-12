@@ -28,6 +28,17 @@ class TermsController extends Controller
     public function add($attr_id)
     {
         $attr=HotelAttr::find($attr_id);
+        view()->share('attr_id', $attr_id);
+        view()->share('attr', $attr);
+        view()->composer('hotels.add-hotel', function ($view) use ($attr_id, $attr) {
+            $view->with('attr_id', $attr_id)
+                 ->with('attr', $attr);
+        });
+
+
+
+
+
         return view('hotels.hotel-terms-add',compact('attr_id','attr'));
     }
     public function save($attr_id,Request $request)
@@ -39,7 +50,9 @@ class TermsController extends Controller
             'name'  =>  $request->name,
             'attr_id'   =>  $attr_id,
         ]);
-        return redirect()->back()->with('success','Term Added Successfully');
+        // return redirect()->back()->with('success','Term Added Successfully');
+        return redirect()->route('hotels.hotels-list');
+
     }
 
 
