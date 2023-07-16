@@ -1,6 +1,6 @@
 <x-layout.default>
     @section('title','Users')
-    <div x-data="contacts">
+    <div>
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="text-xl">Users</h2>
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">

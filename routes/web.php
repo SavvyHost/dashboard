@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\auth\LoginController;
@@ -344,6 +345,20 @@ Route::delete('/tours/types/{attr_id}/delete', [TourTypeController::class,'destr
 
 
         Route::get('/booking', [BookingController::class,'index'])->name('booking.show');
+		
+		
+		// Pages
+		
+		Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\http\Controllers'], function () {
+			Route::resources([
+				'page' => 'PageController',
+				'template' => 'TemplateController',
+				'section' => 'SectionController'
+			]);
+			
+			Route::get('page/{page}/build', [PageController::class, 'build'])->name('page.build');
+			Route::post('page/{page}/rebuild', [PageController::class, 'rebuild'])->name('page.rebuild');
+		});
 
     });
 
