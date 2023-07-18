@@ -34,7 +34,27 @@
 								@foreach ($sections as $section)
 									@if(!$page->sections->contains($section))
 									<div class="border-b border-[#e0e6ed] dark:border-[#1b2e4b] px-4 py-2.5 draggable"
-										 data-id="{{ $section->id }}">{{ $section->name }}</div>
+										 data-id="{{ $section->id }}">
+										<div class="mb-5" x-data="modal">
+										<div class="float-left">
+											{{ $section->name }}
+										</div>
+
+										<!-- button -->
+											<button type="button" class="float-right" @click="toggle">Edit</button>
+											<!-- modal -->
+											<div class="fixed inset-0 bg-[black]/60 z-[999] hidden overflow-y-auto" :class="open && '!block'">
+												<div class="flex items-center justify-center min-h-screen px-4" @click.self="open = false">
+													<div x-show="open" x-transition x-transition.duration.300 class="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8">
+														<div class="dark:text-white-dark/70 text-base font-medium text-[#1f2937] p-5">
+															@include('pages.sections.section-inputs', ['isIterable' => $section->is_iterable])
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
 									@endif
 								@endforeach
 							</div>
@@ -43,16 +63,33 @@
 								 class="flex-1 flex flex-col rounded-md border border-[#e0e6ed] dark:border-[#1b2e4b] handle">
 								@foreach ($page->sections()->withPivot('id')->orderBy('id')->get() as $section)
 									<div class="border-b border-[#e0e6ed] dark:border-[#1b2e4b] px-4 py-2.5 draggable"
-										 data-id="{{ $section->id }}">{{ $section->name }}</div>
+										 data-id="{{ $section->id }}">
+
+									<div class="mb-5" x-data="modal">
+										<div class="float-left">
+											{{ $section->name }}
+										</div>
+
+										<!-- button -->
+										<button type="button" class="float-right" @click="toggle">Edit</button>
+										<!-- modal -->
+										<div class="fixed inset-0 bg-[black]/60 z-[999] hidden overflow-y-auto" :class="open && '!block'">
+											<div class="flex items-center justify-center min-h-screen px-4" @click.self="open = false">
+												<div x-show="open" x-transition x-transition.duration.300 class="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8">
+													<div class="dark:text-white-dark/70 text-base font-medium text-[#1f2937] p-5">
+														@include('pages.sections.section-inputs', ['isIterable' => $section->is_iterable])
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									</div>
 
 									<input type="hidden" name="sections[]" value="{{ $section->id }}" id="section_{{ $section->id }}">
 								@endforeach
 							</div>
-
 						</div>
-
 					</div>
-
 
 					<div class="sm:col-span-2 mt-3">
 						<button type="submit" class="btn btn-primary">Save</button>
@@ -128,6 +165,28 @@
 				document.getElementById('selected-sections').appendChild(input);
 			});
 		}
+
+
 	</script>
 
 </x-layout.default>
+
+
+
+
+
+
+
+
+<!-- script -->
+<script>
+	document.addEventListener("alpine:init", () => {
+		Alpine.data("modal", (initialOpenState = false) => ({
+			open: initialOpenState,
+
+			toggle() {
+				this.open = !this.open;
+			},
+		}));
+	});
+</script>

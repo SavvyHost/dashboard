@@ -16,7 +16,7 @@ class SectionFactory
 			case 'hero':
 				return new HeroSection();
 				
-			case 'about us':
+			case 'about_us':
 				return new AboutUsSection();
 		}
 	}

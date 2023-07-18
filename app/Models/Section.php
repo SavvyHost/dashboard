@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\CMS\Sections\SectionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,10 @@ class Section extends Model
 	
 	public function page() {
 		return $this->belongsTo(Page::class);
+	}
+	
+	public function pages() {
+		return $this->belongsToMany(Page::class)->using(PageSection::class)->withPivot(['id', 'data'])->orderBy('page_section.id');
 	}
 	
 	public function template() {
@@ -31,5 +36,17 @@ class Section extends Model
 		}
 		
 		return json_decode( $template_body );
+	}
+	
+	public function getInputsAttribute() {
+		$factory = new SectionFactory();
+		$instance = $factory->getSection($this->name);
+		return $instance->getInputs();
+	}
+	
+	public function getIsIterableAttribute() {
+		$factory = new SectionFactory();
+		$instance = $factory->getSection($this->name);
+		return $instance->isIterable();
 	}
 }

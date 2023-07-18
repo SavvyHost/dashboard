@@ -2,6 +2,7 @@
 
 namespace App\CMS\Sections;
 
+use App\Models\PageSection;
 use App\Models\Section;
 
 class HeroSection implements ISection
@@ -34,7 +35,7 @@ class HeroSection implements ISection
 		return array_keys( $this->getInputs() );
 	}
 	
-	public function getContent( Section $section ): array
+	public function getContent( PageSection $section ): array
 	{
 		return [
 			'hero' => $section->data['hero'],

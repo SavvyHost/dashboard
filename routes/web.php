@@ -359,6 +359,15 @@ Route::delete('/tours/types/{attr_id}/delete', [TourTypeController::class,'destr
 			Route::get('page/{page}/build', [PageController::class, 'build'])->name('page.build');
 			Route::post('page/{page}/rebuild', [PageController::class, 'rebuild'])->name('page.rebuild');
 		});
+		
+		
+		Route::group(['namespace' => 'App\http\Controllers'], function () {
+			Route::resources([
+				'feature' => 'FeatureController',
+				'subfeature' => 'SubfeatureController',
+				'partner' => 'PartnerController',
+			]);
+		});
 
     });
 

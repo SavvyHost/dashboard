@@ -2,6 +2,7 @@
 
 namespace App\CMS\Sections;
 
+use App\Models\PageSection;
 use App\Models\Section;
 
 class AboutUsSection implements ISection
@@ -9,7 +10,7 @@ class AboutUsSection implements ISection
 	
 	public function getName(): string
 	{
-		return 'about us';
+		return 'about_us';
 	}
 	
 	public function getInputs(): array
@@ -34,7 +35,7 @@ class AboutUsSection implements ISection
 		return array_keys($this->getInputs());
 	}
 	
-	public function getContent( Section $section ): array
+	public function getContent( PageSection $section ): array
 	{
 		return [
 			'title' => $section->data['title'],

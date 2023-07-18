@@ -10,6 +10,6 @@ class Page extends Model
     use HasFactory;
 	
 	public function sections() {
-		return $this->belongsToMany(Section::class)->withPivot('id')->orderBy('page_section.id');
+		return $this->belongsToMany(Section::class)->using(PageSection::class)->withPivot(['id', 'data'])->orderBy('page_section.id');
 	}
 }
