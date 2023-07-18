@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\API;
 
 use Carbon\Carbon;
 use App\Models\Category;
@@ -9,15 +9,13 @@ use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
+	use APITrait;
+	
     public function index()
     {
         $categories = Category::all();
-        $response = [
-            'message' => 'All Categories',
-            'Categories' => $categories,
-            'count' => count($categories)
-        ];
-        return response($response, 201);
+		
+		return $this->sendSuccess('Categories Found', compact('categories'));
     }
 
     public function show($id)

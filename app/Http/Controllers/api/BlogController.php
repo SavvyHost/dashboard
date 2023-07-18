@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\API;
 
 use Carbon\Carbon;
 use App\Models\Blog;
@@ -12,14 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
+	use APITrait;
+	
     public function index()
     {
         $blogs = Blog::all();
-        $response = [
-            'message' => 'All Blogs.',
-            'Blogs' => $blogs,
-        ];
-        return response($response, 201);
+
+		return $this->sendSuccess("Blogs Found", compact('blogs'));
     }
 
     public function show($id)
