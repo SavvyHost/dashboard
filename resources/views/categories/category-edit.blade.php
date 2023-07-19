@@ -7,7 +7,7 @@
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
-                <a href="{{route('users.show')}}" class="text-primary hover:underline">Users</a>
+                <a href="{{route('all.category',$category->id)}}" class="text-primary hover:underline">Category</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
                 <span>Account Settings</span>
@@ -39,8 +39,9 @@
                 </ul>
                 <template x-if="tab === 'home'">
                     <div>
-                        <form method="POST" action="{{route('user.edit.save',$user->id)}}"
-                            class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
+                        <form method="POST" action="{{route('update.category',$category->id)}}"
+                            class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]" enctype="multipart/form-data">
+                            >
                             @csrf
                             <h6 class="text-lg font-bold mb-5">General Information</h6>
                             @if (session()->get('success'))
@@ -48,28 +49,26 @@
                     <h3 style="font-size: 1.5rem;color:currentColor;">{{ session()->get('success') }}</h3>
                 </div>
                 @endif
-                            <div class="flex flex-col sm:flex-row">
+                           <div class="flex flex-col sm:flex-row">
                                 <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
-                                        <label for="name">Full Name</label>
-                                        <input id="name" type="text" name="name" value="{{$user->name}}"
+                                        <label for="name">Category Name</label>
+                                        <input id="name" type="text" name="name" value="{{$category->name}}"
                                             class="form-input"   required/>
                                     </div>
                                     <div>
-                                        <label for="username">Username</label>
-                                        <input id="username" type="text" value="{{$user->username}}"
-                                            class="form-input" name="username" required />
+                                        <label for="slug">Slug</label>
+                                        <input id="slug" type="text" value="{{$category->slug}}"
+                                            class="form-input" name="slug" required />
                                     </div>
+
                                     <div>
-                                        <label for="email">Email</label>
-                                        <input id="email" type="text" value="{{$user->email}}"
-                                            class="form-input" name="email" required />
+                                        <label for="image">Photo</label>
+                                        {{-- <input id="description" type="text"
+                                            class="form-input" name="description" required /> --}}
+                                            <input name="image" class="form-input" type="file" id="image">
                                     </div>
-                                    <div>
-                                        <label for="phone">Phone</label>
-                                        <input id="phone" type="text" value="{{$user->phone}}"
-                                            class="form-input" name="phone" required />
-                                    </div>
+                                     {{--
                                     <div>
                                         <label for="seachable-select">Country</label>
                                         <select id="seachable-select" name="country" required>
@@ -120,7 +119,7 @@
                                             {!! $user->bio !!}
                                         </div>
                                     </div>
-
+--}}
                                     <div class="sm:col-span-2 mt-3">
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>

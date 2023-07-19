@@ -301,9 +301,9 @@
                                 <ul x-cloak x-show="activeDropdown === 'blogs'" x-collapse class="sub-menu text-gray-500">
                                     <li>
                                         <a href="{{route('all.blog')}}">All Blogs</a>
-                                        <a href="{{route('hotels.availabilty.show')}}">Availabilty</a>
+                                        {{-- <a href="{{route('hotels.availabilty.show')}}">Availabilty</a>
                                         <a href="{{route('hotel.attr.show')}}">Attributes</a>
-                                        <a href="{{route('hotel.cancel.type.show')}}">Cancellation Policy</a>
+                                        <a href="{{route('hotel.cancel.type.show')}}">Cancellation Policy</a> --}}
 
                                     </li>
                                 </ul>
@@ -337,9 +337,9 @@
                                 <ul x-cloak x-show="activeDropdown === 'categories'" x-collapse class="sub-menu text-gray-500">
                                     <li>
                                         <a href="{{route('all.category')}}">All Categories</a>
-                                        <a href="{{route('hotels.availabilty.show')}}">Availabilty</a>
+                                        {{-- <a href="{{route('hotels.availabilty.show')}}">Availabilty</a>
                                         <a href="{{route('hotel.attr.show')}}">Attributes</a>
-                                        <a href="{{route('hotel.cancel.type.show')}}">Cancellation Policy</a>
+                                        <a href="{{route('hotel.cancel.type.show')}}">Cancellation Policy</a> --}}
 
                                     </li>
                                 </ul>
