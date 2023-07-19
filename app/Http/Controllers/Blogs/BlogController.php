@@ -16,7 +16,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::with('category')->get();
+        $blogs = Blog::with('category', 'user')->get();
         // $blogs = Blog::latest()->get();
         return view('blogs.blog-list', compact('blogs'));
     }
@@ -24,6 +24,7 @@ class BlogController extends Controller
     public function create()
     {
         $categories = Category::all();
+        // $admins = User::where('role_id', 1)->get();
         return view('blogs.blog-add', compact('categories'));
     }
 
