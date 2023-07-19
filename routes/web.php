@@ -370,7 +370,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/category/create', 'create')->name('create.category');
         Route::post('/category/store', 'store')->name('store.category');
         Route::get('/category/edit/{id}', 'edit')->name('edit.category');
-        Route::post('/category/update', 'update')->name('update.category');
+        Route::post('/category/update/{id}', 'update')->name('update.category');
         Route::get('/category/delete/{id}', 'destroy')->name('delete.category');
         Route::get('/blog/show/{id}', 'show')->name('category.details');
     });

@@ -29,13 +29,14 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
         $image = $request->file('image');
-        if ($image) {
+        if ($request->image) {
             $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
             Image::make($image)->save('assets/category-photos/' . $image_name);
             $save_url = 'assets/category-photos/' . $image_name;
 
             Category::insert([
                 'name'  =>  $request->name,
+                'slug'  =>  $request->slug,
                 'image'    =>  $save_url,
                 // 'creation_date' =>  date('Y-m-d'),
                 'created_at' => Carbon::now(),
@@ -44,6 +45,7 @@ class CategoryController extends Controller
         } else {
             Category::insert([
                 'name'  =>  $request->name,
+                'slug'  =>  $request->slug,
                 // 'creation_date' =>  date('Y-m-d'),
                 'created_at' => Carbon::now(),
 
@@ -64,30 +66,33 @@ class CategoryController extends Controller
         return view('categories.category-edit', compact('category'));
     }
 
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $category_id = $request->id;
+        // dd($request);
+        // $category_id = $request->id;
         $image = $request->file('image');
         if ($image) {
             $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
             Image::make($image)->save('assets/category-photos/' . $image_name);
             $save_url = 'assets/category-photos/' . $image_name;
 
-            Category::findOrFail($category_id)->update([
+            Category::findOrFail($id)->update([
                 'name'  =>  $request->name,
+                'slug'  =>  $request->slug,
                 'image'    =>  $save_url,
-                'updated_at' => Carbon::new(),
+                // 'updated_at' => Carbon::new(),
             ]);
-            return redirect()->route('all.blog');
+            return redirect()->route('all.category');
         } else {
 
-            Category::findOrFail($category_id)->update([
+            Category::findOrFail($id)->update([
                 'name'  =>  $request->name,
-                'updated_at' => Carbon::new(),
+                'slug'  =>  $request->slug,
+                // 'updated_at' => Carbon::new(),
 
             ]);
 
-            return redirect()->route('all.blog');
+            return redirect()->route('all.category');
         }
     }
 

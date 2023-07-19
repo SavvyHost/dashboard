@@ -57,6 +57,12 @@
                                     </div>
 
                                     <div>
+                                        <label for="slug">Slug</label>
+                                        <input id="slug" type="text" name="slug"
+                                            class="form-input"   required/>
+                                    </div>
+
+                                    <div>
                                         <label for="image">Photo</label>
                                         {{-- <input id="description" type="text"
                                             class="form-input" name="description" required /> --}}
