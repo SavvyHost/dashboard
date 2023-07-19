@@ -37,7 +37,7 @@
 
 
         <div class="mt-5 panel p-0 border-0 overflow-hidden">
-            <template x-if="displayType === 'list'">
+            {{-- <template x-if="displayType === 'list'"> --}}
                     <div class="invoice-table">
                         <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
 
@@ -55,7 +55,7 @@
                                                     <th>ID</th>
                                                     <th>Title</th>
                                                     <th>Category Name</th>
-                                                    <th>Description</th>
+                                                    <th>Content</th>
                                                     <th>Actions</th>
                                                 </tr>
                                         </thead>
@@ -79,7 +79,7 @@
                                                             </td>
 
                                                         <td >{{$blog->category->name}}</td>
-                                                        <td >{{$blog->description}}</td>
+                                                        <td >{{$blog->content}}</td>
 
 
                                                         <td>
@@ -151,7 +151,7 @@
                     </div>
                         </div>
                     </div>
-            </template>
+            {{-- </template> --}}
         </div>
     </div>
     </div>
@@ -159,6 +159,105 @@
 </div>
 
     @section('scripts')
+
+        <script src="assets/js/alpine-collaspe.min.js"></script>
+        <script src="assets/js/alpine-persist.min.js"></script>
+        <script defer="" src="assets/js/alpine-ui.min.js"></script>
+        <script defer="" src="assets/js/alpine-focus.min.js"></script>
+        <script defer="" src="assets/js/alpine.min.js"></script>
+        <script src="assets/js/custom.js"></script>
+
+        <script>
+
+
+
+            document.addEventListener("alpine:init", () => {
+                Alpine.data("contacts", () => ({
+                    defaultParams: {
+                        id: null,
+                        name: '',
+                        email: '',
+                        username: '',
+                        phone: '',
+                        status:'',
+                    },
+
+                    displayType: 'list',
+                    addContactModal: false,
+                    params: {
+                        id: null,
+                        name: '',
+                        email: '',
+                        username: '',
+                        phone: '',
+                        status:'',
+                    },
+                    filterdContactsList: [],
+                    searchUser: '',
+                    contactList: {!! $blogs !!},
+
+                    init() {
+                        this.searchContacts();
+                    },
+
+
+                    checkAllCheckbox() {
+                        if (this.items.length && this.selectedRows.length === this.items.length) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    },
+
+                    checkAll(isChecked) {
+                        if (isChecked) {
+                            this.selectedRows = this.items.map((d) => {
+                                return d.id;
+                            });
+                        } else {
+                            this.selectedRows = [];
+                        }
+                    },
+
+                    setTableData() {
+                        this.dataArr = [];
+                        for (let i = 0; i < this.items.length; i++) {
+                            this.dataArr[i] = [];
+                            for (let p in this.items[i]) {
+                                if (this.items[i].hasOwnProperty(p)) {
+                                    this.dataArr[i].push(this.items[i][p]);
+                                }
+                            }
+                        }
+                    },
+
+                    searchInvoice() {
+                        return this.items.filter((d) =>
+                            (d.id && d.id.toLowerCase().includes(this.searchText)) ||
+                            (d.name && d.name.toLowerCase().includes(this.searchText)) ||
+                            (d.email && d.email.toLowerCase().includes(this.searchText)) ||
+                            (d.username && d.username.toLowerCase().includes(this.searchText)) ||
+                            (d.phone && d.phone.toLowerCase().includes(this.searchText)) ||
+                            (d.status && d.status.toLowerCase().includes(this.searchText))
+                        );
+                    },
+
+                    // deleteRow(item) {
+                    //     if (confirm('Are you sure want to delete selected row ?')) {
+                    //         if (item) {
+                    //             this.items = this.items.filter((d) => d.id != item);
+                    //             this.selectedRows = [];
+                    //         } else {
+                    //             this.items = this.items.filter((d) => !this.selectedRows.includes(d.id));
+                    //             this.selectedRows = [];
+                    //         }
+                    //     }
+                    // },
+
+                }));
+            });
+
+        </script>
 
         <script>
                 function showAlert(event, userId) {

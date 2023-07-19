@@ -53,6 +53,7 @@
 
                                                     <th>ID</th>
                                                     <th>Category Name</th>
+                                                    <th>Slug</th>
                                                     <th>Photo</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -72,7 +73,11 @@
                                                                     {{$category->name}}
                                                                 </div>
                                                             </td>
-
+                                                            <td>
+                                                                <div class="flex items-center font-semibold">
+                                                                    {{$category->slug}}
+                                                                </div>
+                                                            </td>
                                                             <td>
                                                                 <div class="flex items-center font-semibold">
                                                                     <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">

@@ -67,9 +67,9 @@
 
 
                                     <div style="margin-bottom: 4rem">
-                                        <label for="description">Description</label>
+                                        <label for="content">Content</label>
 
-                                        <input  id="description" style="display:none"  name="description">
+                                        <input  id="content" style="display:none"  name="content">
 
                                         <div id="editor">
 
@@ -102,7 +102,7 @@
         form.onsubmit = function() {
         // Populate hidden form on submit
         var content = document.querySelector(".ql-editor").innerHTML;
-        var bio = document.querySelector('input[name=bio]');
+        var bio = document.querySelector('input[name=content]');
         bio.value = content;
         };
                             </script>
