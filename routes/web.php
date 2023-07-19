@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
@@ -345,6 +346,30 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/tours/{tour_id}/delete', [TourController::class, 'destroy'])->name('tour.destroy');
 
 
+        Route::get('/booking', [BookingController::class,'index'])->name('booking.show');
+		
+		
+		// Pages
+		
+		Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\http\Controllers'], function () {
+			Route::resources([
+				'page' => 'PageController',
+				'template' => 'TemplateController',
+				'section' => 'SectionController'
+			]);
+			
+			Route::get('page/{page}/build', [PageController::class, 'build'])->name('page.build');
+			Route::post('page/{page}/rebuild', [PageController::class, 'rebuild'])->name('page.rebuild');
+		});
+		
+		
+		Route::group(['namespace' => 'App\http\Controllers'], function () {
+			Route::resources([
+				'feature' => 'FeatureController',
+				'subfeature' => 'SubfeatureController',
+				'partner' => 'PartnerController',
+			]);
+		});
         Route::get('/booking', [BookingController::class, 'index'])->name('booking.show');
     });
 
