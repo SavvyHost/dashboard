@@ -381,7 +381,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/blog/create', 'create')->name('create.blog');
         Route::post('/blog/store', 'store')->name('store.blog');
         Route::get('/blog/edit/{id}', 'edit')->name('edit.blog');
-        Route::post('/blog/update', 'update')->name('update.blog');
+        Route::put('/blog/update/{id}', 'update')->name('update.blog');
         Route::get('/blog/delete/{id}', 'destroy')->name('delete.blog');
         Route::get('/blog/show/{id}', 'show')->name('blog.details');
 
