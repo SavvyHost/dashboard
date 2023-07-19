@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\auth\RegisterController;
@@ -75,7 +76,11 @@ Route::get('/addu', [RoomAttributesController::class, 'addu']);
 Route::get('/room/{id}/details', [RoomsController::class, 'details_api']);
 
 
-Route::group(['middleware', 'prefix' => 'dashboard'], function () {
+Route::get('/page/{page}', [PageController::class, 'page_api']);
+
+
+Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
+
 
     Route::get('/users', [UsersController::class, 'index_api']);
     Route::delete('/user/delete/{user_id}', [UsersController::class, 'delete_api']);

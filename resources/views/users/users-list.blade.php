@@ -1,5 +1,6 @@
 <x-layout.default>
     @section('title','Users')
+
     @vite(['resources/css/app.css'])
     <div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
     <div x-data="contacts">
