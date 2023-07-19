@@ -1,15 +1,13 @@
+
 <x-layout.default>
     @section('title','Users')
-
     @vite(['resources/css/app.css'])
     <div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
     <div x-data="contacts">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="text-xl">
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                Users</h2>
-
-
+                Blogs</h2>
 
             <input class="dataTable-search" placeholder="Search..." type="text" style="width:30%;border-radius: 50px;margin-right:24%">
             <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
@@ -26,7 +24,7 @@
                         Delete
                     </button>
 
-                    <a href="{{route('add.user.form.show')}}" class="btn btn-primary gap-2">
+                    <a href="{{route('create.blog')}}" class="btn btn-primary gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -34,44 +32,19 @@
                         Add New
                     </a>
                 </div>
-                {{-- <div class="relative ">
-                    <input type="text" placeholder="Search Users"
-                        class="form-input py-2 ltr:pr-11 rtl:pl-11 peer"  />
-                    <div
-                        class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
-
-                        <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-                                stroke-width="1.5" opacity="0.5"></circle>
-                            <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round"></path>
-                        </svg>
-                    </div>
-                </div> --}}
         </div>
     </div>
 
 
         <div class="mt-5 panel p-0 border-0 overflow-hidden">
-            <template x-if="displayType === 'list'">
-                {{-- <div class="table-responsive"> --}}
+            {{-- <template x-if="displayType === 'list'"> --}}
                     <div class="invoice-table">
                         <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-                                    {{-- <table class="table-striped table-hover"> --}}
-                                    {{-- <table id="myTable" class="whitespace-nowrap"> --}}
-                                        {{-- <table id="myTable" class="whitespace-nowrap dataTable-table"> --}}
-                            <div class="dataTable-container">
+
+                                            <div class="dataTable-container">
                                 <table id="myTable" class="whitespace-nowrap dataTable-table">
                                         <thead>
                                                 <tr>
-                                                    {{-- <th data-sortable="false" style="width: 8.35725%;"><input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox" :value="checkAllCheckbox" @change="checkAll($event.target.checked)"></th> --}}
-
-
-                                                    {{-- <th data-sortable="false" style="width: 5.9221%;">
-                                                        <input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox" :value="checkAllCheckbox" @change="checkAll($event.target.checked)" checked="checked">
-                                                    </th> --}}
-
 
                                                     <th data-sortable="false" style="width: 4.5%;">
                                                         <input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox" :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
@@ -80,50 +53,37 @@
 
 
                                                     <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-                                                    <th>Username</th>
-                                                    <th>Phone</th>
-                                                    <th>Status</th>
+                                                    <th>Title</th>
+                                                    <th>Category Name</th>
+                                                    <th>Content</th>
                                                     <th>Actions</th>
                                                 </tr>
                                         </thead>
                                             <tbody>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($blogs as $blog)
                                                     <tr>
                                                         <td>
-                                                            <input type="checkbox" class="form-checkbox mt-1" :id="'chk' + {{ $user->id }}" :value="({{ $user->id }})" x-model.number="selectedRows">
+                                                            <input type="checkbox" class="form-checkbox mt-1" :id="'chk' + {{ $blog->id }}" :value="({{ $blog->id }})" x-model.number="selectedRows">
                                                         </td>
                                                         {{-- <td>
                                                             <input type="checkbox" class="form-checkbox mt-1" :id="'chk' + 1" :value="({{$user->id}})" x-model.number="selectedRows" id="chk1" value="{{$user->id}}">
                                                         </td> --}}
-                                                        <td >{{$user->id}}</td>
+                                                        <td >{{$blog->id}}</td>
                                                             <td>
                                                                 <div class="flex items-center font-semibold">
                                                                     <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-                                                                    <img class="h-8 w-8 rounded-full object-cover" src="assets/images/profile-1.jpeg">
+                                                                        <img class="h-8 w-8 rounded-full object-cover" src="{{ asset($blog->image) }}">
                                                                     </div>
-                                                                    {{$user->name}}
+                                                                    {{$blog->title}}
                                                                 </div>
                                                             </td>
 
-                                                        <td >{{$user->email}}</td>
-                                                        <td >{{$user->username}}</td>
-                                                        <td  class="whitespace-nowrap">{{$user->phone}}</td>
-                                                        <td >
-                                                            @if ($user->status == "pending")
-                                                            <span class="badge badge-outline-danger">{{$user->status}}
-                                                                <span>
-                                                            @else
-                                                            <span class="badge badge-outline-success">{{$user->status}}
-                                                                <span>
-                                                            @endif
+                                                        <td >{{$blog->category->name}}</td>
+                                                        <td >{{$blog->content}}</td>
 
-                                                        </td>
 
-                                                        {{-- <td class="btn btn-sm btn-outline-success">{{$user->status}}</td> --}}
                                                         <td>
-                                                            <form id="delete-form-{{ $user->id }}" action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                            <form id="delete-form-{{ $blog->id }}" action="{{ route('delete.blog', $blog->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
@@ -131,7 +91,7 @@
                                                                 {{-- <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a> --}}
                                                                 {{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
 
-                                                                <a href="{{ route('user.edit.show', $user->id) }}" class="hover:text-info">
+                                                                <a href="{{ route('edit.blog', $blog->id) }}" class="hover:text-info">
                                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5">
                                                                         <path opacity="0.5" d="M22 10.5V12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                                                                         <path d="M17.3009 2.80624L16.652 3.45506L10.6872 9.41993C10.2832 9.82394 10.0812 10.0259 9.90743 10.2487C9.70249 10.5114 9.52679 10.7957 9.38344 11.0965C9.26191 11.3515 9.17157 11.6225 8.99089 12.1646L8.41242 13.9L8.03811 15.0229C7.9492 15.2897 8.01862 15.5837 8.21744 15.7826C8.41626 15.9814 8.71035 16.0508 8.97709 15.9619L10.1 15.5876L11.8354 15.0091C12.3775 14.8284 12.6485 14.7381 12.9035 14.6166C13.2043 14.4732 13.4886 14.2975 13.7513 14.0926C13.9741 13.9188 14.1761 13.7168 14.5801 13.3128L20.5449 7.34795L21.1938 6.69914C22.2687 5.62415 22.2687 3.88124 21.1938 2.80624C20.1188 1.73125 18.3759 1.73125 17.3009 2.80624Z" stroke="currentColor" stroke-width="1.5"></path>
@@ -139,7 +99,7 @@
                                                                     </svg>
                                                                 </a>
 
-                                                                <a href="{{ route('user.destroy', $user->id) }}"  class="hover:text-danger" onclick="showAlert(event, '{{ $user->id }}') , @click="deleteRow(1)" >
+                                                                <a href="{{ route('delete.blog', $blog->id) }}"  class="hover:text-danger" onclick="showAlert(event, '{{ $blog->id }}') , @click="deleteRow(1)" >
                                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
                                                                         <path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                                                                         <path d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -191,7 +151,7 @@
                     </div>
                         </div>
                     </div>
-            </template>
+            {{-- </template> --}}
         </div>
     </div>
     </div>
@@ -234,16 +194,13 @@
                     },
                     filterdContactsList: [],
                     searchUser: '',
-                    contactList: {!! $users !!},
+                    contactList: {!! $blogs !!},
 
                     init() {
                         this.searchContacts();
                     },
 
-                    searchContacts() {
-                        this.filterdContactsList = this.contactList.filter((d) => d.name.toLowerCase()
-                            .includes(this.searchUser.toLowerCase()));
-                    },
+
                     checkAllCheckbox() {
                         if (this.items.length && this.selectedRows.length === this.items.length) {
                             return true;
@@ -326,192 +283,3 @@
     @endsection
 </x-layout.default>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {{-- <div class="flex gap-3">
-
-                    <div>
-                        <a href="{{route('add.user.form.show')}}" role="button" class="btn btn-primary" >
-                            <svg class="group-hover:!text-primary" style="margin-right: 10px" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="10" cy="6" r="4" fill="currentColor"/>
-                                <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" fill="currentColor"/>
-                                <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                                </svg>
-
-                            Add User
-                            </a>
-                    </div>
-                </div> --}}
-
-
-
-
-
-{{-- <x-layout.default> --}}
-    {{-- @section('title','Users')
-    <div x-data="contacts">
-        <div class="flex items-center justify-between flex-wrap gap-4">
-            <h2 class="text-xl">Users</h2>
-            <div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
-                <div class="flex gap-3">
-                    <div>
-                        <a href="{{route('add.user.form.show')}}" role="button" class="btn btn-primary" >
-                            <svg class="group-hover:!text-primary" style="margin-right: 10px" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="10" cy="6" r="4" fill="currentColor"/>
-                                <path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" fill="currentColor"/>
-                                <path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                                </svg>
-
-                            Add User
-                            </a>
-                    </div>
-                </div>
-                <div class="relative ">
-                    <input type="text" placeholder="Search Users"
-                        class="form-input py-2 ltr:pr-11 rtl:pl-11 peer"  />
-                    <div
-                        class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
-
-                        <svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-                                stroke-width="1.5" opacity="0.5"></circle>
-                            <path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-5 panel p-0 border-0 overflow-hidden">
-            <template x-if="displayType === 'list'">
-                <div class="table-responsive">
-                    <table class="table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Username</th>
-                                <th>Phone</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach ($users as $user)
-                                <tr>
-                                    <td>
-                                        <div class="flex items-center w-max">
-                                            <div >{{$user->name}}</div>
-                                        </div>
-                                    </td>
-
-                                    <td >{{$user->email}}</td>
-                                    <td >{{$user->username}}</td>
-                                    <td  class="whitespace-nowrap">{{$user->phone}}</td>
-                                    <td>
-                                        <form id="delete-form-{{ $user->id }}" action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-
-                                        <div class="flex gap-4 items-center">
-                                            <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a>
-                                            <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
-
-                                            {{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">Delete</a> --}}
-                                        {{-- </div>
-
-                                    </td>
-                                </tr>
-
-                                @endforeach
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </template>
-        </div>
-    </div> --}}
-
-    {{-- <script>
-        document.addEventListener("alpine:init", () => {
-            Alpine.data("contacts", () => ({
-                defaultParams: {
-                    id: null,
-                    name: '',
-                    email: '',
-                    username: '',
-                    phone: '',
-                },
-                displayType: 'list',
-                addContactModal: false,
-                params: {
-                    id: null,
-                    name: '',
-                    email: '',
-                    username: '',
-                    phone: '',
-                },
-                filterdContactsList: [],
-                searchUser: '',
-                contactList: {!! $users !!},
-
-                init() {
-                    this.searchContacts();
-                },
-
-                searchContacts() {
-                    this.filterdContactsList = this.contactList.filter((d) => d.name.toLowerCase()
-                        .includes(this.searchUser.toLowerCase()));
-                },
-
-            }));
-        });
-    </script> --}}
-
-    {{-- <script>
-            function showAlert(event, userId) {
-                event.preventDefault();
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'Cancel'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                    document.getElementById('delete-form-' + userId).submit();
-                    }
-                });
-                }
-    </script> --}}
-{{-- </x-layout.default> --}}

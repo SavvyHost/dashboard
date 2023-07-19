@@ -8,6 +8,8 @@ use  App\Http\Controllers\auth\LoginController;
 use  App\Http\Controllers\auth\LogoutController;
 use  App\Http\Controllers\admin\AdminsController;
 use  App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\BlogController;
 use  App\Http\Controllers\user\UsersController;
 use  App\Http\Controllers\user\SubscribersController;
 use  App\Http\Controllers\user\EditUserController;
@@ -42,8 +44,9 @@ use  App\Http\Controllers\booking\BookingController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/room/{id}/book', [BookingController::class,'store_api']);
-Route::post('/room/{id}/book/c', [BookingController::class,'confirm_booking_api']);
+
+Route::post('/room/{id}/book', [BookingController::class, 'store_api']);
+Route::post('/room/{id}/book/c', [BookingController::class, 'confirm_booking_api']);
 
 
 Route::post('/register', [RegisterController::class, 'register'])/* ->name('api.register') */;
@@ -56,8 +59,8 @@ Route::post('/logout', [LogoutController::class, 'logoutApi'])->name('api.logout
 
 
 
-Route::post('/room/{id}/book', [BookingController::class,'store_api']);
-Route::post('/room/{id}/book/c', [BookingController::class,'confirm_booking_api']);
+Route::post('/room/{id}/book', [BookingController::class, 'store_api']);
+Route::post('/room/{id}/book/c', [BookingController::class, 'confirm_booking_api']);
 
 
 
@@ -70,13 +73,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/u', [AddRoomController::class, 'index2']);
 Route::get('/o', [RoomTypeController::class, 'indexa']);
 Route::get('/addu', [RoomAttributesController::class, 'addu']);
-Route::get('/room/{id}/details', [RoomsController::class,'details_api']);
+Route::get('/room/{id}/details', [RoomsController::class, 'details_api']);
 
 
 Route::get('/page/{page}', [PageController::class, 'page_api']);
 
 
 Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
+
 
     Route::get('/users', [UsersController::class, 'index_api']);
     Route::delete('/user/delete/{user_id}', [UsersController::class, 'delete_api']);
@@ -163,24 +167,28 @@ Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
 
 
 
-        ///Tour Terms///
-        Route::get('/tours/terms', [TourTermController::class, 'index_api']);
-        Route::get('/tours/attributes/{attr_id}/terms', [TourTermController::class, 'show_api']);
-        Route::get('/tours/{hotel_id}/terms', [TourTermController::class, 'exceptions_api']);
-        Route::post('/tours/attributes/terms/new', [TourTermController::class, 'save_api']);
-        Route::put('/tours/attributes/terms/{attr_id}', [TourTermController::class, 'update_api']);
-        Route::delete('tours/attributes/terms/delete/{terms_id}', [TourTermController::class, 'delete_api']);
+    ///Tour Terms///
+    Route::get('/tours/terms', [TourTermController::class, 'index_api']);
+    Route::get('/tours/attributes/{attr_id}/terms', [TourTermController::class, 'show_api']);
+    Route::get('/tours/{hotel_id}/terms', [TourTermController::class, 'exceptions_api']);
+    Route::post('/tours/attributes/terms/new', [TourTermController::class, 'save_api']);
+    Route::put('/tours/attributes/terms/{attr_id}', [TourTermController::class, 'update_api']);
+    Route::delete('tours/attributes/terms/delete/{terms_id}', [TourTermController::class, 'delete_api']);
 
 
+    Route::prefix('/category')->group(function () {
+        Route::get('/index', [CategoryController::class, 'index']);
+        Route::get('/show/{id}', [CategoryController::class, 'show']);
+        Route::post('/store', [CategoryController::class, 'store']);
+        Route::post('/update/{id}', [CategoryController::class, 'update']);
+        Route::post('/destroy/{id}', [CategoryController::class, 'destroy']);
+    });
 
-
-
-
-
-
-
+    Route::prefix('/blog')->group(function () {
+        Route::get('/index', [BlogController::class, 'index']);
+        Route::get('/show/{id}', [BlogController::class, 'show']);
+        Route::post('/store', [BlogController::class, 'store']);
+        Route::post('/update/{id}', [BlogController::class, 'update']);
+        Route::post('/destroy/{id}', [BlogController::class, 'destroy']);
+    });
 });
-
-
-
-
