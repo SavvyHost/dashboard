@@ -16,6 +16,7 @@
 		<div class="pt-5">
 			<form method="post" action="{{route('pages.page.update', $page->id)}}" enctype="multipart/form-data">
 				@csrf
+				@method('PUT')
 
 				<div class="flex items-center justify-between mb-5">
 					<h5 class="font-semibold text-lg dark:text-white-light">Add new Page</h5>
@@ -565,14 +566,14 @@
 									<div class="flex flex-col ">
 										<div class="p-1">
 											<label class="">
-												<input type="radio" name="status" value="publish" class="form-radio"
+												<input type="radio" name="publish" value="1" class="form-radio"
 													   checked/>
 												<span>Publish</span>
 											</label>
 										</div>
 										<div class="p-1">
 											<label class="">
-												<input type="radio" name="status" value="draft" class="form-radio"/>
+												<input type="radio" name="publish" value="0" class="form-radio"/>
 												<span> Draft</span>
 											</label>
 										</div>

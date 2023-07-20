@@ -565,14 +565,14 @@
 									<div class="flex flex-col ">
 										<div class="p-1">
 											<label class="">
-												<input type="radio" name="status" value="publish" class="form-radio"
+												<input type="radio" name="publish" value="1" class="form-radio"
 													   checked/>
 												<span>Publish</span>
 											</label>
 										</div>
 										<div class="p-1">
 											<label class="">
-												<input type="radio" name="status" value="draft" class="form-radio"/>
+												<input type="radio" name="publish" value="0" class="form-radio"/>
 												<span> Draft</span>
 											</label>
 										</div>
