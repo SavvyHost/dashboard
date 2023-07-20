@@ -24,7 +24,7 @@ class BlogController extends Controller
     public function create()
     {
         $categories = Category::all();
-        // $admins = User::where('role_id', 1)->get();
+        $admins = User::where('role_id', 1)->get();
         return view('blogs.blog-add', compact('categories'));
     }
 
