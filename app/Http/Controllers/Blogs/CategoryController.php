@@ -80,7 +80,7 @@ class CategoryController extends Controller
                 'name'  =>  $request->name,
                 'slug'  =>  $request->slug,
                 'image'    =>  $save_url,
-                // 'updated_at' => Carbon::new(),
+                'updated_at' => Carbon::now(),
             ]);
             return redirect()->route('all.category');
         } else {
@@ -88,7 +88,7 @@ class CategoryController extends Controller
             Category::findOrFail($id)->update([
                 'name'  =>  $request->name,
                 'slug'  =>  $request->slug,
-                // 'updated_at' => Carbon::new(),
+                'updated_at' => Carbon::now(),
 
             ]);
 

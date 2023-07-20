@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use App\Models\Booking;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -12,7 +13,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-/**
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -48,7 +49,7 @@ class User extends Authenticatable
         'role_id',
         'created_at',
         'updated_at',
-		"type"
+        "type"
     ];
 
     /**
@@ -70,5 +71,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class, 'customer', 'id');
     }
-
 }

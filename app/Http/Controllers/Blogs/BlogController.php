@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Blogs;
 
 use Image;
-use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\User;
 use App\Models\Category;
@@ -11,12 +10,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
 
 class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::with('category')->get();
+        $blogs = Blog::with('category', 'user')->get();
         // $blogs = Blog::latest()->get();
         return view('blogs.blog-list', compact('blogs'));
     }
@@ -24,7 +24,8 @@ class BlogController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('blogs.blog-add', compact('categories'));
+        $admins = User::where('role_id', 1)->get();
+        return view('blogs.blog-add', compact('categories', 'admins'));
     }
 
     // public function store(Request $request)
@@ -57,29 +58,30 @@ class BlogController extends Controller
     // }
     public function store(Request $request)
     {
+        // dd($request);
         $categories = Category::all();
         $admins = User::where('role_id', 1)->get();
 
-        if ($request->searchable) {
-            $request->validate([
-                'title' => 'required|string|max:200',
-                'content' => 'required',
-                'searchable' => 'required',
-                'status' => 'required|in:publish,draft',
-                'category_id' => 'required|exists:categories,id',
-                'seo_title' => 'required|string|max:200',
-                'seo_image' => 'required',
-                'seo_description' => 'required',
-            ]);
-        } else {
-            $request->validate([
-                'title' => 'required|string|max:200',
-                'content' => 'required',
-                'searchable' => 'required',
-                'status' => 'required|in:publish,draft',
-                'category_id' => 'required|exists:categories,id',
-            ]);
-        }
+        // if ($request->searchable) {
+        //     $request->validate([
+        //         'title' => 'required|string|max:200',
+        //         'content' => 'required',
+        //         'searchable' => 'required',
+        //         'status' => 'required|in:publish,draft',
+        //         'category_id' => 'required|exists:categories,id',
+        //         'seo_title' => 'required|string|max:200',
+        //         'seo_image' => 'required',
+        //         'seo_description' => 'required',
+        //     ]);
+        // } else {
+        $request->validate([
+            'title' => 'required|string|max:200',
+            'content' => 'required',
+            'searchable' => 'required',
+            'status' => 'required|in:publish,draft',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        // }
 
         if ($request->file('image')) {
             $image_path = $request->file('image')->store('api/blogs', 'public');
@@ -87,21 +89,20 @@ class BlogController extends Controller
             $image_path = null;
         }
         if ($request->file('seo_image')) {
-            $image_path = $request->file('seo_image')->store('api/seo_images', 'public');
+            $image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
         } else {
-            $image_path = null;
+            $image_path_seo = null;
         }
         if ($request->file('facebook_image')) {
-            $image_path = $request->file('facebook_image')->store('api/facebook_images', 'public');
+            $image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
         } else {
-            $image_path = null;
+            $image_path_fb = null;
         }
         if ($request->file('twitter_image')) {
-            $image_path = $request->file('twitter_image')->store('api/twitter_images', 'public');
+            $image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
         } else {
-            $image_path = null;
+            $image_path_tw = null;
         }
-
         /** user who make a login*/
         $user_id = Auth::user()->id;
 
@@ -118,15 +119,22 @@ class BlogController extends Controller
                 'user_id' => $user_id,
                 'image' => asset('storage/' . $image_path),
                 'seo_title' => $request->seo_title,
-                'seo_image' => asset('storage/' . $image_path),
+                // 'seo_image' => asset('storage/' . $image_path),
                 'seo_description' => $request->seo_description,
                 'facebook_title' => $request->facebook_title,
-                'facebook_image' => asset('storage/' . $image_path),
+                // 'facebook_image' => asset('storage/' . $image_path),
                 'facebook_description' => $request->facebook_description,
                 'twitter_title' => $request->twitter_title,
-                'twitter_image' => asset('storage/' . $image_path),
+                // 'twitter_image' => asset('storage/' . $image_path),
                 'twitter_description' => $request->twitter_description,
-                'created_at' => Carbon::new(),
+
+
+                'seo_image' => asset('storage/' . $image_path_seo),
+                'facebook_image' => asset('storage/' . $image_path_fb),
+                'twitter_image' => asset('storage/' . $image_path_tw),
+
+
+                'created_at' => Carbon::now(),
             ]);
         } else {
             $blog = Blog::create([
@@ -139,15 +147,15 @@ class BlogController extends Controller
                 'user_id' => $request->user_id,
                 'image' => asset('storage/' . $image_path),
                 'seo_title' => $request->seo_title,
-                'seo_image' => asset('storage/' . $image_path),
+                'seo_image' => asset('storage/' . $image_path_seo),
                 'seo_description' => $request->seo_description,
                 'facebook_title' => $request->facebook_title,
-                'facebook_image' => asset('storage/' . $image_path),
+                'facebook_image' => asset('storage/' . $image_path_fb),
                 'facebook_description' => $request->facebook_description,
                 'twitter_title' => $request->twitter_title,
-                'twitter_image' => asset('storage/' . $image_path),
+                'twitter_image' => asset('storage/' . $image_path_tw),
                 'twitter_description' => $request->twitter_description,
-                'created_at' => Carbon::new(),
+                'created_at' => Carbon::now(),
             ]);
         }
 
@@ -163,8 +171,9 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        $categories = Category::orderBy('blog_category', 'ASC')->get();
-        return view('blogs.blog-edit', compact('blogs', 'categories'));
+        $categories = Category::all();
+        $admins = User::where('role_id', 1)->get();
+        return view('blogs.blog-edit', compact('blog', 'categories', 'admins'));
     }
 
     // public function update(Request $request, Blog $blog)
@@ -198,100 +207,100 @@ class BlogController extends Controller
     // }
     public function update(Request $request, $id)
     {
-        $blog = Blog::find($id); {
-            $categories = Category::all();
-            $admins = User::where('role_id', 1)->get();
+        $blog = Blog::findOrFail($id);
+        $categories = Category::all();
+        $admins = User::where('role_id', 1)->get();
 
-            if ($request->searchable) {
-                $request->validate([
-                    'title' => 'required|string|max:200',
-                    'content' => 'required',
-                    'searchable' => 'required',
-                    'status' => 'required|in:publish,draft',
-                    'category_id' => 'required|exists:categories,id',
-                    'seo_title' => 'required|string|max:200',
-                    'seo_image' => 'required',
-                    'seo_description' => 'required',
-                ]);
-            } else {
-                $request->validate([
-                    'title' => 'required|string|max:200',
-                    'content' => 'required',
-                    'searchable' => 'required',
-                    'status' => 'required|in:publish,draft',
-                    'category_id' => 'required|exists:categories,id',
-                ]);
-            }
+        // if ($request->searchable) {
+        //     $request->validate([
+        //         'title' => 'required|string|max:200',
+        //         'content' => 'required',
+        //         'searchable' => 'required',
+        //         'status' => 'required|in:publish,draft',
+        //         'category_id' => 'required|exists:categories,id',
+        //         'seo_title' => 'required|string|max:200',
+        //         'seo_image' => 'required',
+        //         'seo_description' => 'required',
+        //     ]);
+        // } else {
+        $request->validate([
+            'title' => 'required|string|max:200',
+            'content' => 'required',
+            'searchable' => 'required',
+            'status' => 'required|in:publish,draft',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        // }
 
-            if ($request->file('image')) {
-                $image_path = $request->file('image')->store('api/blogs', 'public');
-            } else {
-                $image_path = null;
-            }
-            if ($request->file('seo_image')) {
-                $image_path = $request->file('seo_image')->store('api/seo_images', 'public');
-            } else {
-                $image_path = null;
-            }
-            if ($request->file('facebook_image')) {
-                $image_path = $request->file('facebook_image')->store('api/facebook_images', 'public');
-            } else {
-                $image_path = null;
-            }
-            if ($request->file('twitter_image')) {
-                $image_path = $request->file('twitter_image')->store('api/twitter_images', 'public');
-            } else {
-                $image_path = null;
-            }
+        if ($request->file('image')) {
+            $image_path = $request->file('image')->store('api/blogs', 'public');
+        } else {
+            $image_path = null;
+        }
+        if ($request->file('seo_image')) {
+            $image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
+        } else {
+            $image_path_seo = null;
+        }
+        if ($request->file('facebook_image')) {
+            $image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
+        } else {
+            $image_path_fb = null;
+        }
+        if ($request->file('twitter_image')) {
+            $image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
+        } else {
+            $image_path_tw = null;
+        }
 
-            /** user who make a login*/
-            $user_id = Auth::user()->id;
 
-            /** check user who make a login is admin or not */
-            $check_admin = User::findorfail($user_id)->where('role_id', 1)->get();
+        /** user who make a login*/
+        $user_id = Auth::user()->id;
 
-            if ($check_admin == NULL) {
-                $blog->update([
-                    'title' => $request->title,
-                    'content' => $request->content,
-                    'searchable' => $request->searchable,
-                    'status' => $request->status,
-                    'category_id' => $request->category_id,
-                    'user_id' => $user_id,
-                    'image' => asset('storage/' . $image_path),
-                    'seo_title' => $request->seo_title,
-                    'seo_image' => asset('storage/' . $image_path),
-                    'seo_description' => $request->seo_description,
-                    'facebook_title' => $request->facebook_title,
-                    'facebook_image' => asset('storage/' . $image_path),
-                    'facebook_description' => $request->facebook_description,
-                    'twitter_title' => $request->twitter_title,
-                    'twitter_image' => asset('storage/' . $image_path),
-                    'twitter_description' => $request->twitter_description,
-                    'created_at' => Carbon::new(),
-                ]);
-            } else {
-                $blog->update([
-                    'title' => $request->title,
-                    'content' => $request->content,
-                    'searchable' => $request->searchable,
-                    'status' => $request->status,
-                    'category_id' => $request->category_id,
-                    'status' => $request->status,
-                    'user_id' => $request->user_id,
-                    'image' => asset('storage/' . $image_path),
-                    'seo_title' => $request->seo_title,
-                    'seo_image' => asset('storage/' . $image_path),
-                    'seo_description' => $request->seo_description,
-                    'facebook_title' => $request->facebook_title,
-                    'facebook_image' => asset('storage/' . $image_path),
-                    'facebook_description' => $request->facebook_description,
-                    'twitter_title' => $request->twitter_title,
-                    'twitter_image' => asset('storage/' . $image_path),
-                    'twitter_description' => $request->twitter_description,
-                    'created_at' => Carbon::new(),
-                ]);
-            }
+        /** check user who make a login is admin or not */
+        $check_admin = User::findorfail($user_id)->where('role_id', 1)->get();
+
+        if ($check_admin == NULL) {
+            $blog->update([
+                'title' => $request->title,
+                'content' => $request->content,
+                'searchable' => $request->searchable,
+                'status' => $request->status,
+                'category_id' => $request->category_id,
+                'user_id' => $user_id,
+                'image' => asset('storage/' . $image_path),
+                'seo_title' => $request->seo_title,
+                'seo_image' => asset('storage/' . $image_path_seo),
+                'seo_description' => $request->seo_description,
+                'facebook_title' => $request->facebook_title,
+                'facebook_image' => asset('storage/' . $image_path_fb),
+                'facebook_description' => $request->facebook_description,
+                'twitter_title' => $request->twitter_title,
+                'twitter_image' => asset('storage/' . $image_path_tw),
+                'twitter_description' => $request->twitter_description,
+                'updated_at' => Carbon::now(),
+            ]);
+        } else {
+            $blog->update([
+                'title' => $request->title,
+                'content' => $request->content,
+                'searchable' => $request->searchable,
+                'status' => $request->status,
+                'category_id' => $request->category_id,
+                'status' => $request->status,
+                'user_id' => $request->user_id,
+                'image' => asset('storage/' . $image_path),
+                'seo_title' => $request->seo_title,
+                'seo_image' => asset('storage/' . $image_path),
+                'seo_description' => $request->seo_description,
+                'facebook_title' => $request->facebook_title,
+                'facebook_image' => asset('storage/' . $image_path),
+                'facebook_description' => $request->facebook_description,
+                'twitter_title' => $request->twitter_title,
+                'twitter_image' => asset('storage/' . $image_path),
+                'twitter_description' => $request->twitter_description,
+                'updated_at' => Carbon::now(),
+            ]);
         }
         return redirect()->route('all.blog');
     }
