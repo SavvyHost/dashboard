@@ -351,7 +351,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Pages
 
-        Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\http\Controllers'], function () {
+        Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\Http\Controllers'], function () {
             Route::resources([
                 'page' => 'PageController',
                 'template' => 'TemplateController',
@@ -363,7 +363,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
 
-        Route::group(['namespace' => 'App\http\Controllers'], function () {
+        Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::resources([
                 'feature' => 'FeatureController',
                 'subfeature' => 'SubfeatureController',
