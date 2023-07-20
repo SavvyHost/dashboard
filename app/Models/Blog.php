@@ -38,3 +38,14 @@ class Blog extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+
+
+//     'category_id',
+//     'image',
+//     'searchable',
+//     'seo_image',
+//     'facebook_title',
+//     'facebook_image',
+//     'facebook_description',
+//     'twitter_image',

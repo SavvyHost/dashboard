@@ -14,12 +14,15 @@
             </li>
         </ul>
         <div class="pt-5">
+            <form method="post" action="{{route('store.blog')}}"  enctype="multipart/form-data">
+                @csrf
+
                             <div class="flex items-center justify-between mb-5">
-                                <h5 class="font-semibold text-lg dark:text-white-light">Add new Post</h5>
+                                <h5 class="font-semibold text-lg dark:text-white-light">Add new Blog</h5>
                             </div>
                             <div class="grid grid-cols-12 gap-5">
                                 <div class="col-span-9">
-                                    <div 
+                                    <div
                                     class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
                                     <!-- @csrf
                                     {{-- <h6 class="text-lg font-bold mb-5">News content</h6> --}}
@@ -30,7 +33,7 @@
                                 @endif -->
                                 <div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
                                 <div class="grid grid-cols-12 p-4 border-gray-200  ">
-                                    
+
                                         <div class="col-span-12 py-1">
                                             <div class="">
                                                 <label for="name">Title</label>
@@ -40,15 +43,15 @@
                                         </div>
                                         <div class="col-span-12 py-2">
                                             <div class="">
-                                                  <label for="content">Content</label>
-                                                  <input  id="content" style="display:none "name="content">
-                                                  <div id="editor" ></div>
+                                                    <label for="content">Content</label>
+                                                    <input  id="content" style="display:none "name="content">
+                                                    <div id="editor" ></div>
                                             </div>
                                         </div>
-                                    
-                                    
+
+
                                 </div>
-                               
+
                                 <script>
                                                             var quill = new Quill('#editor', {
                                         theme: 'snow'
@@ -63,18 +66,28 @@
                                 </script>
                             </div>
                             <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
-                                    <div class=" border-gray-200  border-b p-2 "><strong>Seo Manager</strong>
+                                    <div class=" border-gray-200  border-b p-2 ">
+                                        <strong>Seo Manager</strong>
                                     </div>
                                     <p class="px-4 py-3 text-md ">Allow search engines to show this service in search results?</p>
                                     <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
-                                           
+
                                             <div class="col-span-12 ">
-                                            <select class="selectize" placeholder="Choose...">
-                                                <option value="orange">Orange</option>
-                                                <option value="White">White</option>
-                                                <option value="Purple">Purple</option>
+                                            <select class="selectize" id="searchable"  name="searchable" required placeholder="Yes">
+                                                <option value="1" >Yes</option>
+                                                <option value="0" >No</option>
                                             </select>
-                                          
+
+
+                                            {{-- <div>
+                                                <label for="gender">Gender</label>
+                                                <select class="selectize" id="gender"  name="gender" required>
+                                                    <option value="1">Male</option>
+                                                    <option value="2">Female</option>
+                                                </select>
+                                            </div> --}}
+
+
                                             <!-- script -->
                                             <!-- <script>
                                                 document.addEventListener("DOMContentLoaded", function(e) {
@@ -111,17 +124,17 @@
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Seo Title</label>
-                                                                        <input id="title" type="text" name="title"
+                                                                        <input id="seo_title" type="text" name="seo_title"
                                                                             class="form-input " required/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Seo Description</label>
-                                                                        <textarea name="seo_desc" rows="3" class="form-input" placeholder="Enter description..."></textarea>
+                                                                        <textarea name="seo_description"  rows="3" class="form-input" placeholder="Enter description..."></textarea>
                                                                     </div>
                                                                 </div>
-                                                                    
+
                                                                 <div class="col-span-12 py-2 mb-3 ">
                                                                     <div class="rounded-lg  ">
                                                                         <div class="m-4">
@@ -177,34 +190,44 @@
                                                                                             <path fill="#d6dbeb" d="M9.91 10.226l-.143.238c-.01.014-.01.014-.017.03-.085.142-.175.295-.264.448-.03.054-.06.103-.086.148l-.026.043c-.344.855-.567 1.753-.662 2.67.812.293 1.633.56 2.462.8.067-.357.086-.527.1-.78.015-.287.04-.475.127-.926.047-.216.08-.434.103-.65.004-.07.006-.168.006-.286 0-.09-.002-.19-.004-.29 0-.052-.002-.094-.003-.12l-.25-1.023-1.342-.3zm1.53.19l.268 1.095.003.022c.002.027.003.074.004.134l.003.295c0 .123-.002.224-.007.304-.023.227-.06.452-.106.674-.086.44-.108.62-.123.894-.015.288-.037.476-.124.923-.012.06-.072.097-.13.08-.898-.258-1.785-.546-2.662-.865-.045-.016-.073-.06-.068-.108.092-.964.322-1.91.69-2.82l.034-.057.086-.148.265-.45.018-.03.183-.303c.024-.038.07-.057.113-.047l1.48.33c.038.01.068.04.077.078z"></path>
                                                                                             <path fill="#d6dbeb" d="M11.13 12.33c-.28.078-.574.087-.857.026-.15-.045-.282-.136-.38-.258-.05-.062-.086-.133-.11-.208-.01-.04-.017-.08-.016-.12-.004-.06.017-.115.056-.157.04-.033.093-.05.146-.046.042 0 .084.008.124.023.075.03.142.076.194.137.096.117.144.266.135.417-.01.306-.223.568-.52.638l.016-.104c.084.043.164.093.24.15.08.06.15.13.21.208.038.055.05.124.036.19-.015.062-.05.116-.1.156-.09.066-.2.097-.313.085l.07-.127.124.208c.042.073.083.14.13.208.053.086.074.19.057.29-.014.055-.042.105-.083.144-.046.046-.11.07-.176.065-.046-.005-.08-.046-.075-.092s.045-.08.09-.075c.026 0 .07-.033.08-.085.006-.06-.01-.12-.044-.17l-.127-.21c-.047-.068-.082-.143-.124-.207-.014-.026-.013-.058.003-.084s.043-.04.073-.04c.072.012.146-.004.208-.043.023-.018.04-.043.047-.07.005-.023 0-.048-.015-.067-.052-.064-.11-.12-.177-.17-.065-.054-.135-.1-.208-.143-.03-.017-.048-.053-.043-.088s.033-.063.068-.07c.238-.044.407-.256.398-.498-.006-.112-.046-.22-.115-.308-.032-.042-.073-.077-.12-.1-.023-.01-.047-.018-.072-.02-.016-.002-.032-.002-.048 0v.034s0 .056.015.083c.015.058.04.113.077.16.037.05.082.093.133.13.055.03.114.054.175.068.258.047.522.036.775-.03.03-.01.063 0 .085.022s.03.056.018.086c-.01.03-.038.05-.07.054l.005.006z"></path>
                                                                                         </svg>
+                                                                                        <img src="asset()">
                                                                                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                                                             Select a photo</p>
                                                                                     </div>
-                                                                                    <input type="file" class="opacity-0" />
+                                                                                    <input type="file" name="seo_image" class="opacity-0" />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
-                                                                
-                                                                    </div>       
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </template>
                                                         <template x-if="tab === 'facebook'">
-                                                          <div class="grid grid-cols-12 ">
+                                                            <div class="grid grid-cols-12 ">
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Facebook Title</label>
-                                                                        <input id="title" type="text" name="title"
+                                                                        <input id="facebook_title"  type="text" name="facebook_title"
                                                                             class="form-input " required/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Facebook Description</label>
-                                                                        <textarea name="seo_desc" rows="3" class="form-input" placeholder="Enter description..."></textarea>
+                                                                        <textarea name="facebook_description"  rows="3" class="form-input" placeholder="Enter description..."></textarea>
                                                                     </div>
                                                                 </div>
-                                                                    
+
+
+
+
+
+
+
+
+
+
                                                                 <div class="col-span-12 py-2 mb-3 ">
                                                                     <div class="rounded-lg  ">
                                                                         <div class="m-4">
@@ -263,12 +286,12 @@
                                                                                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                                                         Facebook Image</p>
                                                                                     </div>
-                                                                                    <input type="file" class="opacity-0" />
+                                                                                    <input type="file" name="facebook_image" class="opacity-0" />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
-                                                                
-                                                                    </div>       
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </template>
@@ -277,17 +300,17 @@
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Twitter Title</label>
-                                                                        <input id="title" type="text" name="title"
+                                                                        <input id="twitter_title" type="text" name="twitter_title"
                                                                             class="form-input " required/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-span-12 py-1">
                                                                     <div class="">
                                                                         <label for="name">Twitter Description</label>
-                                                                        <textarea name="seo_desc" rows="3" class="form-input" placeholder="Enter description..."></textarea>
+                                                                        <textarea  name="twitter_description" rows="3" class="form-input" placeholder="Enter description..."></textarea>
                                                                     </div>
                                                                 </div>
-                                                                    
+
                                                                 <div class="col-span-12 py-2 mb-3 ">
                                                                     <div class="rounded-lg  ">
                                                                         <div class="m-4">
@@ -346,55 +369,110 @@
                                                                                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                                                         Twitter Image</p>
                                                                                     </div>
-                                                                                    <input type="file" class="opacity-0" />
+                                                                                    <input type="file" name="twitter_image" class="opacity-0" />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
-                                                                
-                                                                    </div>       
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </template>
-                                                      
+
                                                     </div>
                                                 </div>
                                             </div>
-                                        
+
                                     </div>
                               </div>
-                             
+
                     </div>
-                    <div class="col-span-3">
-                        <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
-                            <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Publish</strong></div>
-                            <div class="grid grid-cols-12 p-4 border-gray-200  ">
-                                    
-                                        <div class="col-span-12 py-1 ">
-                                           <!-- radio -->
-                                           <div class="flex flex-col ">
-                                                <div class="p-1">
-                                                    <label class="">
-                                                        <input type="radio" name="default_radio" class="form-radio" checked />
-                                                        <span>Publish</span>
-                                                    </label>
+                        <div class="col-span-3">
+                            <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
+                                <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Publish</strong></div>
+                                <div class="grid grid-cols-12 p-4 border-gray-200  ">
+
+                                            <div class="col-span-12 py-1 ">
+                                            <!-- radio -->
+                                            <div class="flex flex-col ">
+                                                    <div class="p-1">
+                                                        <label class="">
+                                                            <input type="radio" name="status" value="publish" class="form-radio" checked />
+                                                            <span >Publish</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="p-1">
+                                                        <label class="">
+                                                            <input type="radio" name="status" value="draft" class="form-radio"  />
+                                                            <span> Draft</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <div class="p-1">
-                                                    <label class="">
-                                                        <input type="radio" name="default_radio" class="form-radio" checked />
-                                                        <span> Draft</span>
-                                                    </label>
+                                                <div class="text-right px-2 py-2">
+                                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Changes</button>
                                                 </div>
                                             </div>
-                                            <div class="text-right px-2 py-2">
-                                               <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Changes</button>
-                                            </div> 
-                                        </div>
-                                        
-                                       
-                                        
-                                    
+
+
+
+
+                                </div>
                             </div>
-                        </div>
+                            <!-- authoor -->
+                            <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
+                                        <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Author Setting</strong></div>
+                                        <div class="grid grid-cols-12 p-4 border-gray-200  ">
+
+                                                    <div class="col-span-12 py-1 ">
+                                                    <!-- authoor select -->
+                                                        <div class="flex flex-col ">
+                                                            <select class="selectize" id="user_id" name="user_id" placeholder="-- Select admin --">
+                                                                @foreach ($admins as $admin)
+                                                                <option value="{{ $admin->id }}">{{$admin->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+
+
+                                        </div>
+                                    </div>
+                                <!-- authoor -->
+                                <!-- categories -->
+                                 <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
+                                    <div class="grid grid-cols-12 p-4 border-gray-200  ">
+
+                                                <div class="col-span-12 py-1 ">
+                                                <!-- category select -->
+                                                    <div class="flex flex-col ">
+                                                        <label>Category</label>
+                                                        <select class="selectize" id="category_id" name="category_id" placeholder="-- Select category --">
+                                                            @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- tags input -->
+                                                <!-- <div class="col-span-12 py-1 ">
+
+                                                    <div class="flex flex-col ">
+                                                        <select class="selectize" placeholder="Choose...">
+                                                            <option value="orange">Orange</option>
+                                                            <option value="White">White</option>
+                                                            <option value="Purple">Purple</option>
+                                                        </select>
+                                                    </div>
+                                                </div> -->
+                                                <!-- tags input -->
+
+
+
+
+                                    </div>
+                                </div>
+                                 <!-- categories -->
                         <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
                             <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
                             <div class="grid grid-cols-12 p-4 border-gray-200  ">
@@ -456,21 +534,21 @@
                                                         <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
                                                             Select a photo</p>
                                                     </div>
-                                                    <input type="file" class="opacity-0" />
+                                                    <input type="file" name="image" class="opacity-0" />
                                                 </label>
                                             </div>
                                         </div>
-                                
-                                    </div>       
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                                    
+
                     </div>
 
                     </div>
-            
-                     
+
+                </form>
         </div>
     </div>
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/highlight.min.css') }}">

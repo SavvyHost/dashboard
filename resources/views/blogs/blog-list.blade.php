@@ -49,27 +49,11 @@
                                                     <th data-sortable="false" style="width: 4.5%;">
                                                         <input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox" :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
                                                     </th>
-
-                                                    {{-- 'user_id',
-                                                    'image',
-                                                    'status',
-                                                    'searchable',
-                                                    'seo_title',
-                                                    'seo_image',
-                                                    'seo_description',
-                                                    'facebook_title',
-                                                    'facebook_image',
-                                                    'facebook_description',
-                                                    'twitter_title',
-                                                    'twitter_image',
-                                                    'twitter_description', --}}
-
                                                     <th>ID</th>
-                                                    <th>Title</th>
-                                                    <th>Category Name</th>
+                                                    <th style="width: 40%">Title</th>
+                                                    <th>Category </th>
                                                     <th>Author</th>
-                                                    <th>Content</th>
-                                                    <th>Image</th>
+                                                    <th>Date</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -84,34 +68,28 @@
                                                             <input type="checkbox" class="form-checkbox mt-1" :id="'chk' + 1" :value="({{$user->id}})" x-model.number="selectedRows" id="chk1" value="{{$user->id}}">
                                                         </td> --}}
                                                         <td >{{$blog->id}}</td>
-                                                            <td>
-                                                                <div class="flex items-center font-semibold">
-                                                                    <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-                                                                        <img class="h-8 w-8 rounded-full object-cover" src="{{ asset($blog->image) }}">
-                                                                    </div>
+                                                        <td>
+                                                            <a href="{{ route('edit.blog', $blog->id) }}" class="hover:text-info" >
+                                                            <div class="flex items-center font-semibold" style="width:40%">
                                                                     {{$blog->title}}
                                                                 </div>
-                                                            </td>
+                                                            </a>
+                                                        </td>
                                                         <td >{{$blog->category->name}}</td>
                                                         <td >{{$blog->user->name}}</td>
-                                                        <td >{{$blog->content}}</td>
-                                                        <td>
-                                                            <div class="flex items-center font-semibold">
-                                                                <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-                                                                <img class="h-8 w-8 rounded-full object-cover" src= "{{ asset($blog->image) }}">
-                                                                </div>
-                                                            </div>
-                                                        </td>
+                                                        <td >{{$blog->created_at}}</td>
+
                                                         <td >
-                                                            @if ($blog->status == "pending")
-                                                            <span class="badge badge-outline-danger">{{$blog->status}}
+                                                            @if ($blog->status == "publish")
+                                                            <span class="badge badge-outline-success">{{$blog->status}}
                                                                 <span>
                                                             @else
-                                                            <span class="badge badge-outline-success">{{$blog->status}}
+                                                            <span class="badge badge-outline-danger">{{$blog->status}}
                                                                 <span>
                                                             @endif
 
                                                         </td>
+
 
                                                         <td>
                                                             <form id="delete-form-{{ $blog->id }}" action="{{ route('delete.blog', $blog->id) }}" method="POST">
