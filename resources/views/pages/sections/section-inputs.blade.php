@@ -1,5 +1,5 @@
 @if(!$isIterable)
-	@foreach($section->inputs as $name => $input)
+	@foreach($section?->inputs as $name => $input)
 		<div>
 			<label for="{{ $name }}_id">{{ $name }}</label>
 			<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}]" class="form-input" value="{{ $section->pivot->data[$name] ?? "" }}">@if($input['close-tag']){{ $section->pivot->data[$name] ?? "" }}</{{ $input['tag'] }}>@endif
@@ -7,7 +7,8 @@
 	@endforeach
 @else
 	<div class="iterable">
-		@foreach($section->pivot->data as $object)
+		@if($section?->pivot?->data)
+		@foreach($section?->pivot?->data as $object)
 			@foreach($section->inputs as $name => $input)
 				<div>
 					<label for="{{ $name }}_id">{{ $name }}</label>
@@ -15,6 +16,8 @@
 	</div>
 	@endforeach
 	@endforeach
+	@endif
+
 	</div>
 	<div id="new-slots-container"></div>
 	<button type="button" class="btn btn-success add-slot">+</button>
