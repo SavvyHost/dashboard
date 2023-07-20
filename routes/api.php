@@ -34,7 +34,7 @@ use  App\Http\Controllers\rooms\RoomTypeController;
 use  App\Http\Controllers\rooms\RoomsController;
 use  App\Http\Controllers\booking\BookingController;
 
-use App\Http\Controllers\API\PartnerController;
+use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\EventController;
 

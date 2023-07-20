@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 trait APITrait {
 	public function sendSuccess($message, $data, $code = 200) {
