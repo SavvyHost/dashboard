@@ -33,7 +33,7 @@
 		@foreach($section->inputs as $name => $input)
 				<div>
 					<label for="{{ $name }}_id">{{ $name }}</label>
-				<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $name }}[]" class="form-input">@if($input['close-tag'])</{{ $input['tag'] }}>@endif
+				<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}][]" class="form-input">@if($input['close-tag'])</{{ $input['tag'] }}>@endif
 				</div>
 @endforeach
 				`;
