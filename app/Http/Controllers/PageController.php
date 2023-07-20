@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CMS\Sections\SectionFactory;
+use App\Models\Feature;
 use App\Models\Page;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
@@ -178,10 +179,13 @@ class PageController extends Controller
 //			$sections[] = $s;
 //		}
 		
+		$features = Feature::with('subfeatures')->get();
+		
 		return response()->json([
 			"message" => "Successfully Found",
 			'page' => $page,
-			'sections' => $sections
+			'sections' => $sections,
+			'features' => $features
 		]);
 	}
 }
