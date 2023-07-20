@@ -36,6 +36,7 @@ use  App\Http\Controllers\booking\BookingController;
 
 use App\Http\Controllers\API\PartnerController;
 use App\Http\Controllers\Api\FeatureController;
+use App\Http\Controllers\Api\EventController;
 
 
 /*
@@ -73,6 +74,9 @@ Route::group(['prefix' => 'section'], function() {
 	
 	Route::get('feature', [FeatureController::class, 'index']);
 	Route::get('feature/{id}', [FeatureController::class, 'show']);
+	
+	Route::get('event', [EventController::class, 'index']);
+	Route::get('event/{id}', [EventController::class, 'show']);
 	
 });
 
