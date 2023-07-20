@@ -34,6 +34,10 @@ use  App\Http\Controllers\rooms\RoomTypeController;
 use  App\Http\Controllers\rooms\RoomsController;
 use  App\Http\Controllers\booking\BookingController;
 
+use App\Http\Controllers\API\PartnerController;
+use App\Http\Controllers\Api\FeatureController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -62,6 +66,15 @@ Route::post('/logout', [LogoutController::class, 'logoutApi'])->name('api.logout
 Route::post('/room/{id}/book', [BookingController::class, 'store_api']);
 Route::post('/room/{id}/book/c', [BookingController::class, 'confirm_booking_api']);
 
+
+Route::group(['prefix' => 'section'], function() {
+	Route::get('partner', [PartnerController::class, 'index']);
+	Route::get('partner/{id}', [PartnerController::class, 'show']);
+	
+	Route::get('feature', [FeatureController::class, 'index']);
+	Route::get('feature/{id}', [FeatureController::class, 'show']);
+	
+});
 
 
 
