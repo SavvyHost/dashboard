@@ -368,6 +368,7 @@ Route::group(['middleware' => ['auth']], function () {
                 'feature' => 'FeatureController',
                 'subfeature' => 'SubfeatureController',
                 'partner' => 'PartnerController',
+                'event' => 'EventController',
             ]);
         });
         Route::get('/booking', [BookingController::class, 'index'])->name('booking.show');
