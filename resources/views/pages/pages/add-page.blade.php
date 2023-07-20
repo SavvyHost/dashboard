@@ -80,6 +80,14 @@
 														<option value="0">No</option>
 													</select>
 												</div>
+
+												<div>
+													<label for="header_style">header_style</label>
+													<select name="header_style" id="header_style" class="form-input">
+														<option value="normal">Normal</option>
+														<option value="transparent">Transparent</option>
+													</select>
+												</div>
 											</div>
 
 										</template>
@@ -160,13 +168,6 @@
 													<input type="file" class="form-input" name="logo">
 												</div>
 
-												<div>
-													<label for="header_style">header_style</label>
-													<select name="header_style" id="header_style" class="form-input">
-														<option value="normal">Normal</option>
-														<option value="transparent">Transparent</option>
-													</select>
-												</div>
 											</div>
 
 										</template>
@@ -175,7 +176,7 @@
 										<button type="button" class="btn btn-primary" :disabled="activeTab === 1"
 												@click="activeTab--">Back
 										</button>
-										<button type="button" class="btn btn-primary" :disabled="activeTab === 4"
+										<button type="button" class="btn btn-primary" :disabled="activeTab === 5"
 												@click="activeTab++">Next
 										</button>
 									</div>
