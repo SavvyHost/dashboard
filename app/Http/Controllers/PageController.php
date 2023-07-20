@@ -84,10 +84,10 @@ class PageController extends Controller
 			$data = [];
 			if ( $instance->isIterable() ) {
 				$singleParameter = $parameters[0];
-				dump($singleParameter);
-				dump($section->name);
-				dump($request->get($section->name));
-				dump(sizeof($request->get($section->name)[$singleParameter]));
+//				dump($singleParameter);
+//				dump($section->name);
+//				dump($request->get($section->name));
+//				dump(sizeof($request->get($section->name)[$singleParameter]));
 				$count = sizeof($request->get($section->name)[$singleParameter]);
 				for ( $i = 0; $i < $count; $i++ ) {
 					$datum = [];
@@ -104,7 +104,7 @@ class PageController extends Controller
 			}
 			$page->sections()->attach($section->id, ['data' => $data]);
 		}
-		dd();
+//		dd();
 		
 		return redirect()->route('pages.page.index');
 	}
