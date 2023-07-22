@@ -2,312 +2,133 @@
 
 namespace App\Http\Controllers\Blogs;
 
-use Image;
 use App\Models\Blog;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-
-use Carbon\Carbon;
 
 class BlogController extends Controller
 {
-    public function index()
-    {
-        $blogs = Blog::with('category', 'user')->get();
-        // $blogs = Blog::latest()->get();
-        return view('blogs.blog-list', compact('blogs'));
-    }
-
-    public function create()
-    {
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-        return view('blogs.blog-add', compact('categories', 'admins'));
-    }
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'title' => 'required',
-    //     ]);
-    //     $image = $request->file('image');
-    //     if ($image) {
-    //         $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
-    //         Image::make($image)->save('assets/blog-photos/' . $image_name);
-    //         $save_url = 'assets/blog-photos/' . $image_name;
-
-    //         Blog::insert([
-    //             'category_id'  =>  $request->category_id,
-    //             'title'  =>  $request->title,
-    //             'image'    =>  $save_url,
-    //             'description'   =>  $request->description,
-    //             'created_at' =>  Carbon::now(),
-    //         ]);
-    //     } else {
-    //         Blog::insert([
-    //             'category_id'  =>  $request->category_id,
-    //             'title'  =>  $request->title,
-    //             'description'   =>  $request->description,
-    //             'created_at' =>  Carbon::now(),
-    //         ]);
-    //     }
-    //     return redirect()->route('all.blog');
-    // }
-    public function store(Request $request)
-    {
-        // dd($request);
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-
-        // if ($request->searchable) {
-        //     $request->validate([
-        //         'title' => 'required|string|max:200',
-        //         'content' => 'required',
-        //         'searchable' => 'required',
-        //         'status' => 'required|in:publish,draft',
-        //         'category_id' => 'required|exists:categories,id',
-        //         'seo_title' => 'required|string|max:200',
-        //         'seo_image' => 'required',
-        //         'seo_description' => 'required',
-        //     ]);
-        // } else {
-        $request->validate([
-            'title' => 'required|string|max:200',
-            'content' => 'required',
-            'searchable' => 'required',
-            'status' => 'required|in:publish,draft',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-        // }
-
-        if ($request->file('image')) {
-            $image_path = $request->file('image')->store('api/blogs', 'public');
-        } else {
-            $image_path = null;
-        }
-        if ($request->file('seo_image')) {
-            $image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
-        } else {
-            $image_path_seo = null;
-        }
-        if ($request->file('facebook_image')) {
-            $image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
-        } else {
-            $image_path_fb = null;
-        }
-        if ($request->file('twitter_image')) {
-            $image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
-        } else {
-            $image_path_tw = null;
-        }
-        /** user who make a login*/
-        $user_id = Auth::user()->id;
-
-        /** check user who make a login is admin or not */
-        $check_admin = User::findorfail($user_id)->where('role_id', 1)->get();
-
-        if ($check_admin == NULL) {
-            $blog = Blog::create([
-                'title' => $request->title,
-                'content' => $request->content,
-                'searchable' => $request->searchable,
-                'status' => $request->status,
-                'category_id' => $request->category_id,
-                'user_id' => $user_id,
-                'image' => asset('storage/' . $image_path),
-                'seo_title' => $request->seo_title,
-                // 'seo_image' => asset('storage/' . $image_path),
-                'seo_description' => $request->seo_description,
-                'facebook_title' => $request->facebook_title,
-                // 'facebook_image' => asset('storage/' . $image_path),
-                'facebook_description' => $request->facebook_description,
-                'twitter_title' => $request->twitter_title,
-                // 'twitter_image' => asset('storage/' . $image_path),
-                'twitter_description' => $request->twitter_description,
-
-
-                'seo_image' => asset('storage/' . $image_path_seo),
-                'facebook_image' => asset('storage/' . $image_path_fb),
-                'twitter_image' => asset('storage/' . $image_path_tw),
-
-
-                'created_at' => Carbon::now(),
-            ]);
-        } else {
-            $blog = Blog::create([
-                'title' => $request->title,
-                'content' => $request->content,
-                'searchable' => $request->searchable,
-                'status' => $request->status,
-                'category_id' => $request->category_id,
-                'status' => $request->status,
-                'user_id' => $request->user_id,
-                'image' => asset('storage/' . $image_path),
-                'seo_title' => $request->seo_title,
-                'seo_image' => asset('storage/' . $image_path_seo),
-                'seo_description' => $request->seo_description,
-                'facebook_title' => $request->facebook_title,
-                'facebook_image' => asset('storage/' . $image_path_fb),
-                'facebook_description' => $request->facebook_description,
-                'twitter_title' => $request->twitter_title,
-                'twitter_image' => asset('storage/' . $image_path_tw),
-                'twitter_description' => $request->twitter_description,
-                'created_at' => Carbon::now(),
-            ]);
-        }
-
-        return redirect()->route('all.blog');
-    }
-
-    public function show($id)
-    {
-        $blog = Blog::findOrFail($id);
-        return view('blogs.blog-details', compact('blog'));
-    }
-
-    public function edit($id)
-    {
-        $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-        return view('blogs.blog-edit', compact('blog', 'categories', 'admins'));
-    }
-
-    // public function update(Request $request, Blog $blog)
-    // {
-    //     $blog_id = $request->id;
-    //     $image = $request->file('image');
-    //     if ($image) {
-    //         $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();  // 3434343443.jpg
-    //         Image::make($image)->save('assets/blog-photos/' . $image_name);
-    //         $save_url = 'assets/blog-photos/' . $image_name;
-    //         Blog::findOrFail($blog_id)->update([
-    //             'category_id'  =>  $request->category_id,
-    //             'title'  =>  $request->title,
-    //             'image'    =>  $save_url,
-    //             'description'   =>  $request->description,
-    //             'updated_at' => Carbon::new(),
-    //         ]);
-    //         return redirect()->route('all.blog');
-    //     } else {
-
-    //         Blog::findOrFail($blog_id)->update([
-    //             'category_id'  =>  $request->category_id,
-    //             'title'  =>  $request->title,
-    //             'description'   =>  $request->description,
-    //             'updated_at' => Carbon::new(),
-
-    //         ]);
-
-    //         return redirect()->route('all.blog');
-    //     }
-    // }
-    public function update(Request $request, $id)
-    {
-        $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-
-        // if ($request->searchable) {
-        //     $request->validate([
-        //         'title' => 'required|string|max:200',
-        //         'content' => 'required',
-        //         'searchable' => 'required',
-        //         'status' => 'required|in:publish,draft',
-        //         'category_id' => 'required|exists:categories,id',
-        //         'seo_title' => 'required|string|max:200',
-        //         'seo_image' => 'required',
-        //         'seo_description' => 'required',
-        //     ]);
-        // } else {
-        $request->validate([
-            'title' => 'required|string|max:200',
-            'content' => 'required',
-            'searchable' => 'required',
-            'status' => 'required|in:publish,draft',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-        // }
-
-        if ($request->file('image')) {
-            $image_path = $request->file('image')->store('api/blogs', 'public');
-        } else {
-            $image_path = null;
-        }
-        if ($request->file('seo_image')) {
-            $image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
-        } else {
-            $image_path_seo = null;
-        }
-        if ($request->file('facebook_image')) {
-            $image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
-        } else {
-            $image_path_fb = null;
-        }
-        if ($request->file('twitter_image')) {
-            $image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
-        } else {
-            $image_path_tw = null;
-        }
-
-
-        /** user who make a login*/
-        $user_id = Auth::user()->id;
-
-        /** check user who make a login is admin or not */
-        $check_admin = User::findorfail($user_id)->where('role_id', 1)->get();
-
-        if ($check_admin == NULL) {
-            $blog->update([
-                'title' => $request->title,
-                'content' => $request->content,
-                'searchable' => $request->searchable,
-                'status' => $request->status,
-                'category_id' => $request->category_id,
-                'user_id' => $user_id,
-                'image' => asset('storage/' . $image_path),
-                'seo_title' => $request->seo_title,
-                'seo_image' => asset('storage/' . $image_path_seo),
-                'seo_description' => $request->seo_description,
-                'facebook_title' => $request->facebook_title,
-                'facebook_image' => asset('storage/' . $image_path_fb),
-                'facebook_description' => $request->facebook_description,
-                'twitter_title' => $request->twitter_title,
-                'twitter_image' => asset('storage/' . $image_path_tw),
-                'twitter_description' => $request->twitter_description,
-                'updated_at' => Carbon::now(),
-            ]);
-        } else {
-            $blog->update([
-                'title' => $request->title,
-                'content' => $request->content,
-                'searchable' => $request->searchable,
-                'status' => $request->status,
-                'category_id' => $request->category_id,
-                'status' => $request->status,
-                'user_id' => $request->user_id,
-                'image' => asset('storage/' . $image_path),
-                'seo_title' => $request->seo_title,
-                'seo_image' => asset('storage/' . $image_path),
-                'seo_description' => $request->seo_description,
-                'facebook_title' => $request->facebook_title,
-                'facebook_image' => asset('storage/' . $image_path),
-                'facebook_description' => $request->facebook_description,
-                'twitter_title' => $request->twitter_title,
-                'twitter_image' => asset('storage/' . $image_path),
-                'twitter_description' => $request->twitter_description,
-                'updated_at' => Carbon::now(),
-            ]);
-        }
-        return redirect()->route('all.blog');
-    }
-
-    public function destroy($id)
-    {
-        Blog::findOrFail($id)->delete();
-        return redirect()->back();
-    }
+	public function index()
+	{
+		$blogs = Blog::with('category', 'user')->get();
+		// $blogs = Blog::latest()->get();
+		return view('blogs.blog-list', compact('blogs'));
+	}
+	
+	public function create()
+	{
+		$categories = Category::all();
+		$admins = User::where('role_id', 1)->get();
+		return view('blogs.blog-add', compact('categories', 'admins'));
+	}
+	
+	public function store( Request $request )
+	{
+		$request->validate([
+			'title' => 'required|string|max:200',
+			'content' => 'required',
+			'searchable' => 'required',
+			'status' => 'required|in:publish,draft',
+			'category_id' => 'required|exists:categories,id',
+			'user_id' => 'required|exists:users,id',
+			'seo_title' => 'requiredIf:searchable,1|max:200',
+			'seo_image' => 'requiredIf:searchable,1',
+			'seo_description' => 'requiredIf:searchable,1',
+		]);
+		
+		$images = ['image',
+			'seo_image',
+			'facebook_image',
+			'twitter_image'];
+		
+		foreach ( $images as $image ) {
+			if ( $request->file($image) ) {
+				$$image = uploadImage($request->file($image), 'blog-photos');
+			}
+		}
+		
+		$blog = Blog::create(['title' => $request->title,
+			'content' => $request->get('content'),
+			'searchable' => $request->searchable,
+			'status' => $request->status,
+			'category_id' => $request->category_id,
+			'user_id' => $request->user_id,
+			'image' => $image ?? null,
+			'seo_title' => $request->seo_title,
+			'seo_image' => $seo_image ?? null,
+			'seo_description' => $request->seo_description,
+			'facebook_title' => $request->facebook_title,
+			'facebook_image' => $facebook_image ?? null,
+			'facebook_description' => $request->facebook_description,
+			'twitter_title' => $request->twitter_title,
+			'twitter_image' => $twitter_image ?? null,
+			'twitter_description' => $request->twitter_description,]);
+		
+		return redirect()->route('blog.index');
+	}
+	
+	public function show( $id )
+	{
+		$blog = Blog::findOrFail($id);
+		return view('blogs.blog-details', compact('blog'));
+	}
+	
+	public function edit( Blog $blog )
+	{
+		$categories = Category::all();
+		$admins = User::where('role_id', 1)->get();
+		return view('blogs.blog-edit', compact('blog', 'categories', 'admins'));
+	}
+	
+	public function update( Request $request, Blog $blog )
+	{
+		$request->validate(['title' => 'required|string|max:200',
+			'content' => 'required',
+			'searchable' => 'required',
+			'status' => 'required|in:publish,draft',
+			'category_id' => 'required|exists:categories,id',
+			'seo_title' => 'requiredIf:searchable,1|max:200',
+			'seo_image' => 'requiredIf:searchable,1',
+			'seo_description' => 'requiredIf:searchable,1',]);
+		
+		$images = ['image',
+			'seo_image',
+			'facebook_image',
+			'twitter_image'];
+		
+		foreach ( $images as $image ) {
+			if ( $request->file($image) ) {
+				$$image = uploadImage($request->file($image), 'blog-photos');
+			}
+		}
+		
+		$blog->update([
+			'title' => $request->title,
+			'content' => $request->get('content'),
+			'searchable' => $request->searchable,
+			'status' => $request->status,
+			'category_id' => $request->category_id,
+			'user_id' => $request->user_id,
+			'image' => $image ?? null,
+			'seo_title' => $request->seo_title,
+			'seo_image' => $seo_image ?? null,
+			'seo_description' => $request->seo_description,
+			'facebook_title' => $request->facebook_title,
+			'facebook_image' => $facebook_image ?? null,
+			'facebook_description' => $request->facebook_description,
+			'twitter_title' => $request->twitter_title,
+			'twitter_image' => $twitter_image ?? null,
+			'twitter_description' => $request->twitter_description,
+		]);
+		
+		return redirect()->route('blog.index');
+	}
+	
+	public function destroy( Blog $blog )
+	{
+		$blog->delete();
+		return redirect()->route('blog.index');
+	}
 }

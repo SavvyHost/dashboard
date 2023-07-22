@@ -15,17 +15,17 @@ class TextSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'title' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			
-			],
-			'text' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => 'text',
-			]
+//			'title' => [
+//				'tag' => 'input',
+//				'close-tag' => false,
+//				'type' => 'text'
+//
+//			],
+//			'text' => [
+//				'tag' => 'textarea',
+//				'close-tag' => true,
+//				'type' => 'text',
+//			]
 		];
 	}
 	

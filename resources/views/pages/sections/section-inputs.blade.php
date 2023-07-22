@@ -1,8 +1,9 @@
 @if(!$isIterable)
 	@foreach($section?->inputs as $name => $input)
 		<div>
-			<label for="{{ $name }}_id">{{ $name }}</label>
-			<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}]" class="form-input" value="{{ $section->pivot->data[$name] ?? "" }}">@if($input['close-tag']){{ $section->pivot->data[$name] ?? "" }}</{{ $input['tag'] }}>@endif
+			<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
+			{!! $input->getHtmlText() !!}
+{{--			<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}]" class="form-input" value="{{ $section->pivot->data[$name] ?? "" }}">@if($input['close-tag']){{ $section->pivot->data[$name] ?? "" }}</{{ $input['tag'] }}>@endif--}}
 		</div>
 	@endforeach
 @else

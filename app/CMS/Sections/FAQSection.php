@@ -16,17 +16,17 @@ class FAQSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'question' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			
-			],
-			'answer' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => 'text',
-			]
+//			'question' => [
+//				'tag' => 'input',
+//				'close-tag' => false,
+//				'type' => 'text'
+//
+//			],
+//			'answer' => [
+//				'tag' => 'textarea',
+//				'close-tag' => true,
+//				'type' => 'text',
+//			]
 		];
 	}
 	

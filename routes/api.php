@@ -78,6 +78,11 @@ Route::group(['prefix' => 'section'], function() {
 	Route::get('event', [EventController::class, 'index']);
 	Route::get('event/{id}', [EventController::class, 'show']);
 	
+	Route::get('category', [CategoryController::class, 'index']);
+	Route::get('category/{id}', [CategoryController::class, 'show']);
+	
+	Route::get('blog', [BlogController::class, 'index']);
+	Route::get('blog/{id}', [BlogController::class, 'show']);
 });
 
 
@@ -191,15 +196,6 @@ Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
     Route::post('/tours/attributes/terms/new', [TourTermController::class, 'save_api']);
     Route::put('/tours/attributes/terms/{attr_id}', [TourTermController::class, 'update_api']);
     Route::delete('tours/attributes/terms/delete/{terms_id}', [TourTermController::class, 'delete_api']);
-
-
-    Route::prefix('/category')->group(function () {
-        Route::get('/index', [CategoryController::class, 'index']);
-        Route::get('/show/{id}', [CategoryController::class, 'show']);
-        Route::post('/store', [CategoryController::class, 'store']);
-        Route::post('/update/{id}', [CategoryController::class, 'update']);
-        Route::post('/destroy/{id}', [CategoryController::class, 'destroy']);
-    });
 
     Route::prefix('/blog')->group(function () {
         Route::get('/index', [BlogController::class, 'index']);

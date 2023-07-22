@@ -105,7 +105,7 @@
 												{{-- <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a> --}}
 												{{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
 
-												<a href="{{ route('pages.page.edit', $page->id) }}"
+												<a href="{{ route('pages.page.build', $page->id) }}"
 												   class="hover:text-info">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 														 xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5">

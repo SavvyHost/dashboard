@@ -16,16 +16,16 @@ class HeroSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'hero' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => ''
-			],
-			'description' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			]
+//			'hero' => [
+//				'tag' => 'textarea',
+//				'close-tag' => true,
+//				'type' => ''
+//			],
+//			'description' => [
+//				'tag' => 'input',
+//				'close-tag' => false,
+//				'type' => 'text'
+//			]
 		];
 
 	}

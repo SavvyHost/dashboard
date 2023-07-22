@@ -22,25 +22,15 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
-		if ($request->file('image')) {
-			$image_path = $request->file('image')->store('api/blogs', 'public');
-		} else {
-			$image_path = null;
-		}
-		if ($request->file('seo_image')) {
-			$image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
-		} else {
-			$image_path_seo = null;
-		}
-		if ($request->file('facebook_image')) {
-			$image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
-		} else {
-			$image_path_fb = null;
-		}
-		if ($request->file('twitter_image')) {
-			$image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
-		} else {
-			$image_path_tw = null;
+		$images = ['image',
+			'seo_image',
+			'facebook_image',
+			'twitter_image'];
+	
+		foreach ( $images as $image ) {
+			if ( $request->file($image) ) {
+				$$image = uploadImage($request->file($image), 'event-photos');
+			}
 		}
 		
 		$event = new Event();
@@ -48,15 +38,15 @@ class EventController extends Controller
 		$event->title = $request->get('title');
 		$event->content = $request->get('content');
 		$event->searchable = $request->get('searchable');
-		$event->image = asset('storage/' . $image_path);
+		$event->image = $image ?? null;
 		$event->seo_title = $request->get('seo_title');
-		$event->seo_image = asset('storage/' . $image_path_seo);
+		$event->seo_image = $seo_image ?? null;
 		$event->seo_description = $request->get('seo_description');
 		$event->facebook_title = $request->get('facebook_title');
-		$event->facebook_image = asset('storage/' . $image_path_fb);
+		$event->facebook_image = $facebook_image ?? null;
 		$event->facebook_description = $request->get('facebook_description');
 		$event->twitter_title = $request->get('twitter_title');
-		$event->twitter_image = asset('storage/' . $image_path_tw);
+		$event->twitter_image = $twitter_image ?? null;
 		$event->twitter_description = $request->get('twitter_description');
 	
 		$event->start_date = $request->get('start_date');
@@ -80,39 +70,29 @@ class EventController extends Controller
 
     public function update(UpdateEventRequest $request, Event $event)
     {
-		if ($request->file('image')) {
-			$image_path = $request->file('image')->store('api/blogs', 'public');
-		} else {
-			$image_path = null;
+		$images = ['image',
+			'seo_image',
+			'facebook_image',
+			'twitter_image'];
+	
+		foreach ( $images as $image ) {
+			if ( $request->file($image) ) {
+				$$image = uploadImage($request->file($image), 'event-photos');
+			}
 		}
-		if ($request->file('seo_image')) {
-			$image_path_seo = $request->file('seo_image')->store('api/seo_images', 'public');
-		} else {
-			$image_path_seo = null;
-		}
-		if ($request->file('facebook_image')) {
-			$image_path_fb = $request->file('facebook_image')->store('api/facebook_images', 'public');
-		} else {
-			$image_path_fb = null;
-		}
-		if ($request->file('twitter_image')) {
-			$image_path_tw = $request->file('twitter_image')->store('api/twitter_images', 'public');
-		} else {
-			$image_path_tw = null;
-		}
-		
+	
 		$event->title = $request->get('title');
 		$event->content = $request->get('content');
 		$event->searchable = $request->get('searchable');
-		$event->image = asset('storage/' . $image_path);
+		$event->image = $image ?? null;
 		$event->seo_title = $request->get('seo_title');
-		$event->seo_image = asset('storage/' . $image_path_seo);
+		$event->seo_image = $seo_image ?? null;
 		$event->seo_description = $request->get('seo_description');
 		$event->facebook_title = $request->get('facebook_title');
-		$event->facebook_image = asset('storage/' . $image_path_fb);
+		$event->facebook_image = $facebook_image ?? null;
 		$event->facebook_description = $request->get('facebook_description');
 		$event->twitter_title = $request->get('twitter_title');
-		$event->twitter_image = asset('storage/' . $image_path_tw);
+		$event->twitter_image = $twitter_image ?? null;
 		$event->twitter_description = $request->get('twitter_description');
 	
 		$event->start_date = $request->get('start_date');
