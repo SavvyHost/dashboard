@@ -16,12 +16,16 @@ abstract class HtmlInput
 	
 	abstract public function isVoidElement(): bool;
 	
-	public function getHtmlText($value = ""): string {
-		$this->attributes['value'] = $value;
+	public function getHtmlText(string|null $value = "", bool $isIterable = false): string {
+		if ($isIterable) {
+			$this->attributes['name'] .= "[]";
+		}
+		
 		if($this->isVoidElement()) {
+			$this->attributes['value'] = $value;
 			return $this->getVoidElementText();
 		} else {
-			return $this->getContainerElementText();
+			return $this->getContainerElementText($value);
 		}
 	}
 	
@@ -29,8 +33,8 @@ abstract class HtmlInput
 		return "<" . $this->getTagName() . " " . $this->getAttributesText() . ">";
 	}
 	
-	private function getContainerElementText(): string {
-		return "<" . $this->getTagName() . " " . $this->getAttributesText() . ">" . $this->getContent() . "</" . $this->getTagName() . ">";
+	private function getContainerElementText($value): string {
+		return "<" . $this->getTagName() . " " . $this->getAttributesText() . ">" . $value . "</" . $this->getTagName() . ">";
 	}
 	
 	private function getContent() {

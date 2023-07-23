@@ -2,22 +2,21 @@
 	@foreach($section?->inputs as $name => $input)
 		<div>
 			<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
-			{!! $input->getHtmlText() !!}
-{{--			<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}]" class="form-input" value="{{ $section->pivot->data[$name] ?? "" }}">@if($input['close-tag']){{ $section->pivot->data[$name] ?? "" }}</{{ $input['tag'] }}>@endif--}}
+			{!! $input->getHtmlText($section->pivot?->data[$name], false) !!}
 		</div>
 	@endforeach
 @else
 	<div class="iterable">
 		@if($section?->pivot?->data)
-		@foreach($section?->pivot?->data as $object)
-			@foreach($section->inputs as $name => $input)
-				<div>
-					<label for="{{ $name }}_id">{{ $name }}</label>
-					<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}][]" class="form-input" value="{{ $object[$name] ?? "" }}">@if($input['close-tag']){{ $object[$name] ?? "" }}</{{ $input['tag'] }}>@endif
-	</div>
-	@endforeach
-	@endforeach
-	@endif
+			@foreach($section?->pivot?->data as $object)
+				@foreach($section->inputs as $name => $input)
+					<div>
+						<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
+						{!! $input->getHtmlText($object[$name], true) !!}
+					</div>
+				@endforeach
+			@endforeach
+		@endif
 
 	</div>
 	<div id="new-slots-container"></div>
@@ -33,8 +32,8 @@
 				let html = `
 		@foreach($section->inputs as $name => $input)
 				<div>
-					<label for="{{ $name }}_id">{{ $name }}</label>
-				<{{ $input['tag'] }} id="{{ $name }}_id" type="{{ $input['type'] }}" name="{{ $section->name }}[{{ $name }}][]" class="form-input">@if($input['close-tag'])</{{ $input['tag'] }}>@endif
+					<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
+					{!! $input->getHtmlText("", true) !!}
 				</div>
 @endforeach
 				`;
@@ -43,8 +42,8 @@
 				index++;
 			});
 
-			document.addEventListener("click", function(event) {
-				if (event.target.classList.contains("remove-slot")) {
+			document.addEventListener("click", function( event ) {
+				if ( event.target.classList.contains("remove-slot") ) {
 					console.log("test");
 					event.target.closest(".form-group").remove();
 				}

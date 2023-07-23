@@ -2,13 +2,12 @@
 
 namespace App\CMS\Sections;
 
+use App\CMS\Inputs\TextareaInput;
 use App\CMS\Inputs\TextInput;
 use App\Models\PageSection;
-use App\Models\Section;
 
 class AboutUsSection implements ISection
 {
-	
 	public function getName(): string
 	{
 		return 'about_us';
@@ -18,7 +17,7 @@ class AboutUsSection implements ISection
 	{
 		return [
 			'title' => new TextInput($this->getName() , 'title'),
-//			'text' => new Textarea('text')
+			'text' => new TextareaInput($this->getName(), 'text')
 		];
 	}
 	
