@@ -71,6 +71,7 @@ class PageController extends Controller
 	
 	public function rebuild( Request $request, Page $page )
 	{
+//		dd($request->all());
 		$sections = $request->get('sections', []);
 		
 		$factory = new SectionFactory();
@@ -80,31 +81,25 @@ class PageController extends Controller
 			$section = Section::find($section);
 			$instance = $factory->getSection($section->name);
 			$parameters = $instance->getParameters();
-			
 			$data = [];
 			if ( $instance->isIterable() ) {
 				$singleParameter = $parameters[0];
-//				dump($singleParameter);
-//				dump($section->name);
-//				dump($request->get($section->name));
-//				dump(sizeof($request->get($section->name)[$singleParameter]));
-				$count = sizeof($request->get($section->name)[$singleParameter]);
+				$count = sizeof($request->get(strtolower( $section->name ))[$singleParameter]);
 				for ( $i = 0; $i < $count; $i++ ) {
 					$datum = [];
 					foreach ( $parameters as $parameter ) {
-						$datum[$parameter] = $request->get($section->name)[$parameter][$i];
+						$datum[$parameter] = $request->get(strtolower( $section->name ))[$parameter][$i];
 					}
 					
 					$data[] = $datum;
 				}
 			} else {
 				foreach ( $parameters as $parameter ) {
-					$data[$parameter] = $request->get($section->name)[$parameter];
+					$data[$parameter] = $request->get( strtolower( $section->name ))[$parameter];
 				}
 			}
 			$page->sections()->attach($section->id, ['data' => $data]);
 		}
-//		dd();
 		
 		return redirect()->route('pages.page.index');
 	}
