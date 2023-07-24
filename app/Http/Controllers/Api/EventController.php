@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 use App\Models\Event;
-use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -12,8 +12,7 @@ class EventController extends Controller
 	
 	public function index()
 	{
-		$events = Event::all();
-		
+		$events = EventResource::collection( Event::all() );
 		return $this->sendSuccess('Events Found', compact('events'));
 	}
 	
