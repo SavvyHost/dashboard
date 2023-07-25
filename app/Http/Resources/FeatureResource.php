@@ -19,7 +19,7 @@ class FeatureResource extends JsonResource
 			'name' => $this->name,
 			'description' => $this->description,
 			'icon' => asset($this->icon),
-			'subfeature' => SubfeatureResource::collection( $this->subfeatures )
+			'subfeatures' => SubfeatureResource::collection( $this->subfeatures )
 		];
     }
 }
