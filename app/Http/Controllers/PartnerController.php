@@ -24,10 +24,9 @@ class PartnerController extends Controller
 		
 		$partner->name = $request->get('name');
 		
-		if ( $request->hasFile('image') ) {
-			$image = $request->file('image');
-			$filename = $image->store('public/images');
-			$partner->image = $filename;
+		if($request->file('image')) {
+			$image = uploadImage($request->file('image'), 'partner-photos');
+			$partner->image = $image;
 		}
 		
 		$partner->save();
@@ -49,10 +48,9 @@ class PartnerController extends Controller
 	{
 		$partner->name = $request->get('name');
 		
-		if ( $request->hasFile('image') ) {
-			$image = $request->file('image');
-			$filename = $image->store('public/images');
-			$partner->image = $filename;
+		if($request->file('image')) {
+			$image = uploadImage($request->file('image'), 'partner-photos');
+			$partner->image = $image;
 		}
 		
 		$partner->save();

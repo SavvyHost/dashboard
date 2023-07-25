@@ -18,6 +18,9 @@ class SectionFactory
 				
 			case 'about_us':
 				return new AboutUsSection();
+				
+			case 'contact_us':
+				return new ContactUsSection();
 		}
 	}
 	

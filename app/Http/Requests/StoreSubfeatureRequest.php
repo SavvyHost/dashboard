@@ -24,7 +24,9 @@ class StoreSubfeatureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'name' => 'required|string',
+			'description' => 'required|string',
+			'icon' => 'required|image'
         ];
     }
 }

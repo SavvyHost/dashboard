@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Subfeature extends Model
 {
     use HasFactory;
+	
+	public function feature() {
+		return $this->belongsTo(Feature::class);
+	}
 }

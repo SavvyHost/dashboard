@@ -32,7 +32,6 @@ class SectionController extends Controller
         $section = new Section();
 		
 		$section->name = $request->get('name');
-		$section->data = $request->get('data');
 		
 		$section->save();
 		
@@ -41,7 +40,7 @@ class SectionController extends Controller
 
     public function show(Section $section)
     {
-        dd($section->body);
+//        dd($section->body);
     }
 
     public function edit(Section $section)
@@ -82,7 +81,7 @@ class SectionController extends Controller
 			}
 		}
 	
-		$section->data = $data;
+//		$section->data = $data;
 		
 		$section->save();
 		

@@ -85,6 +85,8 @@ Route::group(['prefix' => 'section'], function() {
 	Route::get('blog/{id}', [BlogController::class, 'show']);
 });
 
+Route::get('page', [PageController::class, 'page_api']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -98,7 +100,7 @@ Route::get('/addu', [RoomAttributesController::class, 'addu']);
 Route::get('/room/{id}/details', [RoomsController::class, 'details_api']);
 
 
-Route::get('/page/{page}', [PageController::class, 'page_api']);
+//Route::get('/page/{page}', [PageController::class, 'page_api']);
 
 
 Route::group(['middleware' , 'prefix' => 'dashboard'], function () {

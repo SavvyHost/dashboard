@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <form method="POST" action="{{route('subfeature.store')}}"
+                <form method="POST" action="{{route('subfeature.store')}}" enctype="multipart/form-data"
                       class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
                     @csrf
                     <h6 class="text-lg font-bold mb-5">General Information</h6>
@@ -39,7 +39,7 @@
 
                             <div>
                                 <label for="icon">Icon</label>
-                                <input type="text" name="icon" id="icon" class="form-input">
+                                <input type="file" name="icon" id="icon" class="form-input">
                             </div>
 
 
