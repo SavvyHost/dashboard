@@ -363,6 +363,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
 
+
         Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::resources([
                 'feature' => 'FeatureController',

@@ -1,12 +1,17 @@
 <x-layout.default>
-	@section('title','Users')
+	@section('title','Categories')
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+
 	@vite(['resources/css/app.css'])
 	<div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
 		<div x-data="contacts">
 			<div class="flex items-center justify-between flex-wrap gap-4">
 				<h2 class="text-xl">
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					Blogs</h2>
+					Categories</h2>
+
+
 
 				<input class="dataTable-search" placeholder="Search..." type="text"
 					   style="width:30%;border-radius: 50px;margin-right:24%">
@@ -30,6 +35,7 @@
 							</svg>
 							Delete
 						</button>
+
 
 						<a href="{{route('category.create')}}" class="btn btn-primary gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
@@ -56,6 +62,7 @@
 									<tr>
 
 										<th data-sortable="false" style="width: 4.5%;">
+
 											<input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox"
 												   :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
 										</th>
@@ -101,6 +108,7 @@
 
 											<td>
 												<form id="delete-form-{{ $category->id }}"
+
 													  action="{{ route('category.destroy', $category->id) }}"
 													  method="POST">
 													@csrf
@@ -109,6 +117,7 @@
 												<div class="flex gap-4 items-center">
 													{{-- <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a> --}}
 													{{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
+
 
 													<a href="{{ route('category.edit', $category->id) }}"
 													   class="hover:text-info">
@@ -125,6 +134,7 @@
 																  stroke="currentColor" stroke-width="1.5"></path>
 														</svg>
 													</a>
+
 
 													<a href="{{ route('category.destroy', $category->id) }}"
 													   class="hover:text-danger"

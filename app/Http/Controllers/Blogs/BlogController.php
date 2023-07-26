@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -26,6 +27,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:200',
             'content' => 'required',
@@ -131,26 +133,7 @@ class BlogController extends Controller
             'twitter_description' => $request->twitter_description,
         ]);
         $blog->save();
-        // $blog = Blog::find($blog->id);
-
-        // $blog->title = $request->title;
-        // $blog->content = $request->get('content');
-        // $blog->searchable = $request->searchable;
-        // $blog->status = $request->status;
-        // $blog->category_id = $request->category_id;
-        // $blog->user_id = $request->user_id;
-        // $blog->image = $image ?? null;
-        // $blog->seo_title = $request->seo_title;
-        // $blog->seo_image = $seo_image ?? null;
-        // $blog->seo_description = $request->seo_description;
-        // $blog->facebook_title = $request->facebook_title;
-        // $blog->facebook_image = $facebook_image ?? null;
-        // $blog->facebook_description = $request->facebook_description;
-        // $blog->twitter_title = $request->twitter_title;
-        // $blog->twitter_image = $twitter_image ?? null;
-        // $blog->twitter_description = $request->twitter_description;
-
-        // $blog->save();
+        
         return redirect()->route('blog.index');
     }
 

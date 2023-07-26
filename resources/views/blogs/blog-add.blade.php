@@ -857,8 +857,6 @@
 
 
 	<script>
-
-
         const imgSideInp = document.getElementById("img-side-input")
         const sideImg = document.getElementById("side-img")
         imgSideInp.onchange = evt => {

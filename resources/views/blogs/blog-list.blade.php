@@ -1,4 +1,5 @@
 <x-layout.default>
+
 	@section('title','Blogs')
 	@vite(['resources/css/app.css'])
 	<div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
@@ -31,6 +32,7 @@
 							Delete
 						</button>
 
+
 						<a href="{{route('blog.create')}}" class="btn btn-primary gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
 								 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
@@ -59,11 +61,12 @@
 										<input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox"
 											   :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
 									</th>
+
 									<th>ID</th>
 									<th style="width: 40%">Title</th>
 									<th>Category</th>
 									<th>Author</th>
-                                    <th>Image</th>
+                  <th>Image</th>
 									<th>Date</th>
 									<th>Status</th>
 									<th>Actions</th>
@@ -82,6 +85,7 @@
 										</td> --}}
 										<td>{{$blog->id}}</td>
 										<td>
+
 											<a href="{{ route('blog.edit', $blog->id) }}" class="hover:text-info">
 												<div class="flex items-center font-semibold" style="width:40%">
 													{{$blog->title}}
@@ -113,7 +117,7 @@
 
 										<td>
 											<form id="delete-form-{{ $blog->id }}"
-												  action="{{ route('blog.destroy', $blog->id) }}" method="POST">
+                          action="{{ route('blog.destroy', $blog->id) }}" method="POST">
 												@csrf
 												@method('DELETE')
 											</form>
@@ -133,6 +137,7 @@
 															  stroke="currentColor" stroke-width="1.5"></path>
 													</svg>
 												</a>
+
 
 												<a href="{{ route('blog.destroy', $blog->id) }}"
 												   class="hover:text-danger"
@@ -154,7 +159,6 @@
 													</svg>
 
 												</a>
-
 												</button>
 											</div>
 										</td>
