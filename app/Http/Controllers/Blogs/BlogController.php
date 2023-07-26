@@ -103,15 +103,29 @@ class BlogController extends Controller
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
+			$blog->update([
+				'image' => $image
+			]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'blog-photos');
+			$blog->update([
+				'seo_image' => $seo_image
+			]);
         }
+		
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'blog-photos');
+			$blog->update([
+				'facebook_image' => $facebook_image
+			]);
         }
+		
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
+			$blog->update([
+				'twitter_image' => $twitter_image
+			]);
         }
 
         $blog->update([
@@ -121,15 +135,11 @@ class BlogController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'image' => $image ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
         $blog->save();
