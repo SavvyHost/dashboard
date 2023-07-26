@@ -68,21 +68,21 @@ Route::post('/room/{id}/book', [BookingController::class, 'store_api']);
 Route::post('/room/{id}/book/c', [BookingController::class, 'confirm_booking_api']);
 
 
-Route::group(['prefix' => 'section'], function() {
-	Route::get('partner', [PartnerController::class, 'index']);
-	Route::get('partner/{id}', [PartnerController::class, 'show']);
-	
-	Route::get('feature', [FeatureController::class, 'index']);
-	Route::get('feature/{id}', [FeatureController::class, 'show']);
-	
-	Route::get('event', [EventController::class, 'index']);
-	Route::get('event/{id}', [EventController::class, 'show']);
-	
-	Route::get('category', [CategoryController::class, 'index']);
-	Route::get('category/{id}', [CategoryController::class, 'show']);
-	
-	Route::get('blog', [BlogController::class, 'index']);
-	Route::get('blog/{id}', [BlogController::class, 'show']);
+Route::group(['prefix' => 'section'], function () {
+    Route::get('partner', [PartnerController::class, 'index']);
+    Route::get('partner/{id}', [PartnerController::class, 'show']);
+
+    Route::get('feature', [FeatureController::class, 'index']);
+    Route::get('feature/{id}', [FeatureController::class, 'show']);
+
+    Route::get('event', [EventController::class, 'index']);
+    Route::get('event/{id}', [EventController::class, 'show']);
+
+    Route::get('category', [CategoryController::class, 'index']);
+    Route::get('category/{id}', [CategoryController::class, 'show']);
+
+    Route::get('blog', [BlogController::class, 'index']);
+    Route::get('blog/{id}', [BlogController::class, 'show']);
 });
 
 
@@ -101,7 +101,7 @@ Route::get('/room/{id}/details', [RoomsController::class, 'details_api']);
 Route::get('/page/{page}', [PageController::class, 'page_api']);
 
 
-Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
+Route::group(['middleware', 'prefix' => 'dashboard'], function () {
 
 
     Route::get('/users', [UsersController::class, 'index_api']);
@@ -200,8 +200,8 @@ Route::group(['middleware' , 'prefix' => 'dashboard'], function () {
     Route::prefix('/blog')->group(function () {
         Route::get('/index', [BlogController::class, 'index']);
         Route::get('/show/{id}', [BlogController::class, 'show']);
-        Route::post('/store', [BlogController::class, 'store']);
-        Route::post('/update/{id}', [BlogController::class, 'update']);
-        Route::post('/destroy/{id}', [BlogController::class, 'destroy']);
+        // Route::post('/store', [BlogController::class, 'store']);
+        // Route::post('/update/{id}', [BlogController::class, 'update']);
+        // Route::post('/destroy/{id}', [BlogController::class, 'destroy']);
     });
 });

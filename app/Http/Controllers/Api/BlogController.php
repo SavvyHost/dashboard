@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-	use APITrait;
-	
+    use APITrait;
+
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::where('status', 'publish')->paginate(10);
 
-		return $this->sendSuccess("Blogs Found", compact('blogs'));
+        return $this->sendSuccess("Blogs Found", compact('blogs'));
     }
 
     public function show($id)

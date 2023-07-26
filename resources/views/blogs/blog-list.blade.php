@@ -63,6 +63,7 @@
 									<th style="width: 40%">Title</th>
 									<th>Category</th>
 									<th>Author</th>
+                                    <th>Image</th>
 									<th>Date</th>
 									<th>Status</th>
 									<th>Actions</th>
@@ -89,7 +90,14 @@
 										</td>
 										<td>{{$blog->category->name}}</td>
 										<td>{{$blog->user->name}}</td>
-										<td>{{$blog->created_at}}</td>
+                                        <td>
+                                            <div class="flex items-center font-semibold">
+                                                <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
+                                                    <img class="h-8 w-8 rounded-full object-cover"
+                                                         src="{{ asset($blog->image) }}">
+                                                </div>
+                                            </div>
+                                        </td>										<td>{{$blog->created_at}}</td>
 
 										<td>
 											@if ($blog->status == "publish")
