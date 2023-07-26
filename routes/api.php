@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\Api\PageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\auth\RegisterController;
@@ -85,7 +85,8 @@ Route::group(['prefix' => 'section'], function () {
     Route::get('blog/{id}', [BlogController::class, 'show']);
 });
 
-Route::get('page', [PageController::class, 'page_api']);
+Route::get('page', [PageController::class, 'page_by_data']);
+Route::get('page/{page}', [PageController::class, 'page']);
 
 
 
