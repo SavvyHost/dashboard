@@ -40,7 +40,7 @@
 								<td>
 									<div class="flex items-center font-semibold">
 										<div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-											<img class="h-8 w-8 rounded-full object-cover" src="{{ $partner->image }}">
+											<img class="h-8 w-8 rounded-full object-cover" src="{{ asset( $partner->image ) }}">
 										</div>
 									</div>
 								</td>

@@ -126,7 +126,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/user/{user_id}/edit', [EditUserController::class, 'save'])->name('user.edit.save');
         Route::get('/users/new', [AdduserController::class, 'show'])->name('add.user.form.show');
         Route::post('/users/new', [AdduserController::class, 'save'])->name('add.user.form.save');
-        Route::delete('/users/{id}',  [UsersController::class, 'destroy'])->name('user.destroy');
+        Route::get('/users/{id}',  [UsersController::class, 'destroy'])->name('user.destroy');
 
         Route::get('/admins', [AdminsController::class, 'index'])->name('admins.show');
         Route::get('/subscribers', [SubscribersController::class, 'show'])->name('subscribers.show');
@@ -346,57 +346,60 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/tours/{tour_id}/delete', [TourController::class, 'destroy'])->name('tour.destroy');
 
 
-        Route::get('/booking', [BookingController::class,'index'])->name('booking.show');
-		
-		
-		// Pages
-		
-		Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\http\Controllers'], function () {
-			Route::resources([
-				'page' => 'PageController',
-				'template' => 'TemplateController',
-				'section' => 'SectionController'
-			]);
-			
-			Route::get('page/{page}/build', [PageController::class, 'build'])->name('page.build');
-			Route::post('page/{page}/rebuild', [PageController::class, 'rebuild'])->name('page.rebuild');
-		});
-		
-		
-		Route::group(['namespace' => 'App\http\Controllers'], function () {
-			Route::resources([
-				'feature' => 'FeatureController',
-				'subfeature' => 'SubfeatureController',
-				'partner' => 'PartnerController',
-			]);
-		});
+        Route::get('/booking', [BookingController::class, 'index'])->name('booking.show');
+
+
+        // Pages
+
+        Route::group(['prefix' => 'page', 'as' => 'pages.', 'namespace' => 'App\Http\Controllers'], function () {
+            Route::resources([
+                'page' => 'PageController',
+                'template' => 'TemplateController',
+                'section' => 'SectionController'
+            ]);
+
+            Route::get('page/{page}/build', [PageController::class, 'build'])->name('page.build');
+            Route::post('page/{page}/rebuild', [PageController::class, 'rebuild'])->name('page.rebuild');
+        });
+
+
+
+        Route::group(['namespace' => 'App\Http\Controllers'], function () {
+            Route::resources([
+                'feature' => 'FeatureController',
+                'subfeature' => 'SubfeatureController',
+                'partner' => 'PartnerController',
+                'event' => 'EventController',
+            ]);
+        });
         Route::get('/booking', [BookingController::class, 'index'])->name('booking.show');
     });
 
-
+	Route::group(['namespace' => 'App\Http\Controllers\Blogs'], function() {
+		Route::resources([
+			'blog' => 'BlogController',
+			'category' => 'CategoryController'
+		]);
+	});
 
     ///Blogs///
-    Route::controller(BlogController::class)->group(function () {
-        Route::get('/blog/index', 'index')->name('all.blog');
-        Route::get('/blog/create', 'create')->name('create.blog');
-        Route::post('/blog/store', 'store')->name('store.blog');
-        Route::get('/blog/edit/{id}', 'edit')->name('edit.blog');
-        Route::put('/blog/update/{id}', 'update')->name('update.blog');
-        Route::get('/blog/delete/{id}', 'destroy')->name('delete.blog');
-        Route::get('/blog/show/{id}', 'show')->name('blog.details');
+//    Route::controller(BlogController::class)->group(function () {
+//        Route::get('/blog/index', 'index')->name('all.blog');
+//        Route::get('/blog/create', 'create')->name('create.blog');
+//        Route::post('/blog/store', 'store')->name('store.blog');
+//        Route::get('/blog/edit/{id}', 'edit')->name('edit.blog');
+//        Route::PUT('/blog/update/{id}', 'update')->name('update.blog');
+//        Route::get('/blog/delete/{id}', 'destroy')->name('delete.blog');
+//        Route::get('/blog/show/{id}', 'show')->name('blog.details');
+//    });
 
-
-        // Route::get('/blog/category/{id}', 'CategoryBlog')->name('category.blog');
-        // Route::get('/blog', 'HomeBlog')->name('home.blog');
-    });
-
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/category/index', 'index')->name('all.category');
-        Route::get('/category/create', 'create')->name('create.category');
-        Route::post('/category/store', 'store')->name('store.category');
-        Route::get('/category/edit/{id}', 'edit')->name('edit.category');
-        Route::post('/category/update/{id}', 'update')->name('update.category');
-        Route::get('/category/delete/{id}', 'destroy')->name('delete.category');
-        Route::get('/blog/show/{id}', 'show')->name('category.details');
-    });
+//    Route::controller(CategoryController::class)->group(function () {
+//        Route::get('/category/index', 'index')->name('all.category');
+//        Route::get('/category/create', 'create')->name('create.category');
+//        Route::post('/category/store', 'store')->name('store.category');
+//        Route::get('/category/edit/{id}', 'edit')->name('edit.category');
+//        Route::post('/category/update/{id}', 'update')->name('update.category');
+//        Route::get('/category/delete/{id}', 'destroy')->name('delete.category');
+//        Route::get('/blog/show/{id}', 'show')->name('category.details');
+//    });
 });

@@ -26,7 +26,7 @@ class UpdateFeatureRequest extends FormRequest
 		return [
 			'name' => 'required|string',
 			'description' => 'required|string',
-			'icon' => 'required|string'
+			'icon' => 'nullable|image'
 		];
     }
 }

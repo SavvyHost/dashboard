@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CMS\Sections\SectionFactory;
+use App\Models\Feature;
 use App\Models\Page;
 use App\Http\Requests\StorePageRequest;
 use App\Http\Requests\UpdatePageRequest;
@@ -28,6 +29,7 @@ class PageController extends Controller
 		$page = new Page();
 		
 		$page->name = $request->get('name');
+		$page->content = $request->get('content');
 		$page->searchable = $request->get('searchable', false);
 		
 		$page->seo_title = $request->get('seo_title');
@@ -70,6 +72,7 @@ class PageController extends Controller
 	
 	public function rebuild( Request $request, Page $page )
 	{
+//		dd($request->all());
 		$sections = $request->get('sections', []);
 		
 		$factory = new SectionFactory();
@@ -79,22 +82,21 @@ class PageController extends Controller
 			$section = Section::find($section);
 			$instance = $factory->getSection($section->name);
 			$parameters = $instance->getParameters();
-			
 			$data = [];
 			if ( $instance->isIterable() ) {
 				$singleParameter = $parameters[0];
-				$count = sizeof($request->get($section->name)[$singleParameter]);
+				$count = sizeof($request->get(strtolower( $section->name ))[$singleParameter]);
 				for ( $i = 0; $i < $count; $i++ ) {
 					$datum = [];
 					foreach ( $parameters as $parameter ) {
-						$datum[$parameter] = $request->get($section->name)[$parameter][$i];
+						$datum[$parameter] = $request->get(strtolower( $section->name ))[$parameter][$i];
 					}
 					
 					$data[] = $datum;
 				}
 			} else {
 				foreach ( $parameters as $parameter ) {
-					$data[$parameter] = $request->get($section->name)[$parameter];
+					$data[$parameter] = $request->get( strtolower( $section->name ))[$parameter];
 				}
 			}
 			$page->sections()->attach($section->id, ['data' => $data]);
@@ -116,6 +118,8 @@ class PageController extends Controller
 	public function update( UpdatePageRequest $request, Page $page )
 	{
 		$page->name = $request->get('name');
+		$page->content = $request->get('content');
+		
 		$page->searchable = $request->get('searchable', false);
 		
 		$page->seo_title = $request->get('seo_title');
@@ -155,19 +159,22 @@ class PageController extends Controller
 		return redirect()->route('pages.page.index');
 	}
 	
-	public function page_api( $page )
+	public function page_api(Request $request)
 	{
-		$page = Page::where('name', '=', $page)->first();
-		$sections = $page->sections;
+		$page = $request->get('page');
 		
-		$sections = $sections->map(function ($section) {
-			$section->data = $section->pivot->data;
-			unset($section->pivot);
-			return $section;
-		});
-		
-		unset($page->sections);
-		$factory = new SectionFactory();
+		$page = Page::where('name', '=', $page)->with('sections')->first();
+		return $page;
+//		$sections = $page->sections;
+
+//		$sections = $sections->map(function ($section) {
+//			$section->data = $section->pivot->data;
+//			unset($section->pivot);
+//			return $section;
+//		});
+
+//		unset($page->sections);
+//		$factory = new SectionFactory();
 //		$sections = [];
 
 //		foreach ( $page->sections as $section ) {
@@ -177,11 +184,11 @@ class PageController extends Controller
 //				'content' => $instance->getContent($section->pages()->first())];
 //			$sections[] = $s;
 //		}
-		
-		return response()->json([
-			"message" => "Successfully Found",
-			'page' => $page,
-			'sections' => $sections
-		]);
+
+
+//		return response()->json([
+//			"message" => "Successfully Found",
+//			'page' => $page,
+//		]);
 	}
 }

@@ -7,7 +7,7 @@
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
-                <a href="{{route('all.category',$category->id)}}" class="text-primary hover:underline">Category</a>
+                <a href="{{route('category.index')}}" class="text-primary hover:underline">Category</a>
             </li>
             <li class="before:content-['/'] ltr:before:mr-1 rtl:before:ml-1">
                 <span>Account Settings</span>
@@ -39,10 +39,11 @@
                 </ul>
                 <template x-if="tab === 'home'">
                     <div>
-                        <form method="POST" action="{{route('update.category',$category->id)}}"
+                        <form method="POST" action="{{route('category.update',$category->id)}}"
                             class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]" enctype="multipart/form-data">
                             >
                             @csrf
+                            @method('PUT')
                             <h6 class="text-lg font-bold mb-5">General Information</h6>
                             @if (session()->get('success'))
                 <div class=" text-center mb-5">

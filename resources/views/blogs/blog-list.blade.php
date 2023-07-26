@@ -1,5 +1,6 @@
 <x-layout.default>
-	@section('title','Users')
+
+	@section('title','Blogs')
 	@vite(['resources/css/app.css'])
 	<div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
 		<div x-data="contacts">
@@ -31,7 +32,8 @@
 							Delete
 						</button>
 
-						<a href="{{route('create.blog')}}" class="btn btn-primary gap-2">
+
+						<a href="{{route('blog.create')}}" class="btn btn-primary gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
 								 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
 								 stroke-linejoin="round" class="h-5 w-5">
@@ -61,9 +63,12 @@
 									</th>
 
 									<th>ID</th>
-									<th>Title</th>
-									<th>Category Name</th>
-									<th>Content</th>
+									<th style="width: 40%">Title</th>
+									<th>Category</th>
+									<th>Author</th>
+                  <th>Image</th>
+									<th>Date</th>
+									<th>Status</th>
 									<th>Actions</th>
 								</tr>
 								</thead>
@@ -80,30 +85,45 @@
 										</td> --}}
 										<td>{{$blog->id}}</td>
 										<td>
-											<div class="flex items-center font-semibold">
-												<div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
-													<img class="h-8 w-8 rounded-full object-cover"
-														 src="{{ asset($blog->image) }}">
+
+											<a href="{{ route('blog.edit', $blog->id) }}" class="hover:text-info">
+												<div class="flex items-center font-semibold" style="width:40%">
+													{{$blog->title}}
 												</div>
-											</div>
+											</a>
 										</td>
-
-
 										<td>{{$blog->category->name}}</td>
-										<td>{{$blog->content}}</td>
+										<td>{{$blog->user->name}}</td>
+                                        <td>
+                                            <div class="flex items-center font-semibold">
+                                                <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
+                                                    <img class="h-8 w-8 rounded-full object-cover"
+                                                         src="{{ asset($blog->image) }}">
+                                                </div>
+                                            </div>
+                                        </td>										<td>{{$blog->created_at}}</td>
+
+										<td>
+											@if ($blog->status == "publish")
+												<span class="badge badge-outline-success">{{$blog->status}}
+                                                                <span>
+                                                            @else
+																		<span class="badge badge-outline-danger">{{$blog->status}}
+                                                                <span>
+											@endif
+
+										</td>
 
 
 										<td>
 											<form id="delete-form-{{ $blog->id }}"
-												  action="{{ route('delete.blog', $blog->id) }}" method="POST">
+                          action="{{ route('blog.destroy', $blog->id) }}" method="POST">
 												@csrf
 												@method('DELETE')
 											</form>
 											<div class="flex gap-4 items-center">
-												{{-- <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a> --}}
-												{{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
 
-												<a href="{{ route('edit.blog', $blog->id) }}" class="hover:text-info">
+												<a href="{{ route('blog.edit', $blog->id) }}" class="hover:text-info">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 														 xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5">
 														<path opacity="0.5"
@@ -118,25 +138,27 @@
 													</svg>
 												</a>
 
-												<a href="{{ route('delete.blog', $blog->id) }}"
+
+												<a href="{{ route('blog.destroy', $blog->id) }}"
 												   class="hover:text-danger"
-												   onclick="showAlert(event, '{{ $blog->id }}') , @click=" deleteRow(1)"
-												>
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-													<path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round"></path>
-													<path d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
-														  stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round"></path>
-													<path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor"
-														  stroke-width="1.5" stroke-linecap="round"></path>
-													<path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor"
-														  stroke-width="1.5" stroke-linecap="round"></path>
-													<path opacity="0.5"
-														  d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-														  stroke="currentColor" stroke-width="1.5"></path>
-												</svg>
+												   onclick="showAlert(event, '{{ $blog->id }}')" , @click=" deleteRow(1)">
+													<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+														 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
+														<path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5"
+															  stroke-linecap="round"></path>
+														<path d="M18.8334 8.5L18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5"
+															  stroke="currentColor" stroke-width="1.5"
+															  stroke-linecap="round"></path>
+														<path opacity="0.5" d="M9.5 11L10 16" stroke="currentColor"
+															  stroke-width="1.5" stroke-linecap="round"></path>
+														<path opacity="0.5" d="M14.5 11L14 16" stroke="currentColor"
+															  stroke-width="1.5" stroke-linecap="round"></path>
+														<path opacity="0.5"
+															  d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
+															  stroke="currentColor" stroke-width="1.5"></path>
+													</svg>
+
+												</a>
 												</button>
 											</div>
 										</td>

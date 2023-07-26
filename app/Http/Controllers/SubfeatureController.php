@@ -23,11 +23,13 @@ class SubfeatureController extends Controller
 	
 	public function store( StoreSubfeatureRequest $request )
 	{
+		$icon = uploadImage($request->file('icon'), 'subfeature-photos');
+		
 		$subfeature = new Subfeature();
 		
 		$subfeature->name = $request->get('name');
 		$subfeature->description = $request->get('description');
-		$subfeature->icon = $request->get('icon');
+		$subfeature->icon = $icon;
 		$subfeature->feature_id = $request->get('feature_id');
 		
 		$subfeature->save();
@@ -50,7 +52,10 @@ class SubfeatureController extends Controller
 	{
 		$subfeature->name = $request->get('name');
 		$subfeature->description = $request->get('description');
-		$subfeature->icon = $request->get('icon');
+		if($request->file('icon')) {
+			$icon = uploadImage($request->file('icon'), 'feature-photos');
+			$subfeature->icon = $icon;
+		}
 		$subfeature->feature_id = $request->get('feature_id');
 		
 		$subfeature->save();

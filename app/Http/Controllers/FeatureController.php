@@ -22,11 +22,13 @@ class FeatureController extends Controller
 
     public function store(StoreFeatureRequest $request)
     {
-        $feature = new Feature();
+		$icon = uploadImage($request->file('icon'), 'feature-photos');
 		
+		$feature = new Feature();
+	
 		$feature->name = $request->get('name');
 		$feature->description = $request->get('description');
-		$feature->icon = $request->get('icon');
+		$feature->icon = $icon;
 		
 		$feature->save();
 		
@@ -47,7 +49,11 @@ class FeatureController extends Controller
     {
 		$feature->name = $request->get('name');
 		$feature->description = $request->get('description');
-		$feature->icon = $request->get('icon');
+		
+		if($request->file('icon')) {
+			$icon = uploadImage($request->file('icon'), 'feature-photos');
+			$feature->icon = $icon;
+		}
 	
 		$feature->save();
 	

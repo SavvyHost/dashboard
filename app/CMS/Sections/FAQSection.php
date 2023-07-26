@@ -2,6 +2,8 @@
 
 namespace App\CMS\Sections;
 
+use App\CMS\Inputs\TextareaInput;
+use App\CMS\Inputs\TextInput;
 use App\Models\PageSection;
 use App\Models\Section;
 
@@ -16,17 +18,8 @@ class FAQSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'question' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			
-			],
-			'answer' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => 'text',
-			]
+			'question' => new TextInput($this->getName(), 'question'),
+			'answer' => new TextareaInput($this->getName(), 'answer')
 		];
 	}
 	

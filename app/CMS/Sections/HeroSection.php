@@ -2,6 +2,8 @@
 
 namespace App\CMS\Sections;
 
+use App\CMS\Inputs\TextareaInput;
+use App\CMS\Inputs\TextInput;
 use App\Models\PageSection;
 use App\Models\Section;
 
@@ -16,16 +18,8 @@ class HeroSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'hero' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => ''
-			],
-			'description' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			]
+			'hero' => new TextInput($this->getName(), 'hero'),
+			'description' => new TextareaInput($this->getName(), 'description')
 		];
 
 	}

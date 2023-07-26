@@ -2,8 +2,9 @@
 
 namespace App\CMS\Sections;
 
+use App\CMS\Inputs\TextareaInput;
+use App\CMS\Inputs\TextInput;
 use App\Models\PageSection;
-use App\Models\Section;
 
 class TextSection implements ISection
 {
@@ -15,17 +16,8 @@ class TextSection implements ISection
 	public function getInputs(): array
 	{
 		return [
-			'title' => [
-				'tag' => 'input',
-				'close-tag' => false,
-				'type' => 'text'
-			
-			],
-			'text' => [
-				'tag' => 'textarea',
-				'close-tag' => true,
-				'type' => 'text',
-			]
+			'title' => new TextInput($this->getName(), 'title'),
+			'text' => new TextareaInput($this->getName(), 'text')
 		];
 	}
 	

@@ -16,7 +16,7 @@
             </div>
 
             <div>
-                <form method="POST" action="{{route('subfeature.update', $subfeature->id)}}"
+                <form method="POST" action="{{route('subfeature.update', $subfeature->id)}}" enctype="multipart/form-data"
                       class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
                     @csrf
                     @method('PUT')
@@ -40,7 +40,7 @@
 
                             <div>
                                 <label for="icon">Icon</label>
-                                <input type="text" name="icon" id="icon" class="form-input" value="{{ $subfeature->icon }}">
+                                <input type="file" name="icon" id="icon" class="form-input" value="{{ $subfeature->icon }}">
                             </div>
 
                             <div class="sm:col-span-2 mt-3">

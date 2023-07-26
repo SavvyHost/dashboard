@@ -35,6 +35,14 @@
                             <tr>
                                 <td>{{$feature->name}}</td>
                                 <td>{{$feature->description}}</td>
+                                <td>
+                                    <div class="flex items-center font-semibold">
+                                        <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
+                                            <img class="h-8 w-8 rounded-full object-cover"
+                                                 src="{{ asset($feature->icon) }}">
+                                        </div>
+                                    </div>
+                                </td>
                                     <td>
                                         <form id="delete-form-{{ $feature->id }}" action="{{ route('feature.destroy', $feature->id) }}" method="POST" class="inline-block">
                                             @csrf

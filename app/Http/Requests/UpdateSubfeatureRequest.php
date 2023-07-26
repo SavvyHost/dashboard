@@ -24,7 +24,9 @@ class UpdateSubfeatureRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'name' => 'required|string',
+			'description' => 'required|string',
+			'icon' => 'nullable|image'
         ];
     }
 }
