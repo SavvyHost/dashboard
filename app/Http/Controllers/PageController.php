@@ -29,6 +29,7 @@ class PageController extends Controller
 		$page = new Page();
 		
 		$page->name = $request->get('name');
+		$page->content = $request->get('content');
 		$page->searchable = $request->get('searchable', false);
 		
 		$page->seo_title = $request->get('seo_title');
@@ -117,6 +118,8 @@ class PageController extends Controller
 	public function update( UpdatePageRequest $request, Page $page )
 	{
 		$page->name = $request->get('name');
+		$page->content = $request->get('content');
+		
 		$page->searchable = $request->get('searchable', false);
 		
 		$page->seo_title = $request->get('seo_title');
@@ -156,19 +159,22 @@ class PageController extends Controller
 		return redirect()->route('pages.page.index');
 	}
 	
-	public function page_api( $page )
+	public function page_api(Request $request)
 	{
-		$page = Page::where('name', '=', $page)->first();
-		$sections = $page->sections;
+		$page = $request->get('page');
 		
-		$sections = $sections->map(function ($section) {
-			$section->data = $section->pivot->data;
-			unset($section->pivot);
-			return $section;
-		});
-		
-		unset($page->sections);
-		$factory = new SectionFactory();
+		$page = Page::where('name', '=', $page)->with('sections')->first();
+		return $page;
+//		$sections = $page->sections;
+
+//		$sections = $sections->map(function ($section) {
+//			$section->data = $section->pivot->data;
+//			unset($section->pivot);
+//			return $section;
+//		});
+
+//		unset($page->sections);
+//		$factory = new SectionFactory();
 //		$sections = [];
 
 //		foreach ( $page->sections as $section ) {
@@ -178,14 +184,11 @@ class PageController extends Controller
 //				'content' => $instance->getContent($section->pages()->first())];
 //			$sections[] = $s;
 //		}
-		
-		$features = Feature::with('subfeatures')->get();
-		
-		return response()->json([
-			"message" => "Successfully Found",
-			'page' => $page,
-			'sections' => $sections,
-			'features' => $features
-		]);
+
+
+//		return response()->json([
+//			"message" => "Successfully Found",
+//			'page' => $page,
+//		]);
 	}
 }

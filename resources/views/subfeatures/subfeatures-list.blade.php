@@ -25,6 +25,7 @@
                         <thead>
                             <tr >
                                 <th>Name</th>
+                                <th>Feature</th>
                                 <th>Description</th>
                                 <th>Icon</th>
 
@@ -35,8 +36,16 @@
                             @foreach ($subfeatures as $subfeature)
                             <tr>
                                 <td>{{$subfeature->name}}</td>
+                                <td>{{$subfeature->feature->name}}</td>
                                 <td>{{$subfeature->description}}</td>
-                                <td>{{$subfeature->icon}}</td>
+                                <td>
+                                    <div class="flex items-center font-semibold">
+                                        <div class="p-0.5 bg-white-dark/30 rounded-full w-max ltr:mr-2 rtl:ml-2">
+                                            <img class="h-8 w-8 rounded-full object-cover"
+                                                 src="{{ asset($subfeature->icon) }}">
+                                        </div>
+                                    </div>
+                                </td>
                                     <td>
                                         <form id="delete-form-{{ $subfeature->id }}" action="{{ route('subfeature.destroy', $subfeature->id) }}" method="POST" class="inline-block">
                                             @csrf
