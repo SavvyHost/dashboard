@@ -375,31 +375,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/booking', [BookingController::class, 'index'])->name('booking.show');
     });
 
-	Route::group(['namespace' => 'App\Http\Controllers\Blogs'], function() {
-		Route::resources([
-			'blog' => 'BlogController',
-			'category' => 'CategoryController'
-		]);
-	});
-
-    ///Blogs///
-//    Route::controller(BlogController::class)->group(function () {
-//        Route::get('/blog/index', 'index')->name('all.blog');
-//        Route::get('/blog/create', 'create')->name('create.blog');
-//        Route::post('/blog/store', 'store')->name('store.blog');
-//        Route::get('/blog/edit/{id}', 'edit')->name('edit.blog');
-//        Route::PUT('/blog/update/{id}', 'update')->name('update.blog');
-//        Route::get('/blog/delete/{id}', 'destroy')->name('delete.blog');
-//        Route::get('/blog/show/{id}', 'show')->name('blog.details');
-//    });
-
-//    Route::controller(CategoryController::class)->group(function () {
-//        Route::get('/category/index', 'index')->name('all.category');
-//        Route::get('/category/create', 'create')->name('create.category');
-//        Route::post('/category/store', 'store')->name('store.category');
-//        Route::get('/category/edit/{id}', 'edit')->name('edit.category');
-//        Route::post('/category/update/{id}', 'update')->name('update.category');
-//        Route::get('/category/delete/{id}', 'destroy')->name('delete.category');
-//        Route::get('/blog/show/{id}', 'show')->name('category.details');
-//    });
+    Route::group(['namespace' => 'App\Http\Controllers\Blogs'], function () {
+        Route::resources([
+            'blog' => 'BlogController',
+            'category' => 'CategoryController'
+        ]);
+    });
 });

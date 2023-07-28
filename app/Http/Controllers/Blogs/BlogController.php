@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::with('category', 'user')->get();
+        $blogs = Blog::with('category', 'user')->paginate(10);
         // $blogs = Blog::latest()->get();
         return view('blogs.blog-list', compact('blogs'));
     }
@@ -30,14 +30,13 @@ class BlogController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:200',
-            'content' => 'required',
-            'searchable' => 'required',
-            'status' => 'required|in:publish,draft',
-            'category_id' => 'required|exists:categories,id',
-            'user_id' => 'required|exists:users,id',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'content' => 'required',
+            // 'searchable' => 'required',
+            // 'status' => 'required|in:publish,draft',
+            // 'user_id' => 'required|exists:users,id',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
             // 'seo_image' => 'requiredIf:searchable,1',
-            'seo_description' => 'requiredIf:searchable,1',
+            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
@@ -59,7 +58,7 @@ class BlogController extends Controller
             'searchable' => $request->searchable,
             'status' => $request->status,
             'category_id' => $request->category_id,
-            'user_id' => $request->user_id,
+            'user_id' => $request->user_id ?? auth()->user()->id,
             'image' => $image ?? null,
             'seo_title' => $request->seo_title,
             'seo_image' => $seo_image ?? null,
@@ -92,13 +91,13 @@ class BlogController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:200',
-            'content' => 'required',
-            'searchable' => 'required',
-            'status' => 'required|in:publish,draft',
-            'category_id' => 'required|exists:categories,id',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
-            'seo_image' => 'requiredIf:searchable,1',
-            'seo_description' => 'requiredIf:searchable,1',
+            // 'content' => 'required',
+            // 'searchable' => 'required',
+            // 'status' => 'required|in:publish,draft',
+            // 'category_id' => 'required|exists:categories,id',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'seo_image' => 'requiredIf:searchable,1',
+            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
