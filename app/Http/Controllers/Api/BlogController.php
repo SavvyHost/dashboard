@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Carbon\Carbon;
 use App\Models\Blog;
-use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -30,5 +25,6 @@ class BlogController extends Controller
 		} catch (ModelNotFoundException $e) {
 			return $this->sendError('Blog Not Found', [], 404);
 		}
+
     }
 }
