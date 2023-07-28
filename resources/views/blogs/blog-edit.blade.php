@@ -695,7 +695,6 @@
                                                         <img src="{{ asset($blog->image) }}" alt="Current image">
                                                         <input type="hidden" name="image" value="{{ $blog->image }}">
                                                         {{-- <input type="file" name="image" value="{{ $blog->image }}" class="opacity-0" /> --}}
-
                                                     @endif
 
                                                     @if (empty($blog->image))

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EventController extends Controller
 {
@@ -18,8 +19,11 @@ class EventController extends Controller
 	
 	public function show($id)
 	{
-		$event = Event::find($id);
-		
-		return $this->sendSuccess('Event Found', compact('event'));
+		try {
+			$event = new EventResource( Event::find($id) );
+			return $this->sendSuccess('Event Found', compact('event'));
+		} catch (ModelNotFoundException $e) {
+			return $this->sendError("Event not Found", [], 404);
+		}
 	}
 }

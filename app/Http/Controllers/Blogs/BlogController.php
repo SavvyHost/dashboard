@@ -27,6 +27,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|string|max:200',
             // 'content' => 'required',
@@ -101,15 +102,29 @@ class BlogController extends Controller
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
+			$blog->update([
+				'image' => $image
+			]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'blog-photos');
+			$blog->update([
+				'seo_image' => $seo_image
+			]);
         }
+		
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'blog-photos');
+			$blog->update([
+				'facebook_image' => $facebook_image
+			]);
         }
+		
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
+			$blog->update([
+				'twitter_image' => $twitter_image
+			]);
         }
 
         $blog->update([
@@ -119,38 +134,15 @@ class BlogController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id,
-            'image' => $image ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
         $blog->save();
-        // $blog = Blog::find($blog->id);
-
-        // $blog->title = $request->title;
-        // $blog->content = $request->get('content');
-        // $blog->searchable = $request->searchable;
-        // $blog->status = $request->status;
-        // $blog->category_id = $request->category_id;
-        // $blog->user_id = $request->user_id;
-        // $blog->image = $image ?? null;
-        // $blog->seo_title = $request->seo_title;
-        // $blog->seo_image = $seo_image ?? null;
-        // $blog->seo_description = $request->seo_description;
-        // $blog->facebook_title = $request->facebook_title;
-        // $blog->facebook_image = $facebook_image ?? null;
-        // $blog->facebook_description = $request->facebook_description;
-        // $blog->twitter_title = $request->twitter_title;
-        // $blog->twitter_image = $twitter_image ?? null;
-        // $blog->twitter_description = $request->twitter_description;
-
-        // $blog->save();
+        
         return redirect()->route('blog.index');
     }
 
