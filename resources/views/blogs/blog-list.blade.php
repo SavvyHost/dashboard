@@ -74,13 +74,13 @@
 								@foreach ($blogs as $blog)
 									<tr>
 										<td>
-											<input type="checkbox" class="form-checkbox mt-1"
-												   :id="'chk' + {{ $blog->id }}" :value="({{ $blog->id }})"
-												   x-model.number="selectedRows">
+											<input type="checkbox" class="all form-checkbox mt-1"
+													   :id="'chk' + {{ $blog->id }}" :value="({{ $blog->id }})"
+													   x-model.number="selectedRows">
 										</td>
-										{{-- <td>
-											<input type="checkbox" class="form-checkbox mt-1" :id="'chk' + 1" :value="({{$user->id}})" x-model.number="selectedRows" id="chk1" value="{{$user->id}}">
-										</td> --}}
+
+
+
 										<td>{{$blog->id}}</td>
 										<td>
 
@@ -313,12 +313,12 @@
                             cancelButtonText: 'Cancel'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                let users=document.querySelectorAll(".all")
-                                for(let i=0;i<users.length;i++)
+                                let blogs=document.querySelectorAll(".all")
+                                for(let i=0;i< blogs.length;i++)
                                 {
-                                    if(users[i].checked==true)
+                                    if(blogs[i].checked==true)
                                     {
-                                        console.log(users[i].value)
+                                        console.log(blogs[i].value)
                                         // document.getElementById('delete-form-' + users[i].value).submit();
                                     }
                                 }
