@@ -13,7 +13,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $blogs = BlogResource::collection(Blog::where('status', 'publish')->paginate(10));
+        $blogs = BlogResource::collection(Blog::where('status', 'publish')->get());
         return $this->sendSuccess("Blogs Found", compact('blogs'));
     }
 
