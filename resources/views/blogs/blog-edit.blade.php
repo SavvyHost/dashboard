@@ -1,5 +1,6 @@
 <x-layout.default>
-	@section('title','User - New')
+	@section('title','Blog - Edit')
+
 	<link rel='stylesheet' type='text/css' href='{{ Vite::asset('resources/css/nice-select2.css') }}'>
 	<link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}"/>
 	<script src="{{asset('assets/js/quill.js')}}"></script>

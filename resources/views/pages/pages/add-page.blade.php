@@ -69,52 +69,61 @@
 							<div class=" border-gray-200  border-b p-2 ">
 								<strong>Seo Manager</strong>
 							</div>
+
 							<p class="px-4 py-3 text-md ">Allow search engines to show this service in search
 								results?</p>
 							<div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
 
 								<div class="col-span-12 ">
-									<select class="selectize" id="searchable" name="searchable" required>
+
+								<select id="boolean-seo" class="selectize" placeholder="Yes" onchange="return Booleanseo();" >
 										<option value="1">Yes</option>
 										<option value="0">No</option>
 									</select>
 								</div>
-								<div class="col-span-12 ">
+
+								<!-- my section -->
+								<div class="col-span-12" id="seo-details">
 									<!-- simple tabs -->
 									<div class="mb-5" x-data="{tab: 'home'}">
 										<!-- buttons -->
 										<div>
-											<ul class="flex flex-wrap mt-3 border-b border-white-light dark:border-[#191e3a]">
+
+											<ul class="flex flex-wrap mt-3 border-b border-white-light dark:border-[#191e3a]" id="seoManger">
 												<li>
 													<a href="javascript:"
 													   class="p-3.5 py-2 -mb-[1px] block border border-transparent hover:text-primary dark:hover:border-b-black"
 													   :class="{'!border-white-light !border-b-white  text-primary dark:!border-[#191e3a] dark:!border-b-black' : tab  === 'home'}"
-													   @click="tab = 'home'">General</a>
+													   onclick="home()"  @click="tab = 'home'">General</a>
 												</li>
 												<li>
 													<a href="javascript:"
 													   class="p-3.5 py-2 -mb-[1px] block border border-transparent hover:text-primary dark:hover:border-[#191e3a] dark:hover:border-b-black"
 													   :class="{'!border-white-light !border-b-white text-primary dark:!border-[#191e3a] dark:!border-b-black' : tab  === 'facebook'}"
-													   @click="tab = 'facebook'">facebook</a>
+
+													   onclick="facebook()"  @click="tab = 'facebook'">facebook</a>
 												</li>
 												<li>
 													<a href="javascript:"
 													   class="p-3.5 py-2 -mb-[1px] block border border-transparent hover:text-primary dark:hover:border-[#191e3a] dark:hover:border-b-black"
 													   :class="{'!border-white-light !border-b-white text-primary dark:!border-[#191e3a] dark:!border-b-black' : tab  === 'twitter'}"
-													   @click="tab = 'twitter'">twitter</a>
+
+													   onclick="twitter()"  @click="tab = 'twitter'" >twitter</a>
 												</li>
 											</ul>
 										</div>
 
 										<!-- description -->
 										<div class="pt-5 flex-1 text-sm">
-											<template x-if="tab === 'home'">
+
+											<div id="home">
 												<div class="grid grid-cols-12 ">
 													<div class="col-span-12 py-1">
 														<div class="">
 															<label for="seo_title">Seo Title</label>
 															<input id="seo_title" type="text" name="seo_title"
-																   class="form-input"/>
+
+																   class="form-input"  />
 														</div>
 													</div>
 													<div class="col-span-12 py-1">
@@ -253,8 +262,9 @@
 														</div>
 													</div>
 												</div>
-											</template>
-											<template x-if="tab === 'facebook'">
+
+							                </div>
+											<div  id="facebook">
 												<div class="grid grid-cols-12 ">
 													<div class="col-span-12 py-1">
 														<div class="">
@@ -400,8 +410,9 @@
 														</div>
 													</div>
 												</div>
-											</template>
-											<template x-if="tab === 'twitter'">
+
+											</div>
+											<div  id="twitter">
 												<div class="grid grid-cols-12 ">
 													<div class="col-span-12 py-1">
 														<div class="">
@@ -545,7 +556,8 @@
 														</div>
 													</div>
 												</div>
-											</template>
+
+											</div>
 
 										</div>
 									</div>
@@ -743,6 +755,8 @@
 		</div>
 	</div>
 	<link rel="stylesheet" href="{{ Vite::asset('resources/css/highlight.min.css') }}">
+
+	<link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
 	<script src="{{asset('assets/js/highlight.min.js')}}"></script>
 	<script src="{{asset('assets/js/nice-select2.js')}}"></script>
 
@@ -762,6 +776,38 @@
 			NiceSelect.bind(document.getElementById("seachable-select"), options);
 		});
 
+		// task2
+		function Booleanseo(){
+           if(document.getElementById("boolean-seo").value  == "0" ) {
+              document.getElementById('seo-details').style.display = 'none';
+           }else {
+            document.getElementById('seo-details').style.display = 'block'
+           };
+		}
+		let seo_f= document.querySelectorAll(".form-input");
+		for(let i=0;i<seo_f.length;i++)
+		{
+			seo_f[i].innerText=seo_f[i].value
+		}
+		function home()
+		{
+			document.getElementById("home").style.display="block"
+			document.getElementById("facebook").style.display="none"
+			document.getElementById("twitter").style.display="none"
+		}
+		function facebook()
+		{
+			document.getElementById("home").style.display="none"
+			document.getElementById("facebook").style.display="block"
+			document.getElementById("twitter").style.display="none"
+		}
+		function twitter()
+		{
+			document.getElementById("home").style.display="none"
+			document.getElementById("facebook").style.display="none"
+			document.getElementById("twitter").style.display="block"
+		}
+		// task 2
 		var toolbar = quill.container.previousSibling;
 		toolbar.querySelector('.ql-picker').setAttribute('title', 'Font Size');
 		toolbar.querySelector('button.ql-bold').setAttribute('title', 'Bold');

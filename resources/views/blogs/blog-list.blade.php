@@ -1,4 +1,5 @@
 <x-layout.default>
+
 	@section('title','Blogs')
 	@vite(['resources/css/app.css'])
 	<div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
@@ -13,7 +14,7 @@
 				<div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
 
 					<div class="mb-5 flex items-center gap-2">
-						<button type="button" class="btn btn-danger gap-2" @click="deleteRow()">
+						<button type="button" class="btn btn-danger gap-2"  onclick="deleteAll(event)" >
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 								 xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
 								<path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5"
@@ -30,6 +31,7 @@
 							</svg>
 							Delete
 						</button>
+
 
 						<a href="{{route('blog.create')}}" class="btn btn-primary gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
@@ -56,14 +58,13 @@
 								<tr>
 
 									<th data-sortable="false" style="width: 4.5%;">
-										<input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox"
-											   :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
-									</th>
+                                        <input type="checkbox" class="form-checkbox" id="all" onclick="check()">
+                                    </th>
 									<th>ID</th>
 									<th style="width: 40%">Title</th>
 									<th>Category</th>
 									<th>Author</th>
-                                    <th>Image</th>
+                  <th>Image</th>
 									<th>Date</th>
 									<th>Status</th>
 									<th>Actions</th>
@@ -82,6 +83,7 @@
 										</td> --}}
 										<td>{{$blog->id}}</td>
 										<td>
+
 											<a href="{{ route('blog.edit', $blog->id) }}" class="hover:text-info">
 												<div class="flex items-center font-semibold" style="width:40%">
 													{{$blog->title}}
@@ -113,7 +115,7 @@
 
 										<td>
 											<form id="delete-form-{{ $blog->id }}"
-												  action="{{ route('blog.destroy', $blog->id) }}" method="POST">
+                          action="{{ route('blog.destroy', $blog->id) }}" method="POST">
 												@csrf
 												@method('DELETE')
 											</form>
@@ -133,6 +135,7 @@
 															  stroke="currentColor" stroke-width="1.5"></path>
 													</svg>
 												</a>
+
 
 												<a href="{{ route('blog.destroy', $blog->id) }}"
 												   class="hover:text-danger"
@@ -154,7 +157,6 @@
 													</svg>
 
 												</a>
-
 												</button>
 											</div>
 										</td>
@@ -295,7 +297,56 @@
 					}
 				});
 			}
+
+			// delete all function
+			function deleteAll(event) {
+                        event.preventDefault();
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let users=document.querySelectorAll(".all")
+                                for(let i=0;i<users.length;i++)
+                                {
+                                    if(users[i].checked==true)
+                                    {
+                                        console.log(users[i].value)
+                                        // document.getElementById('delete-form-' + users[i].value).submit();
+                                    }
+                                }
+                            }
+                        });
+                    }
 		</script>
+		<script>
+                function check(){
+                    let allck = document.getElementById("all");
+                    let ele = document.querySelectorAll(".all");
+                    if(allck.checked==true)
+                    {
+                    for (let i=0; i<ele.length; i++)
+                    {
+                        ele[i].checked=true;
+                    }
+                    }
+                    else {
+                        for (let i=0; i<ele.length; i++)
+                        {
+                            ele[i].checked=false;
+                        }
+
+                    }
+
+                }
+        </script>
 
 	@endsection
 </x-layout.default>

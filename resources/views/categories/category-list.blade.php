@@ -1,19 +1,24 @@
 <x-layout.default>
-	@section('title','Users')
+	@section('title','Categories')
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+
 	@vite(['resources/css/app.css'])
 	<div class="panel border-[#e0e6ed] px-0 dark:border-[#1b2e4b]" style="padding: 30px">
 		<div x-data="contacts">
 			<div class="flex items-center justify-between flex-wrap gap-4">
 				<h2 class="text-xl">
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					Blogs</h2>
+					Categories</h2>
+
+
 
 				<input class="dataTable-search" placeholder="Search..." type="text"
 					   style="width:30%;border-radius: 50px;margin-right:24%">
 				<div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
 
 					<div class="mb-5 flex items-center gap-2">
-						<button type="button" class="btn btn-danger gap-2" @click="deleteRow()">
+						<button type="button" class="btn btn-danger gap-2" onclick="deleteAll(event)" >
 							<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 								 xmlns="http://www.w3.org/2000/svg" class="h-5 w-5">
 								<path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5"
@@ -30,6 +35,7 @@
 							</svg>
 							Delete
 						</button>
+
 
 						<a href="{{route('category.create')}}" class="btn btn-primary gap-2">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24"
@@ -55,12 +61,10 @@
 									<thead>
 									<tr>
 
-										<th data-sortable="false" style="width: 4.5%;">
-											<input type="checkbox" class="form-checkbox" :checked="checkAllCheckbox"
-												   :value="checkAllCheckbox" @change="checkAll($event.target.checked)">
-										</th>
 
-
+									<th data-sortable="false" style="width: 4.5%;">
+                                        <input type="checkbox" class="form-checkbox" id="all" onclick="check()">
+                                    </th>
 										<th>ID</th>
 										<th>Category Name</th>
 										<th>Slug</th>
@@ -72,7 +76,8 @@
 									@foreach ($categories as $category)
 										<tr>
 											<td>
-												<input type="checkbox" class="form-checkbox mt-1"
+
+												<input type="checkbox" class="all form-checkbox mt-1"
 													   :id="'chk' + {{ $category->id }}" :value="({{ $category->id }})"
 													   x-model.number="selectedRows">
 											</td>
@@ -101,6 +106,7 @@
 
 											<td>
 												<form id="delete-form-{{ $category->id }}"
+
 													  action="{{ route('category.destroy', $category->id) }}"
 													  method="POST">
 													@csrf
@@ -109,6 +115,7 @@
 												<div class="flex gap-4 items-center">
 													{{-- <a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a> --}}
 													{{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
+
 
 													<a href="{{ route('category.edit', $category->id) }}"
 													   class="hover:text-info">
@@ -125,6 +132,7 @@
 																  stroke="currentColor" stroke-width="1.5"></path>
 														</svg>
 													</a>
+
 
 													<a href="{{ route('category.destroy', $category->id) }}"
 													   class="hover:text-danger"
@@ -343,7 +351,56 @@
 					}
 				});
 			}
+
+			// delete all function
+			function deleteAll(event) {
+                        event.preventDefault();
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'Cancel'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let users=document.querySelectorAll(".all")
+                                for(let i=0;i<users.length;i++)
+                                {
+                                    if(users[i].checked==true)
+                                    {
+                                        console.log(users[i].value)
+                                        // document.getElementById('delete-form-' + users[i].value).submit();
+                                    }
+                                }
+                            }
+                        });
+                    }
 		</script>
+		<script>
+                function check(){
+                    let allck = document.getElementById("all");
+                    let ele = document.querySelectorAll(".all");
+                    if(allck.checked==true)
+                    {
+                    for (let i=0; i<ele.length; i++)
+                    {
+                        ele[i].checked=true;
+                    }
+                    }
+                    else {
+                        for (let i=0; i<ele.length; i++)
+                        {
+                            ele[i].checked=false;
+                        }
+
+                    }
+
+                }
+        </script>
 
 	@endsection
 </x-layout.default>

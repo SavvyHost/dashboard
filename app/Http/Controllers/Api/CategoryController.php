@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +21,11 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        $category = Category::find($id);
-		return $this->sendSuccess('Category Found', compact('category'));
+		try {
+			$category = Category::findorFail($id);
+			return $this->sendSuccess('Category Found', compact('category'));
+		} catch (ModelNotFoundException $e) {
+			return $this->sendError('Category Not Found', [], 404);
+		}
     }
 }

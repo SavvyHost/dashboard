@@ -18,8 +18,8 @@ class BlogResource extends JsonResource
         return [
             'title' => $this->title,
             'content' => $this->content,
-            'category_name' => Category::find($this->category_id)->name,
-            'image' => $this->image,
+            'category' => $this->category?->name,
+            'image' => asset( $this->image ),
             'created_at' => $this->created_at,
         ];
     }

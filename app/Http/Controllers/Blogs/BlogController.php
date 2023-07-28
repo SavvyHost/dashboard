@@ -98,6 +98,7 @@ class BlogController extends Controller
             // 'seo_title' => 'requiredIf:searchable,1|max:200',
             // 'seo_image' => 'requiredIf:searchable,1',
             // 'seo_description' => 'requiredIf:searchable,1',
+
         ]);
 
         if ($request->file('image')) {

@@ -45,8 +45,9 @@
 								<div class="col-span-12 py-2">
 									<div class="">
 										<label for="content">Content</label>
-										<input id="content" style="display:none" name="content">
-										<div id="editor">{{ $page->content }}</div>
+										<input id="content" style="display:none " name="content"
+											   value="{{ $page->content }}">
+										<div id="editor"> {!! $page->content !!}</div>
 									</div>
 								</div>
 
