@@ -73,6 +73,7 @@
 										<!-- button -->
 										<button type="button" class="float-right" @click="toggle">Edit</button>
 										<!-- modal -->
+
 										<div class="fixed inset-0 bg-[black]/60 z-[999] hidden overflow-y-auto" :class="open && '!block'">
 											<div class="flex items-center justify-center min-h-screen px-4" @click.self="open = false">
 												<div x-show="open" x-transition x-transition.duration.300 class="panel border-0 p-0 rounded-lg overflow-hidden w-full max-w-lg my-8">

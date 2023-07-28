@@ -342,8 +342,9 @@
                                 {
                                     if(users[i].checked==true)
                                     {
-                                        document.getElementById('delete-form-' + users[i].value).submit();
-                                        // console.log(users[i].value)  
+                                        console.log(users[i].value)  
+                                        // document.getElementById('delete-form-' + users[i].value).submit();
+                                        
                                     }
                                 }
                             }
