@@ -628,7 +628,7 @@
 									<!-- authoor select -->
 									<div class="flex flex-col ">
 										<select class="selectize" id="user_id" name="user_id">
-											<option value="0">-- Select admin --</option>
+											<option value="">-- Select admin --</option>
 											@foreach ($admins as $admin)
 												<option value="{{ $admin->id }}">{{$admin->name}}</option>
 											@endforeach
@@ -649,7 +649,7 @@
 									<div class="flex flex-col ">
 										<label>Category</label>
 										<select class="selectize" id="category_id" name="category_id">
-											<option value="0">-- Select category --</option>
+											<option value="">-- Select category --</option>
 											@foreach ($categories as $category)
 												<option value="{{ $category->id }}">{{$category->name}}</option>
 											@endforeach

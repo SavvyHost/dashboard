@@ -198,12 +198,4 @@ Route::group(['middleware', 'prefix' => 'dashboard'], function () {
     Route::post('/tours/attributes/terms/new', [TourTermController::class, 'save_api']);
     Route::put('/tours/attributes/terms/{attr_id}', [TourTermController::class, 'update_api']);
     Route::delete('tours/attributes/terms/delete/{terms_id}', [TourTermController::class, 'delete_api']);
-
-    Route::prefix('/blog')->group(function () {
-        Route::get('/index', [BlogController::class, 'index']);
-        Route::get('/show/{id}', [BlogController::class, 'show']);
-        // Route::post('/store', [BlogController::class, 'store']);
-        // Route::post('/update/{id}', [BlogController::class, 'update']);
-        // Route::post('/destroy/{id}', [BlogController::class, 'destroy']);
-    });
 });
