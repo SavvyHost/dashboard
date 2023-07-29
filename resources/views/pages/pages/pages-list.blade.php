@@ -120,10 +120,17 @@
 													</svg>
 												</a>
 
-												<a href="{{ route('pages.page.destroy', $page->id) }}"
+												{{-- <a href="{{ route('pages.page.destroy', $page->id) }}"
+
 												   class="hover:text-danger"
 												   onclick="showAlert(event, '{{ $page->id }}') , @click=" deleteRow(1)"
-												>
+												> --}}
+
+                                                <a href="#"
+
+                                                    class="hover:text-danger"
+                                                    onclick="showAlert(event, '{{ $page->id }}') , @click=" deleteRow(1)"
+                                                 >
 												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
 													 xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
 													<path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5"
