@@ -13,7 +13,7 @@ class EventController extends Controller
 	
 	public function index()
 	{
-		$events = EventResource::collection( Event::paginate(2) );
+		$events = EventResource::collection( Event::get() );
 		return $this->sendSuccess('Events Found', compact('events'));
 	}
 	

@@ -368,6 +368,7 @@
         if (document.getElementById("boolean-seo").value == "0") {
             document.getElementById('seo-details').style.display = 'none';
         } else {
+
             document.getElementById('seo-details').style.display = 'block'
         };
     }

@@ -55,13 +55,8 @@ class RegisterController extends Controller
     {
         $validator = Validator::make($request->all() , [
             'name' => 'required',
-            'username' => 'required',
             'email' => 'required|unique:users,email',
-            'phone' => 'nullable|unique:users,phone',
-            'password'  =>  'required',
-            'bio' => 'nullable',
-            'country'   =>  'nullable',
-            'gender'    =>  'nullable',
+            'password' => 'required',
 			'type' => 'required'
         ]);
 		
@@ -71,7 +66,6 @@ class RegisterController extends Controller
 				'errors' => $validator->errors()
 			
 			], 401);
-		
 		}
 
         #dd($request->bio);

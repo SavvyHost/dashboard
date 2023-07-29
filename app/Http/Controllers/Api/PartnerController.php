@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PartnerResource;
 use App\Models\Partner;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PartnerController extends Controller
 {
@@ -11,15 +13,19 @@ class PartnerController extends Controller
 	
 	public function index()
 	{
-		$partners = Partner::all();
+		$partners = PartnerResource::collection( Partner::all() );
 		
 		return $this->sendSuccess('Partners Found', compact('partners'));
 	}
 	
 	public function show($id)
 	{
-		$partner = Partner::find($id);
-		
-		return $this->sendSuccess('Partner Found', compact('partner'));
+		try{
+			$partner = Partner::findorFail($id);
+			
+			return $this->sendSuccess('Partner Found', compact('partner'));
+		} catch (ModelNotFoundException) {
+			return $this->sendSuccess('Partner Not Found', [], 404);
+		}
 	}
 }

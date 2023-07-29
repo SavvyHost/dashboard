@@ -81,9 +81,6 @@
 													   :id="'chk' + {{ $category->id }}" :value="({{ $category->id }})"
 													   x-model.number="selectedRows">
 											</td>
-											{{-- <td>
-												<input type="checkbox" class="form-checkbox mt-1" :id="'chk' + 1" :value="({{$user->id}})" x-model.number="selectedRows" id="chk1" value="{{$user->id}}">
-											</td> --}}
 											<td>{{$category->id}}</td>
 											<td>
 												<div class="flex items-center font-semibold">

@@ -95,7 +95,7 @@
 										<th>Email</th>
 										<th>Username</th>
 										<th>Phone</th>
-										<th>Status</th>
+										{{-- <th>Status</th> --}}
 										<th>Actions</th>
 									</tr>
 									</thead>
@@ -119,14 +119,17 @@
 														<img class="h-8 w-8 rounded-full object-cover"
 															 src="assets/images/profile-1.jpeg">
 													</div>
+                                                    <a href="{{ route('user.edit.show', $user->id) }}" class="hover:text-info">
+
 													{{$user->name}}
+                                                    </a>
 												</div>
 											</td>
 
 											<td>{{$user->email}}</td>
 											<td>{{$user->username}}</td>
 											<td class="whitespace-nowrap">{{$user->phone}}</td>
-											<td>
+											{{-- <td>
 												@if ($user->status == "pending")
 													<span class="badge badge-outline-danger">{{$user->status}}
                                                                 <span>
@@ -135,7 +138,7 @@
                                                                 <span>
 												@endif
 
-											</td>
+											</td> --}}
 
 											{{-- <td class="btn btn-sm btn-outline-success">{{$user->status}}</td> --}}
 											<td>
@@ -192,63 +195,8 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="dataTable-bottom">
-								<div class="dataTable-info">Showing 1 to 10 of 12 entries</div>
-								<div class="dataTable-dropdown"><label>
-                                <span class="ml-2"><select class="dataTable-selector">
-                                    <option value="10" selected="">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </span></label>
-								</div>
-								<nav class="dataTable-pagination">
-									<ul class="dataTable-pagination-list">
-										<li class="pager">
-											<a href="#" data-page="1">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-													<path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5"
-														  stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</a>
-										</li>
-										<li class="active">
-											<a href="#" data-page="1">1</a></li>
-										<li class="">
-											<a href="#" data-page="2">2</a></li>
-										<li class="pager">
-											<a href="#" data-page="2">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-												</svg>
-											</a></li>
-										<li class="pager">
-											<a href="#" data-page="2">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-													<path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5"
-														  stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</a>
-										</li>
-									</ul>
-								</nav>
+
+
 							</div>
 						</div>
 					</div>
@@ -433,189 +381,3 @@
 		</script>
 	@endsection
 </x-layout.default>
-
-
-{{-- <div class="flex gap-3">
-
-				<div>
-					<a href="{{route('add.user.form.show')}}" role="button" class="btn btn-primary" >
-						<svg class="group-hover:!text-primary" style="margin-right: 10px" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="10" cy="6" r="4" fill="currentColor"/>
-							<path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" fill="currentColor"/>
-							<path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-							</svg>
-
-						Add User
-						</a>
-				</div>
-			</div> --}}
-
-
-{{-- <x-layout.default> --}}
-{{-- @section('title','Users')
-<div x-data="contacts">
-	<div class="flex items-center justify-between flex-wrap gap-4">
-		<h2 class="text-xl">Users</h2>
-		<div class="flex sm:flex-row flex-col sm:items-center sm:gap-3 gap-4 w-full sm:w-auto">
-			<div class="flex gap-3">
-				<div>
-					<a href="{{route('add.user.form.show')}}" role="button" class="btn btn-primary" >
-						<svg class="group-hover:!text-primary" style="margin-right: 10px" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="10" cy="6" r="4" fill="currentColor"/>
-							<path d="M18 17.5C18 19.9853 18 22 10 22C2 22 2 19.9853 2 17.5C2 15.0147 5.58172 13 10 13C14.4183 13 18 15.0147 18 17.5Z" fill="currentColor"/>
-							<path d="M21 10H19M19 10H17M19 10L19 8M19 10L19 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-							</svg>
-
-						Add User
-						</a>
-				</div>
-			</div>
-			<div class="relative ">
-				<input type="text" placeholder="Search Users"
-					class="form-input py-2 ltr:pr-11 rtl:pl-11 peer"  />
-				<div
-					class="absolute ltr:right-[11px] rtl:left-[11px] top-1/2 -translate-y-1/2 peer-focus:text-primary">
-
-					<svg class="mx-auto" width="16" height="16" viewBox="0 0 24 24" fill="none"
-						xmlns="http://www.w3.org/2000/svg">
-						<circle cx="11.5" cy="11.5" r="9.5" stroke="currentColor"
-							stroke-width="1.5" opacity="0.5"></circle>
-						<path d="M18.5 18.5L22 22" stroke="currentColor" stroke-width="1.5"
-							stroke-linecap="round"></path>
-					</svg>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="mt-5 panel p-0 border-0 overflow-hidden">
-		<template x-if="displayType === 'list'">
-			<div class="table-responsive">
-				<table class="table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Email</th>
-							<th>Username</th>
-							<th>Phone</th>
-							<th>Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-							@foreach ($users as $user)
-							<tr>
-								<td>
-									<div class="flex items-center w-max">
-										<div >{{$user->name}}</div>
-									</div>
-								</td>
-
-								<td >{{$user->email}}</td>
-								<td >{{$user->username}}</td>
-								<td  class="whitespace-nowrap">{{$user->phone}}</td>
-								<td>
-									<form id="delete-form-{{ $user->id }}" action="{{ route('user.destroy', $user->id) }}" method="POST">
-										@csrf
-										@method('DELETE')
-									</form>
-
-									<div class="flex gap-4 items-center">
-										<a href="{{ route('user.edit.show', $user->id) }}" role="button" class="btn btn-sm btn-outline-primary">Edit</a>
-										<a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="showAlert(event, '{{ $user->id }}')">Delete</a> --}}
-
-{{-- <a href="#" role="button" class="btn btn-sm btn-outline-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $user->id }}').submit();">Delete</a> --}}
-{{-- </div>
-
-</td>
-</tr>
-
-@endforeach
-
-
-</tbody>
-</table>
-</div>
-</template>
-</div>
-</div> --}}
-
-{{-- <script>
-	document.addEventListener("alpine:init", () => {
-		Alpine.data("contacts", () => ({
-			defaultParams: {
-				id: null,
-				name: '',
-				email: '',
-				username: '',
-				phone: '',
-			},
-			displayType: 'list',
-			addContactModal: false,
-			params: {
-				id: null,
-				name: '',
-				email: '',
-				username: '',
-				phone: '',
-			},
-			filterdContactsList: [],
-			searchUser: '',
-			contactList: {!! $users !!},
-
-			init() {
-				this.searchContacts();
-			},
-
-			searchContacts() {
-				this.filterdContactsList = this.contactList.filter((d) => d.name.toLowerCase()
-					.includes(this.searchUser.toLowerCase()));
-			},
-
-		}));
-	});
-</script> --}}
-
-{{-- <script>
-		function showAlert(event, userId) {
-			event.preventDefault();
-
-			Swal.fire({
-				title: 'Are you sure?',
-				text: "You won't be able to revert this!",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#d33',
-				cancelButtonColor: '#3085d6',
-				confirmButtonText: 'Yes, delete it!',
-				cancelButtonText: 'Cancel'
-			}).then((result) => {
-				if (result.isConfirmed) {
-				document.getElementById('delete-form-' + userId).submit();
-				}
-			});
-			}
-</script> --}}
-
-{{--   <script>
-
-			let all = document.getElementById("all");
-			all.addEventListener("click",check())
-			function check(){
-				let ele = document.querySelectorAll(".all");
-				if(all.checked==true)
-				{
-				for (let i=0; i<ele.length; i++)
-				{
-					ele[i].checked=true;
-				}
-				}
-				else {
-					for (let i=0; i<ele.length; i++)
-					{
-						ele[i].checked=false;
-					}
-
-				}
-
-			}
-	</script> --}}
-{{-- </x-layout.default> --}}

@@ -42,39 +42,43 @@
 								<h3 style="font-size: 1.5rem;color:currentColor;">{{ session()->get('success') }}</h3>
                                         </div>
                                 @endif -->
-                            <div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
-                            <div class="grid grid-cols-12 p-4 border-gray-200  ">
 
-                                <div class="col-span-12 py-1">
-                                    <div class="">
-                                        <label for="name">Title</label>
-                                        <input id="title" type="text" name="title" class="form-input " required />
-                                    </div>
-                                </div>
-                                <div class="col-span-12 py-2">
-                                    <div class="">
-                                        <label for="content">Content</label>
-                                        <input id="content" style="display:none " name="content">
-                                        <div id="editor"></div>
-                                    </div>
-                                </div>
+							<div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
+							<div class="grid grid-cols-12 p-4 border-gray-200  ">
+
+								<div class="col-span-12 py-1">
+									<div class="">
+										<label for="name">Title</label>
+										<input id="title" type="text" name="title"
+											   class="form-input " required/>
+									</div>
+								</div>
+								<div class="col-span-12 py-2">
+									<div class="">
+										<label for="content">Content</label>
+										<input id="content" style="display:none " name="content">
+										<div id="editor"></div>
+									</div>
+								</div>
 
 
-                            </div>
+							</div>
 
-                            <script>
-                            var quill = new Quill('#editor', {
-                                theme: 'snow'
-                            });
-                            var form = document.querySelector('form');
-                            form.onsubmit = function() {
-                                // Populate hidden form on submit
-                                var content = document.querySelector(".ql-editor").innerHTML;
-                                var bio = document.querySelector('input[name=content]');
-                                bio.value = content;
-                            };
-                            </script>
-                        </div>
+							<script>
+								var quill = new Quill('#editor', {
+									theme: 'snow'
+								});
+                                function sub(){
+                                    var form = document.querySelector('form');
+								    form.onsubmit = function() {
+									// Populate hidden form on submit
+									var content = document.querySelector(".ql-editor").innerHTML;
+									var bio = document.querySelector('input[name=content]');
+									bio.value = content;
+								};}
+
+							</script>
+						</div>
                         <div
                             class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
                             <div class=" border-gray-200  border-b p-2 ">
@@ -314,13 +318,13 @@
                                                         class="invisible flex  flex-col items-center justify-center  ">
                                                         <img id="side-img" src="#" class="w-[100%]  pt-1 h-28"
                                                             alt="your image" />
+
                                                     </div>
                                                     <input name="image" accept="image/*" class="opacity-0" type='file'
                                                         id="img-side-input" />
                                                 </label>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -514,3 +518,4 @@
     </script> -->
     <!-- img +seo manger  -->
 </x-layout.default>
+

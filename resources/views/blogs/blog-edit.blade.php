@@ -37,6 +37,7 @@
                         <div
                             class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
                             <!-- @csrf
+
 						{{-- <h6 class="text-lg font-bold mb-5">News content</h6> --}}
 						@if (session()->get('success'))
 							<div class=" text-center mb-5">
@@ -95,6 +96,7 @@
                                     </select>
                                 </div>
                                 <div class="col-span-12 ">
+
                                     <!-- simple tabs -->
                                     <div class="mb-5" x-data="{tab: 'home'}">
                                         <!-- buttons -->
@@ -139,6 +141,7 @@
                                                                 placeholder="Enter description...">{{ $blog->seo_description }}</textarea>
                                                         </div>
                                                     </div>
+
 
                                                     <div class="col-span-12 py-2 mb-3 ">
                                                         <div class="rounded-lg  ">
@@ -310,6 +313,7 @@
                                                                     </label>
                                                                 </div>
                                                             </div>
+
 
                                                         </div>
                                                     </div>
@@ -795,24 +799,63 @@
                             class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
                             <div class="grid grid-cols-12 p-4 border-gray-200  ">
 
-                                <div class="col-span-12 py-1 ">
-                                    <!-- category select -->
-                                    <div class="flex flex-col ">
-                                        <?php
-										$category = App\Models\Category::findOrFail($blog->category_id);
-										?>
-                                        <label>Category</label>
+								<div class="col-span-12 py-1 ">
+									<!-- category select -->
+									<div class="flex flex-col ">
+
+                                        {{-- <label>Category</label>
+
+                                        @if($category == NULL)
                                         <select class="selectize" id="category_id" name="category_id"
-                                            value="{{$blog->category_id}}" placeholder="{{$category->name}}">
-                                            @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                    value="" >
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                    @endforeach
+                                        </select>
+
+                                        @else
+                                        <select class="selectize" id="category_id" name="category_id"
+                                                        value="{{$blog->category_id}}" placeholder="{{$category->name}}">
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}">{{$category->name}}</option>
+                                                    @endforeach
+                                         </select>
+                                        @endif --}}
+
+									</div>
+
+                                    <div class="flex flex-col">
+                                        <?php
+                                        if($blog->category_id == NULL){
+                                            $category = null;
+                                        }
+                                        else
+                                        {
+                                            $category = App\Models\Category::findOrFail($blog->category_id);
+                                        }
+                                        ?>
+                                        <label>Category</label>
+                                        @if($category == NULL)
+                                        <select class="selectize" id="category_id" name="category_id">
+                                            {{-- <option value="{{ $category->id }}" disabled selected>{{$category->name}}</option> --}}
+                                            @foreach ($categories as $cat)
+                                            <option value="{{ $cat->id }}">{{$cat->name}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                </div>
-                                <!-- tags input -->
-                                <!-- <div class="col-span-12 py-1 ">
 
+                                        @else
+                                        <select class="selectize" id="category_id" name="category_id">
+                                            <option value="{{ $category->id }}" disabled selected>{{$category->name}}</option>
+                                            @foreach ($categories as $cat)
+                                                <option value="{{ $cat->id }}" {{$cat->id == $blog->category_id ? 'selected' : ''}}>{{$cat->name}}</option>
+                                            @endforeach
+                                        </select>
+
+                                        @endif
+                                    </div>
+								</div>
+								<!-- tags input -->
+								<!-- <div class="col-span-12 py-1 ">
 									<div class="flex flex-col ">
 										<select class="selectize" placeholder="Choose...">
 											<option value="orange">Orange</option>
@@ -821,28 +864,26 @@
 										</select>
 									</div>
 								</div> -->
-                                <!-- tags input -->
+
+								<!-- tags input -->
 
 
-                            </div>
-                        </div>
-                        <!-- categories -->
-                        <div
-                            class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
-                            <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
-                            <div class="grid grid-cols-12 p-4 border-gray-200  ">
-                                <div class="col-span-12 py-1 ">
-                                    <div class="rounded-lg  ">
-                                        <div class="m-4">
-                                            <div class="flex items-center justify-center w-full">
-                                                <label
-                                                    class="flex flex-col w-[100%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
-                                                    style="height: 10%">
-                                                    @if ($blog->image != NULL)
-                                                    <img src="{{ asset($blog->image) }}" alt="Current image">
-                                                    <input type="hidden" name="image" value="{{ $blog->image }}">
-                                                    {{-- <input type="file" name="image" value="{{ $blog->image }}"
-                                                    class="opacity-0" /> --}}
+							</div>
+						</div>
+						<!-- categories -->
+						<div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
+							<div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
+							<div class="grid grid-cols-12 p-4 border-gray-200  ">
+								<div class="col-span-12 py-1 ">
+									<div class="rounded-lg  ">
+										<div class="m-4">
+											<div class="flex items-center justify-center w-full">
+												<label class="flex flex-col w-[100%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300" style="height: 10%">
+													@if ($blog->image != NULL)
+                                                        <img src="{{ asset($blog->image) }}" alt="Current image">
+                                                        <input type="hidden" name="image" value="{{ $blog->image }}">
+                                                        {{-- <input type="file" name="image" value="{{ $blog->image }}" class="opacity-0" /> --}}
+
                                                     @endif
 
                                                     @if (empty($blog->image))
@@ -1003,7 +1044,6 @@
                                                 </label>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
