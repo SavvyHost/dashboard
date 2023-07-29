@@ -95,7 +95,7 @@
 										<th>Email</th>
 										<th>Username</th>
 										<th>Phone</th>
-										<th>Status</th>
+										{{-- <th>Status</th> --}}
 										<th>Actions</th>
 									</tr>
 									</thead>
@@ -119,14 +119,17 @@
 														<img class="h-8 w-8 rounded-full object-cover"
 															 src="assets/images/profile-1.jpeg">
 													</div>
+                                                    <a href="{{ route('user.edit.show', $user->id) }}" class="hover:text-info">
+
 													{{$user->name}}
+                                                    </a>
 												</div>
 											</td>
 
 											<td>{{$user->email}}</td>
 											<td>{{$user->username}}</td>
 											<td class="whitespace-nowrap">{{$user->phone}}</td>
-											<td>
+											{{-- <td>
 												@if ($user->status == "pending")
 													<span class="badge badge-outline-danger">{{$user->status}}
                                                                 <span>
@@ -135,7 +138,7 @@
                                                                 <span>
 												@endif
 
-											</td>
+											</td> --}}
 
 											{{-- <td class="btn btn-sm btn-outline-success">{{$user->status}}</td> --}}
 											<td>
@@ -192,63 +195,8 @@
 									</tbody>
 								</table>
 							</div>
-							<div class="dataTable-bottom">
-								<div class="dataTable-info">Showing 1 to 10 of 12 entries</div>
-								<div class="dataTable-dropdown"><label>
-                                <span class="ml-2"><select class="dataTable-selector">
-                                    <option value="10" selected="">10</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </span></label>
-								</div>
-								<nav class="dataTable-pagination">
-									<ul class="dataTable-pagination-list">
-										<li class="pager">
-											<a href="#" data-page="1">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-													<path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5"
-														  stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</a>
-										</li>
-										<li class="active">
-											<a href="#" data-page="1">1</a></li>
-										<li class="">
-											<a href="#" data-page="2">2</a></li>
-										<li class="pager">
-											<a href="#" data-page="2">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-												</svg>
-											</a></li>
-										<li class="pager">
-											<a href="#" data-page="2">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-													 xmlns="http://www.w3.org/2000/svg"
-													 class="w-4.5 h-4.5 rtl:rotate-180">
-													<path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round"></path>
-													<path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5"
-														  stroke="currentColor" stroke-width="1.5"
-														  stroke-linecap="round" stroke-linejoin="round">
-													</path>
-												</svg>
-											</a>
-										</li>
-									</ul>
-								</nav>
+
+
 							</div>
 						</div>
 					</div>

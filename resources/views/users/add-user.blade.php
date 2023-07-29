@@ -3,7 +3,7 @@
     <link rel='stylesheet' type='text/css' href='{{ Vite::asset('resources/css/nice-select2.css') }}'>
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
     <script src="{{asset('assets/js/quill.js')}}"></script>
-    
+
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
@@ -42,6 +42,16 @@
                         <form method="POST" action="{{route('add.user.form.save')}}"
                             class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
                             @csrf
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        
                             <h6 class="text-lg font-bold mb-5">General Information</h6>
                             @if (session()->get('success'))
                 <div class=" text-center mb-5">
@@ -52,27 +62,27 @@
                                 <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
                                         <label for="name">Full Name</label>
-                                        <input id="name" type="text" name="name" 
+                                        <input id="name" type="text" name="name"
                                             class="form-input"   required/>
                                     </div>
                                     <div>
                                         <label for="username">Username</label>
-                                        <input id="username" type="text" 
+                                        <input id="username" type="text"
                                             class="form-input" name="username" required />
                                     </div>
                                     <div>
                                         <label for="password">Password</label>
-                                        <input id="password" type="password" 
+                                        <input id="password" type="password"
                                             class="form-input" name="password" required />
                                     </div>
                                     <div>
                                         <label for="email">Email</label>
-                                        <input id="email" type="text" 
+                                        <input id="email" type="text"
                                             class="form-input" name="email" required />
                                     </div>
                                     <div>
                                         <label for="phone">Phone</label>
-                                        <input id="phone" type="text" 
+                                        <input id="phone" type="text"
                                             class="form-input" name="phone" required />
                                     </div>
                                     <div>
@@ -90,7 +100,7 @@
                                             <option value="2">Female</option>
                                         </select>
                                     </div>
-                                    
+
                                     <div>
                                         <label for="role">Role</label>
                                         <select class="selectize" id="role"  name="role" required>
@@ -99,18 +109,18 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    
-                                    
+
+
                                     <div style="margin-bottom: 4rem">
                                         <label for="editor">Bio</label>
-                                        
+
                                         <input  style="display:none"  name="bio">
-                                        
+
                                         <div id="editor">
-                                            
+
                                         </div>
                                     </div>
-                                    
+
                                     <div class="sm:col-span-2 mt-3">
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
@@ -154,7 +164,7 @@
             };
             NiceSelect.bind(document.getElementById("seachable-select"), options);
         });
-        
+
         var toolbar = quill.container.previousSibling;
         toolbar.querySelector('.ql-picker').setAttribute('title', 'Font Size');
         toolbar.querySelector('button.ql-bold').setAttribute('title', 'Bold');
@@ -164,8 +174,8 @@
         toolbar.querySelector('button.ql-clean').setAttribute('title', 'Clear Formatting');
         toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
         toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
-        
-        
+
+
     </script>
 
 </x-layout.default>

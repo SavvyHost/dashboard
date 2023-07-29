@@ -30,13 +30,6 @@ class BlogController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:200',
-            // 'content' => 'required',
-            // 'searchable' => 'required',
-            // 'status' => 'required|in:publish,draft',
-            // 'user_id' => 'required|exists:users,id',
-            // 'seo_title' => 'requiredIf:searchable,1|max:200',
-            // 'seo_image' => 'requiredIf:searchable,1',
-            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
@@ -55,7 +48,7 @@ class BlogController extends Controller
         $blog = Blog::create([
             'title' => $request->title,
             'content' => $request->get('content'),
-            'searchable' => $request->searchable,
+            'searchable' => $request->searchable ?? 0,
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id ?? auth()->user()->id,
@@ -103,29 +96,29 @@ class BlogController extends Controller
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
-			$blog->update([
-				'image' => $image
-			]);
+            $blog->update([
+                'image' => $image
+            ]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'blog-photos');
-			$blog->update([
-				'seo_image' => $seo_image
-			]);
+            $blog->update([
+                'seo_image' => $seo_image
+            ]);
         }
-		
+
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'blog-photos');
-			$blog->update([
-				'facebook_image' => $facebook_image
-			]);
+            $blog->update([
+                'facebook_image' => $facebook_image
+            ]);
         }
-		
+
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
-			$blog->update([
-				'twitter_image' => $twitter_image
-			]);
+            $blog->update([
+                'twitter_image' => $twitter_image
+            ]);
         }
 
         $blog->update([
@@ -143,8 +136,8 @@ class BlogController extends Controller
             'twitter_description' => $request->twitter_description,
         ]);
         $blog->save();
-        
-        return redirect()->route('blog.index');
+
+        return redirect()->route('blog.edit', $blog->id);
     }
 
     public function destroy(Blog $blog)
@@ -153,3 +146,49 @@ class BlogController extends Controller
         return redirect()->route('blog.index');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // if ($request->searchable == 0) {
+// //     $seo_title = null;
+// //     $seo_description = null;
+// //     $facebook_title = null;
+// //     $facebook_description = null;
+// //     $twitter_title = null;
+// //     $twitter_description = null;
+// // } else {
+// //     $seo_title = $request->seo_title;
+// //     $seo_description = $request->seo_description;
+// //     $facebook_title = $request->facebook_title;
+// //     $facebook_description = $request->facebook_description;
+// //     $twitter_title = $request->twitter_title;
+// //     $twitter_description = $request->twitter_description;
+// // }
+// // $blog = Blog::create([
+// //     'title' => $request->title,
+// //     'content' => $request->get('content'),
+// //     'searchable' => $request->searchable ?? 0,
+// //     'status' => $request->status,
+// //     'category_id' => $request->category_id,
+// //     'user_id' => $request->user_id ?? auth()->user()->id,
+// //     'image' => $image ?? null,
+// //     'seo_title' => $seo_title,
+// //     'seo_image' => $seo_image ?? null,
+// //     'seo_description' => $seo_description,
+// //     'facebook_title' => $facebook_title,
+// //     'facebook_image' => $facebook_image ?? null,
+// //     'facebook_description' => $facebook_description,
+// //     'twitter_title' => $twitter_title,
+// //     'twitter_image' => $twitter_image ?? null,
+// //     'twitter_description' => $twitter_description,
+// // ]);

@@ -76,10 +76,10 @@
 
 								<div class="col-span-12 ">
 
-								<select id="boolean-seo" class="selectize" placeholder="Yes" onchange="return Booleanseo();" >
-										<option value="1">Yes</option>
-										<option value="0">No</option>
-									</select>
+                                    <select class="selectize" id="boolean-seo" name="searchable" placeholder="Yes" onchange="return Booleanseo();">
+                                        <option value="1" selected>Yes</option>
+                                        <option value="0"  >No</option>
+                                    </select>
 								</div>
 
 								<!-- my section -->
@@ -253,7 +253,7 @@
 																			<p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
 																				Select a photo</p>
 																		</div>
-																		<input type="file" name="seo_image"
+																		<input type="file" name="logo"
 																			   class="opacity-0"/>
 																	</label>
 																</div>
@@ -270,7 +270,7 @@
 														<div class="">
 															<label for="facebook_title">Facebook Title</label>
 															<input id="facebook_title" type="text" name="facebook_title"
-																   class="form-input " required/>
+																   class="form-input " />
 														</div>
 													</div>
 													<div class="col-span-12 py-1">
@@ -418,7 +418,7 @@
 														<div class="">
 															<label for="name">Twitter Title</label>
 															<input id="twitter_title" type="text" name="twitter_title"
-																   class="form-input " required/>
+																   class="form-input " />
 														</div>
 													</div>
 													<div class="col-span-12 py-1">
@@ -737,7 +737,7 @@
 														<p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
 															Select a photo</p>
 													</div>
-													<input type="file" name="image" class="opacity-0"/>
+													<input type="file" name="featured_image" class="opacity-0"/>
 												</label>
 											</div>
 										</div>
@@ -759,6 +759,7 @@
 	<link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
 	<script src="{{asset('assets/js/highlight.min.js')}}"></script>
 	<script src="{{asset('assets/js/nice-select2.js')}}"></script>
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
 
 
 	<script>

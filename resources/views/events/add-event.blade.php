@@ -16,7 +16,15 @@
 		<div class="pt-5">
 			<form method="post" action="{{route('event.store')}}" enctype="multipart/form-data">
 				@csrf
-
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 				<div class="flex items-center justify-between mb-5">
 					<h5 class="font-semibold text-lg dark:text-white-light">Add new Event</h5>
 				</div>
@@ -96,10 +104,14 @@
 
                                     <div class="col-span-12 ">
 
-                                    <select id="boolean-seo" class="selectize" placeholder="Yes" onchange="return Booleanseo();" >
-                                            <option value="1">Yes</option>
+                                    <select id="boolean-seo" class="selectize" name="searchable" placeholder="Yes" onchange="return Booleanseo();" >
+                                        <option value="1" selected >Yes</option>
                                             <option value="0">No</option>
                                         </select>
+
+
+
+
                                     </div>
 
                                     <!-- my section -->
@@ -290,7 +302,7 @@
                                                             <div class="">
                                                                 <label for="facebook_title">Facebook Title</label>
                                                                 <input id="facebook_title" type="text" name="facebook_title"
-                                                                       class="form-input " required/>
+                                                                       class="form-input " />
                                                             </div>
                                                         </div>
                                                         <div class="col-span-12 py-1">
@@ -438,7 +450,7 @@
                                                             <div class="">
                                                                 <label for="name">Twitter Title</label>
                                                                 <input id="twitter_title" type="text" name="twitter_title"
-                                                                       class="form-input " required/>
+                                                                       class="form-input " />
                                                             </div>
                                                         </div>
                                                         <div class="col-span-12 py-1">
