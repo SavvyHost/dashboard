@@ -108,10 +108,6 @@
                                         <option value="1" selected >Yes</option>
                                             <option value="0">No</option>
                                         </select>
-
-
-
-
                                     </div>
 
                                     <!-- my section -->
