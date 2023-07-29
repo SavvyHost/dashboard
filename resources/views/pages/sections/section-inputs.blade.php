@@ -1,72 +1,75 @@
 <style>
-    #drop {
-        width: 100%;
-        /* border: none; */
-    }
+#drop {
+    width: 100%;
+    /* border: none; */
+}
 
-    .dropCont {
-        display: flex;
-        padding: 2vh;
-        justify-content: space-between;
-        /* background-color:blue; */
-        border: 2px;
-        border-radius: 10px;
-        margin: 1vh;
-        box-shadow: 1px 0px 20px #888888;
-    }
+.dropCont {
+    display: flex;
+    padding: 2vh;
+    justify-content: space-between;
+    /* background-color:blue; */
+    border: 2px;
+    border-radius: 10px;
+    margin: 1vh;
+    box-shadow: 1px 0px 20px #888888;
+}
 
-    .dropCont:hover {
-        cursor: pointer;
-    }
+.dropCont:hover {
+    cursor: pointer;
+}
 
-    .hide {
-        display: none;
-        margin: 1vh;
-        padding: 2vh;
-    }
+.hide {
+    display: none;
+}
 
-    .delete {
-        margin: 0 2vh;
-    }
+.delete {
+    margin: 0 2vh;
+}
 
-    /* #drop svg {
+.show{
+	margin: 1vh;
+    padding: 2vh;
+}
+
+/* #drop svg {
 		display: inline;
 	} */
 </style>
 @if(!$isIterable)
-	@foreach($section?->inputs as $name => $input)
-		<div>
-			<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
-			{!! $input->getHtmlText($section->pivot?->data[$name], false) !!}
-		</div>
-	@endforeach
+@foreach($section?->inputs as $name => $input)
+<div>
+    <label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
+    {!! $input->getHtmlText($section->pivot?->data[$name], false) !!}
+</div>
+@endforeach
 @else
-	<div class="iterable">
-		@if($section?->pivot?->data)
-			@foreach($section?->pivot?->data as $object)
-				@foreach($section->inputs as $name => $input)
-					<div>
-						<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
-						{!! $input->getHtmlText($object[$name], true) !!}
-					</div>
-				@endforeach
-			@endforeach
-		@endif
+<div class="iterable">
+    @if($section?->pivot?->data)
+    @foreach($section?->pivot?->data as $object)
+    @foreach($section->inputs as $name => $input)
+    <div>
+        <label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
+        {!! $input->getHtmlText($object[$name], true) !!}
+    </div>
+    @endforeach
+    @endforeach
+    @endif
 
-	</div>
-	<!-- new div -->
-	<div id="new-slots-container" class="color"></div>
-	<!-- new div -->
-	<button type="button" class="btn btn-success add-slot" style="margin-top: 2vh; ">+</button>
+</div>
+<!-- new div -->
+<div id="new-slots-container" class="color"></div>
+<!-- new div -->
+<button type="button" class="btn btn-success add-slot" style="margin-top: 2vh; ">+</button>
 @endif
 
 @if($isIterable)
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			const addSlotBtn = document.querySelector(".add-slot");
-			addSlotBtn.addEventListener("click", function() {
-				let html = `
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const addSlotBtn = document.querySelector(".add-slot");
+    addSlotBtn.addEventListener("click", function() {
+        let html = `
 
 			<div id="drop"  >
 			<div class="dropCont btn"  id="dropCont" >
@@ -81,7 +84,7 @@
 			</svg>
 			</button>
 			</div>
-				<div class="hide">
+				<div class="hide show">
 				@foreach($section->inputs as $name => $input)
 				<div >
 					<label for="{{ $section->name }}_{{ $name }}_id">{{ $name }}</label>
@@ -91,77 +94,83 @@
 				</div>
 				</div>
 				`;
-				const newSlotsContainer = document.querySelector("#new-slots-container");
-				newSlotsContainer.insertAdjacentHTML('beforeend', html);
-				add();
-				index++;
-				// let drop=document.querySelectorAll(".dropCont");
-				// console.log(drop)
-			});
+        const newSlotsContainer = document.querySelector("#new-slots-container");
+        newSlotsContainer.insertAdjacentHTML('beforeend', html);
+        add();
+        index++;
+        // let drop=document.querySelectorAll(".dropCont");
+        // console.log(drop)
+    });
 
-			document.addEventListener("click", function( event ) {
-				if ( event.target.classList.contains("remove-slot") ) {
-					console.log("test");
-					event.target.closest(".form-group").remove();
-				}
-			});
-		});
+    document.addEventListener("click", function(event) {
+        if (event.target.classList.contains("remove-slot")) {
+            console.log("test");
+            event.target.closest(".form-group").remove();
+        }
+    });
+});
 
-		})
 
-		// for(let i=0;i<drop.length;i++)
-		// {
-		// 	drop[i].addEventListener("click",function(e){
-		// 			console.log(e.target.nextElementSibling)
-		// })
-		// }
-		function add() {
-			let drop = document.querySelectorAll(".dropCont");
-			console.log(drop)
-			for ( let i = 0; i < drop.length; i++ ) {
-				drop[i].addEventListener("click", function( e ) {
-					// console.log(e.target.nextSibling)
-					console.log(e.target)
-					if ( e.target.nextElementSibling.style.display == "block" ) {
-						e.target.nextElementSibling.style.display = "none"
-						// console.log(e.target)
-					} else {
-						e.target.nextElementSibling.style.display = "block"
-					}
-				})
-			}
-		}
 
-		function del() {
-			let delete_e = document.querySelectorAll(".delete");
-			for ( let i = 0; i < delete_e.length; i++ ) {
-				delete_e[i].addEventListener("click", function( e ) {
-					// console.log(e.target.parentElement)
-					e.target.parentElement.parentElement.nextElementSibling.remove();
-					e.target.parentElement.parentElement.remove();
 
-				})
-			}
-		}
 
-		// 	function hide(e)
-		// {
-		//     // if(document.getElementById("hide").style.display=="none")
-		//     // {
-		//     //     document.getElementById("hide").style.display="block"
+// 	function hide(e)
+// {
+//     // if(document.getElementById("hide").style.display=="none")
+//     // {
+//     //     document.getElementById("hide").style.display="block"
 
-		//     // }
-		//     // else{
-		//     //     document.getElementById("hide").style.display="none"
-		//     // }
-		// 	console.log(e.target.nextSibling)
-		// 	// document.getElementById("hide").nextSibling.previousElementSibling.style.display="block"
+//     // }
+//     // else{
+//     //     document.getElementById("hide").style.display="none"
+//     // }
+// 	console.log(e.target.nextSibling)
+// 	// document.getElementById("hide").nextSibling.previousElementSibling.style.display="block"
 
-		// }
-
-	</script>
+// }
+</script>
 
 @endif
+<script>
+function add() {
+    let drop = document.querySelectorAll(".dropCont");
+    console.log(drop)
+    for (let i = 0; i < drop.length; i++) {
+        drop[i].addEventListener("click", function(e) {
+            // console.log(e.target)
+            if (e.target.nextElementSibling.style.display == "none") {
+                // e.target.nextElementSibling.style.display = "block";
+                // e.target.nextElementSibling.classlist.add("show")
+                // e.target.nextElementSibling.classlist.remove("hide")
+            }  
+
+			else
+			{
+                // e.target.nextElementSibling.style.display = "none";
+                // e.target.nextElementSibling.classlist.add("hide")
+                // e.target.nextElementSibling.classlist.remove("show")
+
+
+            };
+			 e.target.nextElementSibling.classList.toggle("hide");
+
+            // (e.target.nextElementSibling.style.display == "none")? e.target.nextElementSibling.style.display = "block":  e.target.nextElementSibling.style.display = "none";
+        })
+    }
+}
+
+function del() {
+    let delete_e = document.querySelectorAll(".delete");
+    for (let i = 0; i < delete_e.length; i++) {
+        delete_e[i].addEventListener("click", function(e) {
+            // console.log(e.target.parentElement)
+            e.target.parentElement.parentElement.nextElementSibling.remove();
+            e.target.parentElement.parentElement.remove();
+
+        })
+    }
+}
+</script>
 <!-- basic
 <div class="mb-5" x-data="{ active: 1 }">
     <div class="space-y-2 font-semibold">
