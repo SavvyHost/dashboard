@@ -75,19 +75,11 @@
                             <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
 
                                 <div class="col-span-12 ">
-
-                                    <select id="boolean-seo" class="selectize" placeholder="Yes"
+                                    <select id="boolean-seo" class="selectize" name="searchable"
                                         onchange="return Booleanseo();">
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
-                                    {{-- <div>
-									<label for="gender">Gender</label>
-									<select class="selectize" id="gender"  name="gender" required>
-										<option value="1">Male</option>
-										<option value="2">Female</option>
-									</select>
-								</div> --}}
                                 </div>
 
                                 <!-- my section -->
@@ -168,7 +160,7 @@
                                                         <div class="">
                                                             <label for="facebook_title">Facebook Title</label>
                                                             <input id="facebook_title" type="text" name="facebook_title"
-                                                                class="form-input " required />
+                                                                class="form-input " />
                                                         </div>
                                                     </div>
                                                     <div class="col-span-12 py-1">
@@ -208,7 +200,7 @@
                                                         <div class="">
                                                             <label for="name">Twitter Title</label>
                                                             <input id="twitter_title" type="text" name="twitter_title"
-                                                                class="form-input " required />
+                                                                class="form-input " />
                                                         </div>
                                                     </div>
                                                     <div class="col-span-12 py-1">
@@ -344,7 +336,10 @@
             baseImage: "{{asset('assets/images/file-preview.png')}}",
             backgroundImage: '',
         },
+        inputName: 'featured_image'
+
     });
+    // document.getElementById("file-upload-with-preview-myFirstImage").setAttribute("name", "featured_image")
     new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
         images: {
             baseImage: "{{asset('assets/images/file-preview.png')}}",
