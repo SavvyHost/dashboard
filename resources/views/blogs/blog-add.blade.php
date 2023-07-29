@@ -1,4 +1,22 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
+
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
     @section('title','Blog - New')
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
@@ -356,7 +374,7 @@
                             </div>
                             <div class="grid-cols-12 p-4 border-gray-200" style="width:100%;">
                                 <div>
-                                  
+
                                     <input id="featureImg" type="file"
                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
                                         required name="featured_image" accept="image/*" />
@@ -364,7 +382,7 @@
 
                                     </div>
                                 </div>
-                               
+
                             </div>
                             <!-- <div class="grid grid-cols-12 p-4 border-gray-200  ">
                                 <div class="col-span-12 py-1 ">
@@ -408,7 +426,6 @@
     <script src="{{asset('assets/js/nice-select2.js')}}"></script>
     <!--imgs + seo manger -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
     // imgs
@@ -517,67 +534,5 @@
     toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
     toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
     </script>
-    <!--imgs + seo manger -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
-    <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
-    <script>
-		function Booleanseo() {
-        if (document.getElementById("boolean-seo").value == "0") {
-            document.getElementById('seo-details').style.display = 'none';
-        } else {
-            document.getElementById('seo-details').style.display = 'block'
-        };
-    }
-    // new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // task2
-    
-    let seo_f = document.querySelectorAll(".form-input");
-    for (let i = 0; i < seo_f.length; i++) {
-        seo_f[i].innerText = seo_f[i].value
-    }
 
-    function home() {
-        document.getElementById("home").style.display = "block"
-        document.getElementById("facebook").style.display = "none"
-        document.getElementById("twitter").style.display = "none"
-    }
-
-    function facebook() {
-        document.getElementById("home").style.display = "none"
-        document.getElementById("facebook").style.display = "block"
-        document.getElementById("twitter").style.display = "none"
-    }
-
-    function twitter() {
-        document.getElementById("home").style.display = "none"
-        document.getElementById("facebook").style.display = "none"
-        document.getElementById("twitter").style.display = "block"
-    }
-    task 2
-    </script> -->
-    <!-- img +seo manger  -->
 </x-layout.default>

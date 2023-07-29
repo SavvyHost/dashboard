@@ -1,4 +1,22 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
+
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
     @section('title','Blog - Edit')
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
@@ -103,7 +121,7 @@
                                 <div class="col-span-12 ">
 
                                     <!-- simple tabs -->
-                                    
+
                                     <div class="mb-5" x-data="{tab: 'home'}">
                                         <!-- buttons -->
                                         <div>
@@ -263,7 +281,7 @@
 
                                         </div>
                                     </div>
-                                  
+
                                 </div>
 
                             </div>
@@ -483,33 +501,8 @@
 
     <!--imgs + seo manger -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
-    new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
     // task2
     function Booleanseo() {
         if (document.getElementById("boolean-seo").value == "0") {

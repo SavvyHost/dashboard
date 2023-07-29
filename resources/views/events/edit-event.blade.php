@@ -1,7 +1,24 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
 
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
 	@section('title','User - New')
-	<link rel='stylesheet' type='text/css' href='{{ Vite::asset('resources/css/nice-select2.css') }}'>
+	<link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}"/>
 	<script src="{{asset('assets/js/quill.js')}}"></script>
 
@@ -837,33 +854,9 @@
     <script src="{{asset('assets/js/nice-select2.js')}}"></script>
     <!--imgs + seo manger -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
-    new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
+   
     // task2
     function Booleanseo() {
         if (document.getElementById("boolean-seo").value == "0") {
