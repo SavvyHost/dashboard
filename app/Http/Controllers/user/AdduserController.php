@@ -52,7 +52,7 @@ class AdduserController extends Controller
             'role_id'   =>  $request->role,
             'created_at'=>  date('Y-m-d'),
         ]);
-        return redirect()->back()->with('success','User Added Successfully');
+        return redirect()->route('users.show')->with('success','User Added Successfully');
     }
 
 

@@ -22,6 +22,10 @@ class EventController extends Controller
 
     public function store(StoreEventRequest $request)
     {
+		if ($request->file('avatar')) {
+			$avatar = uploadImage($request->file('avatar'), 'event-photos');
+		}
+		
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'event-photos');
         }
@@ -39,6 +43,7 @@ class EventController extends Controller
         $event->title = $request->get('title');
         $event->content = $request->get('content');
         $event->searchable = $request->get('searchable');
+        $event->avatar = $avatar ?? null;
         $event->image = $image ?? null;
         $event->seo_title = $request->get('seo_title');
         $event->seo_image = $seo_image ?? null;
@@ -71,7 +76,13 @@ class EventController extends Controller
 
     public function update(UpdateEventRequest $request, Event $event)
     {
-        if ($request->file('image')) {
+        if ($request->file('avatar')) {
+			$avatar = uploadImage($request->file('avatar'), 'event-photos');
+            $event->update([
+                'avatar' => $avatar
+            ]);
+        }
+		if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'event-photos');
             $event->update([
                 'image' => $image
