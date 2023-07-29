@@ -142,7 +142,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="dataTable-bottom">
+						{{-- <div class="dataTable-bottom">
 							<div class="dataTable-info">Showing 1 to 10 of 12 entries</div>
 							<div class="dataTable-dropdown"><label>
                                 <span class="ml-2"><select class="dataTable-selector">
@@ -152,8 +152,9 @@
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select>
-                            </span></label>
-							</div>
+                            </span>
+                        </label>
+							</div> --}}
 							<nav class="dataTable-pagination">
 								{{ $events->links("vendor.pagination.tailwind") }}
 							</nav>

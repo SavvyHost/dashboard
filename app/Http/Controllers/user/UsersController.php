@@ -17,14 +17,14 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::where('role_id',2)->get();
-        return view('users.users-list',compact('users'));
+        $users = User::where('role_id', 2)->get();
+        return view('users.users-list', compact('users'));
     }
 
     public function my_profile()
     {
         $countries = Country::all();
-        return view('users.my-profile',compact('countries'));
+        return view('users.my-profile', compact('countries'));
     }
 
 
@@ -55,10 +55,9 @@ class UsersController extends Controller
     public function index_api()
     {
 
-        $users =UserResource::collection( User::where('role_id',2)->get());
+        $users = UserResource::collection(User::where('role_id', 2)->get());
 
-        return response()->json(['data'=>$users,'error'=>''],200);
-
+        return response()->json(['data' => $users, 'error' => ''], 200);
     }
 
 
@@ -75,8 +74,4 @@ class UsersController extends Controller
 
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
-
-
-
-
 }

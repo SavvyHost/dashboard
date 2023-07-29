@@ -3,7 +3,7 @@
     <link rel='stylesheet' type='text/css' href='{{ Vite::asset('resources/css/nice-select2.css') }}'>
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
     <script src="{{asset('assets/js/quill.js')}}"></script>
-    
+
     <div>
         <ul class="flex space-x-2 rtl:space-x-reverse">
             <li>
@@ -42,6 +42,15 @@
                         <form method="POST" action="{{route('user.edit.save',$user->id)}}"
                             class="border border-[#ebedf2] dark:border-[#191e3a] rounded-md p-4 mb-5 bg-white dark:bg-[#0e1726]">
                             @csrf
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                             <h6 class="text-lg font-bold mb-5">General Information</h6>
                             @if (session()->get('success'))
                 <div class=" text-center mb-5">
@@ -104,23 +113,23 @@
                                         </select>
                                     </div>
                                     @endif
-                                    
+
                                     <div>
                                         <label for="created_at">Created at</label>
                                         <input id="created_at" type="text" value="{{$user->created_at}}"
                                             class="form-input" disabled />
                                     </div>
-                                    
+
                                     <div style="margin-bottom: 4rem">
                                         <label for="editor">Bio</label>
-                                        
+
                                         <input  style="display:none" value="{{$user->bio}}" name="bio">
-                                        
+
                                         <div id="editor">
                                             {!! $user->bio !!}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="sm:col-span-2 mt-3">
                                         <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
@@ -164,7 +173,7 @@
             };
             NiceSelect.bind(document.getElementById("seachable-select"), options);
         });
-        
+
         var toolbar = quill.container.previousSibling;
         toolbar.querySelector('.ql-picker').setAttribute('title', 'Font Size');
         toolbar.querySelector('button.ql-bold').setAttribute('title', 'Bold');
@@ -174,8 +183,8 @@
         toolbar.querySelector('button.ql-clean').setAttribute('title', 'Clear Formatting');
         toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
         toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
-        
-        
+
+
     </script>
 
 </x-layout.default>
