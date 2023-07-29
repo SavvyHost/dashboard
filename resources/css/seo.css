@@ -7,3 +7,11 @@
 #twitter{
     display: none;
 }
+.img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit:cover;
+    margin: 1vh 0;
+    padding: 2vh 1vh;
+}

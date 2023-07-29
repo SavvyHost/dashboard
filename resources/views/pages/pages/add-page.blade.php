@@ -138,13 +138,15 @@
                                                             <div class="m-4">
                                                                 <!-- home img -->
                                                                 <!-- <div class="flex items-center justify-center w-full"> -->
-                                                                <div class="homeImg">
-                                                                    <div class="custom-file-container"
-                                                                        data-upload-id="homeImg"></div>
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="homeImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="home_image" accept="image/*" />
+                                                                    <div id="hImg" class="img">
+
+                                                                    </div>
                                                                 </div>
-                                                                <script
-                                                                    src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js">
-                                                                </script>
                                                                 <!-- </div> -->
                                                                 <!-- home img -->
                                                             </div>
@@ -178,13 +180,15 @@
                                                             <div class="m-4">
                                                                 <!-- home img -->
                                                                 <!-- <div class="flex items-center justify-center w-full"> -->
-                                                                <div class="facebookImg">
-                                                                    <div class="custom-file-container"
-                                                                        data-upload-id="facebookImg"></div>
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="facebookImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="facebook_image" accept="image/*" />
+                                                                    <div id="faceImg" class="img">
+
+                                                                    </div>
                                                                 </div>
-                                                                <script
-                                                                    src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js">
-                                                                </script>
                                                                 <!-- </div> -->
                                                                 <!-- home img -->
                                                             </div>
@@ -215,17 +219,19 @@
                                                     <div class="col-span-12 py-2 mb-3 ">
                                                         <div class="rounded-lg  ">
                                                             <div class="m-4">
-                                                                <!-- home img -->
+
                                                                 <!-- <div class="flex items-center justify-center w-full"> -->
-                                                                <div class="twitterImg">
-                                                                    <div class="custom-file-container"
-                                                                        data-upload-id="twitterImg"></div>
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="twitterImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="twitter_image" accept="image/*" />
+                                                                    <div id="twitImg" class="img">
+
+                                                                    </div>
                                                                 </div>
-                                                                <script
-                                                                    src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js">
-                                                                </script>
                                                                 <!-- </div> -->
-                                                                <!-- home img -->
+
                                                             </div>
 
                                                         </div>
@@ -303,16 +309,20 @@
                             </div>
                         </div>
 
-                        <div class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
+                        <div
+                            class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
                             <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
                             <!-- side img -->
                             <div class="grid-cols-12 p-4 border-gray-200" style="width:100%;">
-                                <div class="sideImg">
-                                    <div class="custom-file-container" data-upload-id="myFirstImage"></div>
+                                <div>
+                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                    <input id="featureImg" type="file"
+                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                        required name="featured_image" accept="image/*" />
+                                    <div id="sideImg" class="img">
+
+                                    </div>
                                 </div>
-                                <script
-                                    src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js">
-                                </script>
                                 <!-- side img -->
                             </div>
                         </div>
@@ -331,33 +341,28 @@
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
-    new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-        inputName: 'featured_image'
-
-    });
-    // document.getElementById("file-upload-with-preview-myFirstImage").setAttribute("name", "featured_image")
-    new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
+    // imgs
+    document.getElementById("featureImg").addEventListener("input", function() {
+        document.getElementById("sideImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("featureImg").files[0])}" alt="featuredImg">
+            `;
+    })
+    document.getElementById("facebookImg").addEventListener("input", function() {
+        document.getElementById("faceImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("facebookImg").files[0])}" alt="facebookdImg">
+            `;
+    })
+    document.getElementById("homeImg").addEventListener("input", function() {
+        document.getElementById("hImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("homeImg").files[0])}" alt="homeImg">
+            `;
+    })
+    document.getElementById("twitterImg").addEventListener("input", function() {
+        document.getElementById("twitImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("twitterImg").files[0])}" alt="twitterImg">
+            `;
+    })
+    // imgs
     // task2
     function Booleanseo() {
         if (document.getElementById("boolean-seo").value == "0") {
