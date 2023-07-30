@@ -95,7 +95,7 @@
 										<th>Email</th>
 										<th>Username</th>
 										<th>Phone</th>
-										{{-- <th>Status</th> --}}
+										<th>Status</th>
 										<th>Actions</th>
 									</tr>
 									</thead>
@@ -129,8 +129,8 @@
 											<td>{{$user->email}}</td>
 											<td>{{$user->username}}</td>
 											<td class="whitespace-nowrap">{{$user->phone}}</td>
-											{{-- <td>
-												@if ($user->status == "pending")
+											<td>
+												@if ($user->status == "suspend")
 													<span class="badge badge-outline-danger">{{$user->status}}
                                                                 <span>
                                                             @else
@@ -138,7 +138,7 @@
                                                                 <span>
 												@endif
 
-											</td> --}}
+											</td>
 
 											{{-- <td class="btn btn-sm btn-outline-success">{{$user->status}}</td> --}}
 											<td>

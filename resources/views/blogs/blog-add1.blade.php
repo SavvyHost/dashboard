@@ -145,15 +145,6 @@
 
 
 
-                                        {{-- 'category_id',
-                                                    'user_id',
-                                                    'title',
-                                                    'image',
-                                                    'searchable',
-                                                    'twitter_image', --}}
-
-
-
                                         <!-- description -->
                                         <div class="pt-5 flex-1 text-sm">
                                             <template x-if="tab === 'home'">

@@ -40,6 +40,8 @@ class User extends Authenticatable
         'id',
         'name',
         'username',
+        'status',
+        'avatar',
         'email',
         'phone',
         'password',
@@ -49,8 +51,29 @@ class User extends Authenticatable
         'role_id',
         'created_at',
         'updated_at',
-        "type"
+        'type',
     ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * The attributes that should be hidden for serialization.

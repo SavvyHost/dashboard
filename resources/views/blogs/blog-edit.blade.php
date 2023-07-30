@@ -103,7 +103,7 @@
                                 <div class="col-span-12 ">
 
                                     <!-- simple tabs -->
-                                    
+
                                     <div class="mb-5" x-data="{tab: 'home'}">
                                         <!-- buttons -->
                                         <div>
@@ -263,7 +263,7 @@
 
                                         </div>
                                     </div>
-                                  
+
                                 </div>
 
                             </div>
@@ -441,16 +441,16 @@
                                                 <label
                                                     class="flex flex-col w-[100%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300"
                                                     style="height: 10%">
-                                                    @if ($blog->image != NULL)
+                                                    @if ($blog->image)
                                                     <img src="{{ asset($blog->image) }}" alt="Current image">
+                                                    {{-- <input type="file" name="image" value="{{ $blog->image }}"> --}}
+                                                    <input type="file" name="image" value="{{ $blog->image }}"
+                                                    class="opacity-0" />
+
+                                                    @else
                                                     <input type="hidden" name="image" value="{{ $blog->image }}">
                                                     {{-- <input type="file" name="image" value="{{ $blog->image }}"
                                                     class="opacity-0" /> --}}
-
-                                                    @endif
-
-                                                    @if (empty($blog->image))
-                                                    <input type="hidden" name="image" value="{{ $blog->image }}">
                                                     <div class="flex flex-col items-center justify-center pt-7">
                                                         @include('includes.image-svg')
 

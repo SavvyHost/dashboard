@@ -19,12 +19,11 @@ class BlogController extends Controller
 
     public function show($id)
     {
-		try {
-			$blog = Blog::findorFail($id);
-			return $this->sendSuccess('Blog Found', compact('blog'));
-		} catch (ModelNotFoundException $e) {
-			return $this->sendError('Blog Not Found', [], 404);
-		}
-
+        try {
+            $blog = Blog::findorFail($id);
+            return $this->sendSuccess('Blog Found', compact('blog'));
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('Blog Not Found', [], 404);
+        }
     }
 }
