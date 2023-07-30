@@ -108,7 +108,7 @@
                             <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
 
                                 <div class="col-span-12 ">
-                                <select id="boolean-seo" class="selectize"
+                                <select id="boolean-seo" class="selectize" name="searchable"
                                         onchange="return Booleanseo();">
                                         <option value="1" {{ $blog->searchable == 1 ? 'selected' : '' }}>Yes</option>
                                         <option value="0" {{ $blog->searchable == 0 ? 'selected' : '' }}>No</option>
