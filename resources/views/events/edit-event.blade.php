@@ -123,7 +123,7 @@
 
                                 <div class="col-span-12 ">
 
-                                    <select id="boolean-seo" class="selectize" onchange="return Booleanseo();">
+                                    <select id="boolean-seo" class="selectize" onchange="return Booleanseo();" name="searchable">
                                         <option value="1" {{ $blog->searchable == 1 ? 'selected' : '' }}>Yes</option>
                                         <option value="0" {{ $blog->searchable == 0 ? 'selected' : '' }}>No</option>
                                     </select>

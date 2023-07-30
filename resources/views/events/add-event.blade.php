@@ -122,7 +122,7 @@
 
                                 <div class="col-span-12 ">
 
-                                    <select id="boolean-seo" class="selectize" placeholder="Yes"
+                                    <select id="boolean-seo" class="selectize" placeholder="Yes" name="searchable"
                                         onchange="return Booleanseo();">
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
