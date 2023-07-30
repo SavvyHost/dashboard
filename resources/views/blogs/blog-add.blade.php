@@ -113,7 +113,7 @@
 
                                     {{-- <div>
 									<label for="gender">Gender</label>
-									<select class="selectize" id="gender"  name="gender" required>
+									<select class="selectize" id="gender"  name="gender">
 										<option value="1">Male</option>
 										<option value="2">Female</option>
 									</select>
@@ -175,7 +175,7 @@
                                                                     <!-- <label for="ctnFile">Example file input</label> -->
                                                                     <input id="homeImg" type="file"
                                                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                                                        name="home_image" accept="image/*" />
+                                                                        name="seo_image" accept="image/*" />
                                                                     <div id="hImg" class="img">
 
                                                                     </div>
@@ -377,7 +377,7 @@
 
                                     <input id="featureImg" type="file"
                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                        required name="featured_image" accept="image/*" />
+                                        name="image" accept="image/*" />
                                     <div id="sideImg" class="img">
 
                                     </div>
