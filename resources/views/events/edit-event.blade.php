@@ -124,8 +124,8 @@
                                 <div class="col-span-12 ">
 
                                     <select id="boolean-seo" class="selectize" onchange="return Booleanseo();" name="searchable">
-                                        <option value="1" {{ $blog->searchable == 1 ? 'selected' : '' }}>Yes</option>
-                                        <option value="0" {{ $blog->searchable == 0 ? 'selected' : '' }}>No</option>
+                                        <option value="1" {{ $event->searchable == 1 ? 'selected' : '' }}>Yes</option>
+                                        <option value="0" {{ $event->searchable == 0 ? 'selected' : '' }}>No</option>
                                     </select>
                                 </div>
 
@@ -193,11 +193,11 @@
                                                                     <input id="homeImg" type="file"
                                                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
                                                                         name="home_image" accept="image/*"
-                                                                        src="{{asset($blog->seo_image)}}" />
+                                                                        src="{{asset($event->seo_image)}}" />
 
                                                                     <div id="hImg" class="img">
-                                                                        @if($blog->seo_image !=NULL)
-                                                                        <img src="{{asset($blog->seo_image)}}"
+                                                                        @if($event->seo_image !=NULL)
+                                                                        <img src="{{asset($event->seo_image)}}"
                                                                             alt="home img" id="Home">
                                                                         @endif
                                                                     </div>
@@ -243,11 +243,11 @@
                                                                     <input id="facebookImg" type="file"
                                                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
                                                                         name="facebook_image" accept="image/*"
-                                                                        src="{{asset($blog->facebook_image)}}" />
+                                                                        src="{{asset($event->facebook_image)}}" />
                                                                     <div id="faceImg" class="img">
 
-                                                                        @if($blog->facebook_image !=NULL)
-                                                                        <img src="{{asset($blog->facebook_image)}}"
+                                                                        @if($event->facebook_image !=NULL)
+                                                                        <img src="{{asset($event->facebook_image)}}"
                                                                             alt="facebook img" id="facebook">
                                                                         @endif
 
@@ -292,11 +292,11 @@
                                                                     <input id="twitterImg" type="file"
                                                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
                                                                         name="twitter_image" accept="image/*"
-                                                                        src="{{asset($blog->twitter_image)}}" />
+                                                                        src="{{asset($event->twitter_image)}}" />
                                                                     <div id="twitImg" class="img">
 
-                                                                        @if($blog->twitter_image !=NULL)
-                                                                        <img src="{{asset($blog->twitter_image)}}"
+                                                                        @if($event->twitter_image !=NULL)
+                                                                        <img src="{{asset($event->twitter_image)}}"
                                                                             alt="twitter img" id="twitter">
                                                                         @endif
                                                                     </div>
@@ -381,10 +381,10 @@
 
                                         <input id="featureImg" type="file"
                                             class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                            name="image" accept="image/*" src="{{asset($blog->featured_image)}}" />
+                                            name="image" accept="image/*" src="{{asset($event->featured_image)}}" />
                                         <div id="sideImg" class="img">
-                                            @if($blog->featured_image !=NULL)
-                                            <img src=" {{ asset($blog->featured_image) }} " alt="img" id="featured img">
+                                            @if($event->featured_image !=NULL)
+                                            <img src=" {{ asset($event->featured_image) }} " alt="img" id="featured img">
                                             <script>
                                             console.log(document.getElementById("featured img").src)
                                             </script>
