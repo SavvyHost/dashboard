@@ -61,57 +61,61 @@
                                         </div>
                                 @endif -->
 
-                            <div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
-                            <div class="grid grid-cols-12 p-4 border-gray-200  ">
+							<div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
+							<div class="grid grid-cols-12 p-4 border-gray-200  ">
 
-                                <div class="col-span-12 py-1">
-                                    <div class="">
-                                        <label for="name">Title</label>
-                                        <input id="title" type="text" name="title" class="form-input " required />
-                                    </div>
-                                </div>
-                                <div class="col-span-12 py-2">
-                                    <div class="">
-                                        <label for="content">Content</label>
-                                        <input id="content" style="display:none " name="content">
-                                        <div id="editor"></div>
-                                    </div>
-                                </div>
+								<div class="col-span-12 py-1">
+									<div class="">
+										<label for="name">Title</label>
+										<input id="title" type="text" name="title"
+											   class="form-input " required/>
+									</div>
+								</div>
+								<div class="col-span-12 py-2">
+									<div class="">
+										<label for="content">Content</label>
+										<input id="content" style="display:none " name="content">
+										<div id="editor"></div>
+									</div>
+								</div>
 
 
-                            </div>
+							</div>
 
-                            <script>
-                            var quill = new Quill('#editor', {
-                                theme: 'snow'
-                            });
+							<script>
+								var quill = new Quill('#editor', {
+									theme: 'snow'
+								});
 
-                            var form = document.querySelector('form');
-                            form.onsubmit = function(e) {
-                                console.log("test");
-                                // Populate hidden form on submit
-                                var content = document.querySelector(".ql-editor").innerHTML;
-                                var bio = document.querySelector('input[name=content]');
-                                bio.value = content;
-                            };
-                            </script>
-                        </div>
-                        <div
-                            class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
-                            <div class=" border-gray-200  border-b p-2 ">
-                                <strong>Seo Manager</strong>
-                            </div>
-                            <p class="px-4 py-3 text-md ">Allow search engines to show this service in search
-                                results?</p>
-                            <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
-                                <div class="col-span-12 ">
-                                    <select id="boolean-seo" class="selectize" placeholder="Yes"
-                                        onchange="return Booleanseo();">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+									var form = document.querySelector('form');
+									form.onsubmit = function(e) {
+										console.log("test");
+										// Populate hidden form on submit
+										var content = document.querySelector(".ql-editor").innerHTML;
+										var bio = document.querySelector('input[name=content]');
+										bio.value = content;
+									};
 
-                                    {{-- <div>
+
+							</script>
+						</div>
+						<div
+								class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
+							<div class=" border-gray-200  border-b p-2 ">
+								<strong>Seo Manager</strong>
+							</div>
+							<p class="px-4 py-3 text-md ">Allow search engines to show this service in search
+								results?</p>
+							<div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
+								<div class="col-span-12 ">
+									<select id="boolean-seo" class="selectize" placeholder="Yes" name="searchable"
+											onchange="return Booleanseo();">
+										<option value="1">Yes</option>
+										<option value="0">No</option>
+									</select>
+
+									{{-- <div>
+
 									<label for="gender">Gender</label>
 									<select class="selectize" id="gender"  name="gender">
 										<option value="1">Male</option>
