@@ -67,17 +67,15 @@ class DashboardBlogController extends Controller
             'twitter_description' => $request->twitter_description,
         ]);
         $tags = $request->tags;
-        // if ($tags) {
-        //     foreach ($tags as $tag) {
-        //         Tag::create([
-        //             'tag_name' => $tag['tag_name'],
-        //             'blog_id' => $request->id,
-        //         ]);
-        //     }
-        // }
-        if ($tags) {
-            $blog->tags()->attach($tags);
-        }
+         if ($tags) {
+             foreach ($tags as $tag) {
+                 Tag::create([
+                     'name' => $tag,
+                     'blog_id' => $blog->id,
+                 ]);
+             }
+         }
+
         return $this->sendSuccess('Blog is created successfully', compact('blog', 'admins', 'categories'), 201);
     }
 

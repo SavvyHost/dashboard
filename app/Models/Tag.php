@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
-    protected $fillable = ['tag_name'];
+    protected $fillable = ['name', 'blog_id'];
     public function blogs()
     {
         return $this->belongsToMany(Blog::class);
