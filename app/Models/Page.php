@@ -12,6 +12,7 @@ class Page extends Model
         'id',
         'name',
         'searchable',
+        'content',
         'publish',
         'seo_title',
         'seo_description',

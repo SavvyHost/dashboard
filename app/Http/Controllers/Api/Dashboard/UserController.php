@@ -20,7 +20,7 @@ class UserController extends Controller
         $roles = Role::all();
         $all_users = User::all();
 
-        return $this->sendSuccess("All Admins.", compact('all_users', 'countries', 'roles'), 200);
+        return $this->sendSuccess("All admins and users.", compact('all_users', 'countries', 'roles'), 200);
     }
     public function index_admins()
     {
@@ -50,7 +50,7 @@ class UserController extends Controller
             'bio'       =>  'nullable',
             'country'   =>  'required',
             // 'gender'    =>  'required',
-            // 'role'      =>  'required',
+            // 'role_id'      =>  'required',
             'status' => 'in:active,suspend',
         ]);
         if ($request->file('avatar')) {

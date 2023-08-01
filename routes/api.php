@@ -68,7 +68,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/store', [UserController::class, 'store']);
     Route::get('/show/{id}', [UserController::class, 'show']);
     Route::post('/update/{id}', [UserController::class, 'update']);
-    Route::get('/delete/{id}', [UserController::class, 'destroy']);
+    Route::delete('/delete/{id}', [UserController::class, 'destroy']);
 });
 Route::group(['prefix' => 'category'], function () {
     Route::get('/index', [DashboardCategoryController::class, 'index']);

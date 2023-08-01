@@ -26,5 +26,6 @@ class Event extends Model
         'twitter_title',
         'twitter_image',
         'twitter_description',
+        'avatar'
     ];
 }

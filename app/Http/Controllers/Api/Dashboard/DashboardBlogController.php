@@ -23,7 +23,6 @@ class DashboardBlogController extends Controller
 
     public function store(Request $request)
     {
-        $blogs = Blog::where('status', 'publish')->get();
         $categories = Category::all();
         $admins = User::where('role_id', 1)->get();
 
