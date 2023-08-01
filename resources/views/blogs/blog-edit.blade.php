@@ -462,7 +462,7 @@
                         <div
                             class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
                             <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
-<<<<<<< HEAD
+
                             <div class="grid grid-cols-12 p-4 border-gray-200  ">
                                 <div class="col-span-12 py-1 ">
                                     <div class="rounded-lg  ">
@@ -495,7 +495,7 @@
                                                 </label>
                                             </div>
                                         </div>
-=======
+
                             <div class="grid-cols-12 p-4 border-gray-200" style="width:100%;">
                                 <div>
 
@@ -505,13 +505,13 @@
 
                                     <div id="sideImg" class="img">
                                         @if($blog->image)
-                                        <img src="{{ asset($blog->image) }}" alt="img" id="featured img">
+                                        {{-- <img src="{{ asset($blog->image) }}" alt="img" id="featured img"> --}}
                                         <script>
                                             console.log(document.getElementById("featured img").src)
                                         </script>
-                                         
+
                                         @endif
->>>>>>> 34f25ff7a2fd36862bc8ffd9b5cbe4cb841df9dc
+
                                     </div>
                                 </div>
 
@@ -549,7 +549,7 @@
         document.getElementById("sideImg").innerHTML = `
             <img src="${window.URL.createObjectURL(document.getElementById("featureImg").files[0])}" alt="featuredImg">
             `;
-            
+
     })
     document.getElementById("facebookImg").addEventListener("input", function() {
         // document.getElementById("facebook").remove();
