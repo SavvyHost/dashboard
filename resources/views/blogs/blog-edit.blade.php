@@ -1,4 +1,22 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
+
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
     @section('title','Blog - Edit')
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
@@ -90,7 +108,8 @@
                             <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
 
                                 <div class="col-span-12 ">
-                                    <select class="selectize" id="searchable" name="searchable">
+                                <select id="boolean-seo" class="selectize" name="searchable"
+                                        onchange="return Booleanseo();">
                                         <option value="1" {{ $blog->searchable == 1 ? 'selected' : '' }}>Yes</option>
                                         <option value="0" {{ $blog->searchable == 0 ? 'selected' : '' }}>No</option>
                                     </select>
@@ -100,7 +119,7 @@
                                         <option value="0">No</option>
                                     </select> -->
                                 </div>
-                                <div class="col-span-12 ">
+                                <div class="col-span-12 " id="seo-details">
 
                                     <!-- simple tabs -->
 
@@ -152,23 +171,25 @@
                                                     <div class="col-span-12 py-2 mb-3 ">
                                                         <div class="rounded-lg  ">
                                                             <div class="m-4">
-                                                                <div class="flex items-center justify-center w-full">
-                                                                    <label
-                                                                        class="flex flex-col w-[50%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                                        <div
-                                                                            class="flex flex-col items-center justify-center pt-7">
+                                                                <!-- home img -->
+                                                                <!-- <div class="flex items-center justify-center w-full"> -->
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="homeImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="home_image" accept="image/*"
+                                                                        src="{{asset($blog->seo_image)}}" />
 
-                                                                            <p
-                                                                                class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                                                Select a photo</p>
-                                                                        </div>
-                                                                        <input type="file" name="seo_image"
-                                                                            src="{{asset($blog->seo_image)}}"
-                                                                            class="opacity-0" />
-                                                                    </label>
+                                                                    <div id="hImg" class="img">
+                                                                        @if($blog->seo_image !=NULL)
+                                                                        <img src="{{asset($blog->seo_image)}}"
+                                                                            alt="home img" id="Home">
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
+                                                                <!-- </div> -->
+                                                                <!-- home img -->
                                                             </div>
-
 
                                                         </div>
                                                     </div>
@@ -198,20 +219,25 @@
                                                     <div class="col-span-12 py-2 mb-3 ">
                                                         <div class="rounded-lg  ">
                                                             <div class="m-4">
-                                                                <div class="flex items-center justify-center w-full">
-                                                                    <label
-                                                                        class="flex flex-col w-[50%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                                        <div
-                                                                            class="flex flex-col items-center justify-center pt-7">
+                                                                <!-- home img -->
+                                                                <!-- <div class="flex items-center justify-center w-full"> -->
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="facebookImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="facebook_image" accept="image/*"
+                                                                        src="{{asset($blog->facebook_image)}}" />
+                                                                    <div id="faceImg" class="img">
 
-                                                                            <p
-                                                                                class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                                                Facebook Image</p>
-                                                                        </div>
-                                                                        <input type="file" name="facebook_image"
-                                                                            value="facebook_image" class="opacity-0" />
-                                                                    </label>
+                                                                        @if($blog->facebook_image !=NULL)
+                                                                        <img src="{{asset($blog->facebook_image)}}"
+                                                                            alt="facebook img" id="facebook">
+                                                                        @endif
+
+                                                                    </div>
                                                                 </div>
+                                                                <!-- </div> -->
+                                                                <!-- home img -->
                                                             </div>
 
                                                         </div>
@@ -240,20 +266,23 @@
                                                     <div class="col-span-12 py-2 mb-3 ">
                                                         <div class="rounded-lg  ">
                                                             <div class="m-4">
-                                                                <div class="flex items-center justify-center w-full">
-                                                                    <label
-                                                                        class="flex flex-col w-[50%] h-32 border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                                        <div
-                                                                            class="flex flex-col items-center justify-center pt-7">
-                                                                            @include('includes.image-svg')
-                                                                            <p
-                                                                                class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                                                Twitter Image</p>
-                                                                        </div>
-                                                                        <input type="file" name="twitter_image"
-                                                                            value="twitter_image" class="opacity-0" />
-                                                                    </label>
+
+                                                                <!-- <div class="flex items-center justify-center w-full"> -->
+                                                                <div>
+                                                                    <!-- <label for="ctnFile">Example file input</label> -->
+                                                                    <input id="twitterImg" type="file"
+                                                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                                                        name="twitter_image" accept="image/*" src="{{asset($blog->twitter_image)}}" />
+                                                                    <div id="twitImg" class="img">
+
+                                                                        @if($blog->twitter_image !=NULL)
+                                                                        <img src="{{asset($blog->twitter_image)}}"
+                                                                            alt="twitter img" id="twitter">
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
+                                                                <!-- </div> -->
+
                                                             </div>
 
                                                         </div>
@@ -433,6 +462,7 @@
                         <div
                             class="border border-gray-200  dark:border-[#191e3a] rounded-md  mt-3 mb-5 bg-white dark:bg-[#0e1726]">
                             <div class=" border-gray-200 border-b p-2 "><strong class="p-1">Feature Image</strong></div>
+<<<<<<< HEAD
                             <div class="grid grid-cols-12 p-4 border-gray-200  ">
                                 <div class="col-span-12 py-1 ">
                                     <div class="rounded-lg  ">
@@ -465,8 +495,26 @@
                                                 </label>
                                             </div>
                                         </div>
+=======
+                            <div class="grid-cols-12 p-4 border-gray-200" style="width:100%;">
+                                <div>
+
+                                    <input id="featureImg" type="file"
+                                        class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
+                                        name="image" accept="image/*" value="{{$blog->image}}" />
+
+                                    <div id="sideImg" class="img">
+                                        @if($blog->image)
+                                        <img src="{{ asset($blog->image) }}" alt="img" id="featured img">
+                                        <script>
+                                            console.log(document.getElementById("featured img").src)
+                                        </script>
+                                         
+                                        @endif
+>>>>>>> 34f25ff7a2fd36862bc8ffd9b5cbe4cb841df9dc
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -483,33 +531,45 @@
 
     <!--imgs + seo manger -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
-    new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
-    new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-        images: {
-            baseImage: "{{asset('assets/images/file-preview.png')}}",
-            backgroundImage: '',
-        },
-    });
+        //
+        // console.log( document.getElementById("searchable").value)
+        if(document.getElementById("boolean-seo").value == 0)
+        {
+            document.getElementById('seo-details').style.display = 'none';
+        }
+        else{
+            document.getElementById('seo-details').style.display = 'block';
+        };
+
+    // imgs
+    document.getElementById("featureImg").addEventListener("input", function() {
+        // document.getElementById("featured img").remove();
+        document.getElementById("sideImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("featureImg").files[0])}" alt="featuredImg">
+            `;
+            
+    })
+    document.getElementById("facebookImg").addEventListener("input", function() {
+        // document.getElementById("facebook").remove();
+        document.getElementById("faceImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("facebookImg").files[0])}" alt="facebookdImg">
+            `;
+    })
+    document.getElementById("homeImg").addEventListener("input", function() {
+        // document.getElementById("Home").remove();
+        document.getElementById("hImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("homeImg").files[0])}" alt="homeImg">
+            `;
+    })
+    document.getElementById("twitterImg").addEventListener("input", function() {
+        // document.getElementById("twitter").remove();
+        document.getElementById("twitImg").innerHTML = `
+            <img src="${window.URL.createObjectURL(document.getElementById("twitterImg").files[0])}" alt="twitterImg">
+            `;
+    })
+    // imgs
     // task2
     function Booleanseo() {
         if (document.getElementById("boolean-seo").value == "0") {

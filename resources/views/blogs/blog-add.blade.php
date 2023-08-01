@@ -1,4 +1,22 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
+
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
     @section('title','Blog - New')
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
@@ -43,59 +61,63 @@
                                         </div>
                                 @endif -->
 
-                            <div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
-                            <div class="grid grid-cols-12 p-4 border-gray-200  ">
+							<div class=" border-gray-200 border-b p-2 "><strong>News content</strong></div>
+							<div class="grid grid-cols-12 p-4 border-gray-200  ">
 
-                                <div class="col-span-12 py-1">
-                                    <div class="">
-                                        <label for="name">Title</label>
-                                        <input id="title" type="text" name="title" class="form-input " required />
-                                    </div>
-                                </div>
-                                <div class="col-span-12 py-2">
-                                    <div class="">
-                                        <label for="content">Content</label>
-                                        <input id="content" style="display:none " name="content">
-                                        <div id="editor"></div>
-                                    </div>
-                                </div>
+								<div class="col-span-12 py-1">
+									<div class="">
+										<label for="name">Title</label>
+										<input id="title" type="text" name="title"
+											   class="form-input " required/>
+									</div>
+								</div>
+								<div class="col-span-12 py-2">
+									<div class="">
+										<label for="content">Content</label>
+										<input id="content" style="display:none " name="content">
+										<div id="editor"></div>
+									</div>
+								</div>
 
 
-                            </div>
+							</div>
 
-                            <script>
-                            var quill = new Quill('#editor', {
-                                theme: 'snow'
-                            });
+							<script>
+								var quill = new Quill('#editor', {
+									theme: 'snow'
+								});
 
-                            var form = document.querySelector('form');
-                            form.onsubmit = function(e) {
-                                console.log("test");
-                                // Populate hidden form on submit
-                                var content = document.querySelector(".ql-editor").innerHTML;
-                                var bio = document.querySelector('input[name=content]');
-                                bio.value = content;
-                            };
-                            </script>
-                        </div>
-                        <div
-                            class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
-                            <div class=" border-gray-200  border-b p-2 ">
-                                <strong>Seo Manager</strong>
-                            </div>
-                            <p class="px-4 py-3 text-md ">Allow search engines to show this service in search
-                                results?</p>
-                            <div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
-                                <div class="col-span-12 ">
-                                    <select id="boolean-seo" class="selectize" placeholder="Yes"
-                                        onchange="return Booleanseo();">
-                                        <option value="1">Yes</option>
-                                        <option value="0">No</option>
-                                    </select>
+									var form = document.querySelector('form');
+									form.onsubmit = function(e) {
+										console.log("test");
+										// Populate hidden form on submit
+										var content = document.querySelector(".ql-editor").innerHTML;
+										var bio = document.querySelector('input[name=content]');
+										bio.value = content;
+									};
 
-                                    {{-- <div>
+
+							</script>
+						</div>
+						<div
+								class="border border-gray-200  dark:border-[#191e3a] rounded-md  mb-5 bg-white dark:bg-[#0e1726]">
+							<div class=" border-gray-200  border-b p-2 ">
+								<strong>Seo Manager</strong>
+							</div>
+							<p class="px-4 py-3 text-md ">Allow search engines to show this service in search
+								results?</p>
+							<div class="grid grid-cols-12 px-4 pt-1 pb-3 border-gray-200  ">
+								<div class="col-span-12 ">
+									<select id="boolean-seo" class="selectize" placeholder="Yes" name="searchable"
+											onchange="return Booleanseo();">
+										<option value="1">Yes</option>
+										<option value="0">No</option>
+									</select>
+
+									{{-- <div>
+
 									<label for="gender">Gender</label>
-									<select class="selectize" id="gender"  name="gender" required>
+									<select class="selectize" id="gender"  name="gender">
 										<option value="1">Male</option>
 										<option value="2">Female</option>
 									</select>
@@ -157,7 +179,7 @@
                                                                     <!-- <label for="ctnFile">Example file input</label> -->
                                                                     <input id="homeImg" type="file"
                                                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                                                        name="home_image" accept="image/*" />
+                                                                        name="seo_image" accept="image/*" />
                                                                     <div id="hImg" class="img">
 
                                                                     </div>
@@ -356,15 +378,15 @@
                             </div>
                             <div class="grid-cols-12 p-4 border-gray-200" style="width:100%;">
                                 <div>
-                                  
+
                                     <input id="featureImg" type="file"
                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                        required name="featured_image" accept="image/*" />
+                                        name="image" accept="image/*" />
                                     <div id="sideImg" class="img">
 
                                     </div>
                                 </div>
-                               
+
                             </div>
                             <!-- <div class="grid grid-cols-12 p-4 border-gray-200  ">
                                 <div class="col-span-12 py-1 ">
@@ -408,7 +430,6 @@
     <script src="{{asset('assets/js/nice-select2.js')}}"></script>
     <!--imgs + seo manger -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
     // imgs
@@ -517,67 +538,5 @@
     toolbar.querySelector('[value=ordered]').setAttribute('title', 'Ordered List');
     toolbar.querySelector('[value=bullet]').setAttribute('title', 'Bullet List');
     </script>
-    <!--imgs + seo manger -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
-    <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
-    <script>
-		function Booleanseo() {
-        if (document.getElementById("boolean-seo").value == "0") {
-            document.getElementById('seo-details').style.display = 'none';
-        } else {
-            document.getElementById('seo-details').style.display = 'block'
-        };
-    }
-    // new FileUploadWithPreview.FileUploadWithPreview('myFirstImage', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('homeImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('facebookImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // new FileUploadWithPreview.FileUploadWithPreview('twitterImg', {
-    //     images: {
-    //         baseImage: "https://www.topaula.com/wp-content/uploads/2015/11/transparent.png",
-    //         backgroundImage: '',
-    //     },
-    // });
-    // task2
-    
-    let seo_f = document.querySelectorAll(".form-input");
-    for (let i = 0; i < seo_f.length; i++) {
-        seo_f[i].innerText = seo_f[i].value
-    }
 
-    function home() {
-        document.getElementById("home").style.display = "block"
-        document.getElementById("facebook").style.display = "none"
-        document.getElementById("twitter").style.display = "none"
-    }
-
-    function facebook() {
-        document.getElementById("home").style.display = "none"
-        document.getElementById("facebook").style.display = "block"
-        document.getElementById("twitter").style.display = "none"
-    }
-
-    function twitter() {
-        document.getElementById("home").style.display = "none"
-        document.getElementById("facebook").style.display = "none"
-        document.getElementById("twitter").style.display = "block"
-    }
-    task 2
-    </script> -->
-    <!-- img +seo manger  -->
 </x-layout.default>

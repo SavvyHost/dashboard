@@ -8,14 +8,35 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Api\APITrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
+    use APITrait;
     public function index()
     {
-        $countries = Country::collection(all());
+        $countries = Country::all();
         $roles = Role::all();
-        return $this->sendSuccess("All Users.", compact('countries', 'roles'));
+        $all_users = User::all();
+
+        return $this->sendSuccess("All Admins.", compact('all_users', 'countries', 'roles'), 200);
+    }
+    public function index_admins()
+    {
+        $countries = Country::all();
+        $roles = Role::all();
+        $admins = User::where('role_id', 1)->get();
+
+        return $this->sendSuccess("All Admins.", compact('admins', 'countries', 'roles'), 200);
+    }
+    public function index_users()
+    {
+        $countries = Country::all();
+        $roles = Role::all();
+        $users = User::where('role_id', 2)->get();
+
+        return $this->sendSuccess("All Users.", compact('users', 'countries', 'roles'), 200);
     }
 
     public function store(Request $request)
@@ -50,11 +71,7 @@ class UserController extends Controller
             'role_id'   =>  $request->role_id,
             'created_at' =>  date('Y-m-d'),
         ]);
-        $response = [
-            'Message' => 'User created successfully',
-            'User' => $user
-        ];
-        return response($response, 201);
+        return $this->sendSuccess('User created successfully', compact('user'), 201);
     }
 
     public function show(string $id)
@@ -110,11 +127,12 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        $user = User::findorFail($id);
-        $user->delete();
-        $response = [
-            'Message' => 'User deleted successfully',
-        ];
-        return response($response, 201);
+        try {
+            $user = User::findorFail($id);
+            $user->delete();
+            return $this->sendSuccess('User deleted successfully.', []);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError("User cann't deleted.", [], 404);
+        }
     }
 }

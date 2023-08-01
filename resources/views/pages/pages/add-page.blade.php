@@ -1,4 +1,22 @@
 <x-layout.default>
+    <style>
+    #facebook {
+        display: none;
+    }
+
+    #twitter {
+        display: none;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        object-fit: cover;
+        margin: 1vh 0;
+        padding: 2vh 1vh;
+    }
+    </style>
     @section('title','Page - New')
     <link rel='stylesheet' type='text/css' href="{{ Vite::asset('resources/css/nice-select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ Vite::asset('resources/css/quill.snow.css') }}" />
@@ -318,7 +336,7 @@
                                     <!-- <label for="ctnFile">Example file input</label> -->
                                     <input id="featureImg" type="file"
                                         class="form-input file:py-2 file:px-4 file:border-0 file:font-semibold p-0 file:bg-primary/90 ltr:file:mr-5 rtl:file:ml-5 file:text-white file:hover:bg-primary"
-                                        required name="featured_image" accept="image/*" />
+                                        name="featured_image" accept="image/*" />
                                     <div id="sideImg" class="img">
 
                                     </div>
@@ -338,7 +356,6 @@
     <script src="{{asset('assets/js/highlight.min.js')}}"></script>
     <script src="{{asset('assets/js/nice-select2.js')}}"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
-    <link rel="stylesheet" href="{{ Vite::asset('resources/css/seo.css') }}">
     <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
     <script>
     // imgs

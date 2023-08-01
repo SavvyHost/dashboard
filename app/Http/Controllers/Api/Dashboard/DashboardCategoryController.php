@@ -8,21 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\APITrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class CategoryController extends Controller
+class DashboardCategoryController extends Controller
 {
     use APITrait;
 
     public function index()
     {
         $categories = Category::all();
-
-        $response = [
-            'message' => 'All Categories',
-            'Categories' => $categories,
-            'count' => count($categories)
-        ];
-        return response($response, 201);
-        // return $this->sendSuccess('Categories Found', compact('categories'));
+        return $this->sendSuccess('All Categories.', compact('categories'));
     }
     public function store(Request $request)
     {
@@ -36,12 +29,7 @@ class CategoryController extends Controller
             'slug' => $request->slug,
             'image' => $save_url ?? null,
         ]);
-        $response = [
-            'message' => 'Category created successfully',
-            'Category' => $category
-        ];
-        return response($response, 201);
-        // return $this->sendSuccess('Category is created successfully', compact('category'));
+        return $this->sendSuccess('Category is created successfully', compact('category'), 201);
     }
     public function show($id)
     {
@@ -67,21 +55,17 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $request->slug,
         ]);
-        $response = [
-            'message' => 'Category updated successfully',
-            'Category' => $category
-        ];
-        return response($response, 201);
-        // return $this->sendSuccess('Category is updated successfully.', compact('category'));
+        return $this->sendSuccess('Category is updated successfully.', compact('category'));
     }
 
     public function destroy(string $id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        $response = [
-            'message' => 'Category deleted successfully',
-        ];
-        return response($response, 201);
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+            return $this->sendSuccess('Category deleted successfully.', []);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError("Category cann't deleted.", [], 404);
+        }
     }
 }
