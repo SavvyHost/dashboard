@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\APITrait;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use function uploadImage;
 
-class DashboardCategoryController extends Controller
+class CategoryController extends Controller
 {
     use APITrait;
 

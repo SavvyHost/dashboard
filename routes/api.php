@@ -1,52 +1,44 @@
 <?php
 
+use App\Http\Controllers\admin\AdminsController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\FeatureController;
+use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\PartnerController;
+use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\booking\BookingController;
+use App\Http\Controllers\Dashboard\DashboardBlogController;
+use App\Http\Controllers\Dashboard\DashboardCategoryController;
+use App\Http\Controllers\Dashboard\DashboardEventController;
+use App\Http\Controllers\Dashboard\DashboardPageController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\hotels\AddHotelController;
+use App\Http\Controllers\hotels\AttributesController;
+use App\Http\Controllers\hotels\AvailabiltyController;
+use App\Http\Controllers\hotels\EditHotelController;
+use App\Http\Controllers\hotels\HotelsController;
+use App\Http\Controllers\hotels\TermsController;
+use App\Http\Controllers\rooms\AddRoomController;
+use App\Http\Controllers\rooms\RoomAttributesController;
+use App\Http\Controllers\rooms\RoomsController;
+use App\Http\Controllers\rooms\RoomTypeController;
+use App\Http\Controllers\tours\AddTourController;
+use App\Http\Controllers\tours\EditTourController;
+use App\Http\Controllers\tours\TourAttrController;
+use App\Http\Controllers\tours\TourCategoryController;
+use App\Http\Controllers\tours\TourController;
+use App\Http\Controllers\tours\TourTermController;
+use App\Http\Controllers\user\AddUserController;
+use App\Http\Controllers\user\EditUserController;
+use App\Http\Controllers\user\SubscribersController;
+use App\Http\Controllers\user\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BlogController;
-use App\Http\Controllers\Api\PageController;
-use App\Http\Controllers\Api\EventController;
-use  App\Http\Controllers\auth\LoginController;
-use  App\Http\Controllers\tours\TourController;
-use  App\Http\Controllers\user\UsersController;
-use App\Http\Controllers\Api\FeatureController;
-use App\Http\Controllers\Api\PartnerController;
-use  App\Http\Controllers\admin\RolesController;
-use  App\Http\Controllers\auth\LogoutController;
-use  App\Http\Controllers\rooms\RoomsController;
-use App\Http\Controllers\Api\CategoryController;
-use  App\Http\Controllers\admin\AdminsController;
-use  App\Http\Controllers\hotels\TermsController;
-use  App\Http\Controllers\user\AddUserController;
-use  App\Http\Controllers\auth\RegisterController;
-use  App\Http\Controllers\hotels\HotelsController;
-use  App\Http\Controllers\rooms\AddRoomController;
-use  App\Http\Controllers\tours\AddTourController;
-use  App\Http\Controllers\user\EditUserController;
-use  App\Http\Controllers\rooms\RoomTypeController;
-use  App\Http\Controllers\tours\EditTourController;
-use  App\Http\Controllers\tours\TourAttrController;
-use  App\Http\Controllers\tours\TourTermController;
-
-
-use  App\Http\Controllers\booking\BookingController;
-use  App\Http\Controllers\hotels\AddHotelController;
-use  App\Http\Controllers\hotels\EditHotelController;
-use  App\Http\Controllers\user\SubscribersController;
-use  App\Http\Controllers\hotels\AttributesController;
-
-use App\Http\Controllers\Api\Dashboard\UserController;
-use App\Http\Controllers\Api\Dashboard\DashboardCategoryController;
-use App\Http\Controllers\Api\Dashboard\DashboardBlogController;
-use App\Http\Controllers\Api\Dashboard\DashboardEventController;
-use App\Http\Controllers\Api\Dashboard\DashboardPageController;
-
-
-
-
-use  App\Http\Controllers\hotels\AvailabiltyController;
-use  App\Http\Controllers\tours\TourCategoryController;
-use  App\Http\Controllers\rooms\RoomAttributesController;
-
 
 /*
 |--------------------------------------------------------------------------

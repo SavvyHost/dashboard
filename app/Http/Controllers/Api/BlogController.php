@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Blog;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BlogResource;
+use App\Models\Blog;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BlogController extends Controller
 {

@@ -1,38 +1,51 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Tag;
-use App\Models\Blog;
-use App\Models\User;
-use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\APITrait;
+use App\Http\Resources\Dashboard\BlogResource;
+use App\Http\Resources\Dashboard\CategoryResource;
+use App\Models\Blog;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use function auth;
+use function uploadImage;
 
-class DashboardBlogController extends Controller
+class BlogController extends Controller
 {
     use APITrait;
     public function index()
     {
-        $blogs = Blog::where('status', 'publish')->with('tags')->get();
+        $blogs =  BlogResource::collection( Blog::all() );
 
-        return $this->sendSuccess("All Blogs.", compact('blogs'), 200);
+        return $this->sendSuccess("All Blogs.", compact('blogs'));
     }
+	
+	public function create() {
+		$categories = CategoryResource::collection( Category::all() );
+		$admins = User::where('role_id', 1)->get();
+		
+		return $this->sendSuccess('', compact('categories', 'admins'));
+	}
 
     public function store(Request $request)
     {
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-
-        $request->validate([
+		$validator = Validator::make($request->all(), [
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
         ]);
+		
+		if ($validator->fails()) {
+			return $this->sendError('Validation Failed', ['errors' => $validator]);
+		}
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
@@ -46,7 +59,6 @@ class DashboardBlogController extends Controller
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
         }
-
 
         $blog = Blog::create([
             'title' => $request->title,
@@ -66,24 +78,23 @@ class DashboardBlogController extends Controller
             'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
-        $tags = $request->tags;
-         if ($tags) {
-             foreach ($tags as $tag) {
-                 Tag::create([
-                     'name' => $tag,
-                     'blog_id' => $blog->id,
-                 ]);
-             }
-         }
 
-        return $this->sendSuccess('Blog is created successfully', compact('blog', 'admins', 'categories'), 201);
+        $tags = $request->tags ?? [];
+		foreach ($tags as $tag) {
+			Tag::create([
+				'name' => $tag,
+				'blog_id' => $blog->id,
+			]);
+		}
+		 
+		$blog = new BlogResource( $blog );
+        return $this->sendSuccess('Blog is created successfully', compact('blog'), 201);
     }
 
     public function show(string $id)
     {
         try {
-            // $casee=Casee::where('id',$id)->with('category','donationtype','user','item','caseimage')->first();
-            $blog = Blog::where('id', $id)->with('tags')->get();
+            $blog = Blog::where('id', $id)->with('tags')->firstorFail();
             return $this->sendSuccess('Blog Found', compact('blog'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Blog Not Found', [], 404);
@@ -92,16 +103,23 @@ class DashboardBlogController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
-        $request->validate([
+		try {
+			$blog = Blog::findorFail($id);
+		} catch (ModelNotFoundException ) {
+			return $this->sendError('Blog Not Found', [], 404);
+		}
+	
+		$validator = Validator::make($request->all(), [
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
         ]);
+	
+		if ($validator->fails()) {
+			return $this->sendError('Validation Failed', ['errors' => $validator]);
+		}
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
@@ -144,31 +162,26 @@ class DashboardBlogController extends Controller
             'twitter_title' => $request->twitter_title,
             'twitter_description' => $request->twitter_description,
         ]);
-        $tags = $request->tags;
-        $blogs_id = Blog::where('blog_id', $blog->id)->get();
-        if ($tags) {
-            foreach ($blogs_id as $id) {
-                $id->delete();
-            }
-        }
+		$blog->save();
+	
+		$tags = $request->tags ?? [];
         foreach ($tags as $tag) {
             Tag::create([
-                'tag_name' => $tag->tag_name,
+                'name' => $tag,
                 'blog_id' => $blog->id,
             ]);
         }
-        $blog->save();
-        return $this->sendSuccess('Blog is updated successfully.', compact('blog', 'admins', 'categories'));
+        return $this->sendSuccess('Blog is updated successfully.', compact('blog'));
     }
 
     public function destroy(string $id)
     {
         try {
-            $blog = Blog::findOrFail($id);
+            $blog = Blog::findorFail($id);
             $blog->delete();
             return $this->sendSuccess('Blog deleted successfully.', []);
         } catch (ModelNotFoundException $e) {
-            return $this->sendError("Blog cann't deleted.", [], 404);
+            return $this->sendError("Blog Not Found", [], 404);
         }
     }
 }
