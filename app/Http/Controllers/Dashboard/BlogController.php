@@ -21,6 +21,13 @@ class BlogController extends Controller
         return $this->sendSuccess("All Blogs.", compact('blogs'), 200);
     }
 
+	public function create() {
+		$categories = Category::all();
+		$admins = User::where('role_id', 1)->get();
+		
+		return $this->sendSuccess('', compact('categories','admins'));
+	}
+	
     public function store(Request $request)
     {
         $categories = Category::all();
