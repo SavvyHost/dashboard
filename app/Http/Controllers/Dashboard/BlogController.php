@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Tag;
 use App\Models\Blog;
@@ -8,10 +8,10 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\APITrait;
+use App\Http\Controllers\APITrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class DashboardBlogController extends Controller
+class BlogController extends Controller
 {
     use APITrait;
     public function index()

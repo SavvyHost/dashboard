@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Tag extends Model
 {
     use HasFactory;
-    protected $fillable = ['name',
-    // 'blog_id'
+    protected $fillable = ['name', 'blog_id'
 ];
     public function blogs()
     {
