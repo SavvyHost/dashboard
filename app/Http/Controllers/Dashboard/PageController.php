@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Api\APITrait;
-use App\Models\Page;
-use Illuminate\Http\Request;
+use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use function uploadImage;
 
-class DashboardPageController extends Controller
+class PageController extends Controller
 {
     use APITrait;
     public function index()

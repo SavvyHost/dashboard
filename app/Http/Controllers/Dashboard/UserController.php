@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\APITrait;
+use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Country;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Api\APITrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use function response;
+use function uploadImage;
 
 class UserController extends Controller
 {

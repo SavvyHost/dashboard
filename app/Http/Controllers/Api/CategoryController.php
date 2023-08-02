@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Carbon\Carbon;
+use App\Http\Controllers\APITrait;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {

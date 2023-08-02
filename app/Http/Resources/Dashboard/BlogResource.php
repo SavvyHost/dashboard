@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Dashboard;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,14 +14,16 @@ class BlogResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+		return [
 			'id' => $this->id,
 			'title' => $this->title,
-            'content' => $this->content,
-            'category' => $this->category?->name,
+			'content' => $this->content,
+			'category' => $this->category?->name,
+			'user' => $this->user?->name,
+			'status' => $this->status,
 			'tags' => $this->tags,
-            'image' => asset( $this->image ),
-            'created_at' => $this->created_at,
-        ];
-    }
+			'image' => asset( $this->image ),
+			'created_at' => $this->created_at,
+		];
+	}
 }

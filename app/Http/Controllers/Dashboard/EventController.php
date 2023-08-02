@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\Dashboard;
+namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Event;
-use Illuminate\Http\Request;
+use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\APITrait;
+use App\Models\Event;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use function uploadImage;
 
-
-class DashboardEventController extends Controller
+class EventController extends Controller
 {
     use APITrait;
     public function index()
