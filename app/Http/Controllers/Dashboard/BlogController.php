@@ -111,8 +111,13 @@ class BlogController extends Controller
     }
     public function update(Request $request, string $id)
     {
-        $blog = Blog::findOrFail($id);
-        $request->validate([
+		try {
+			$blog = Blog::findOrFail($id);
+		} catch (ModelNotFoundException $e) {
+			return $this->sendError('Blog Not Found', [], 404);
+		}
+		
+			$request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
