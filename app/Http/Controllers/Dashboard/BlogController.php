@@ -16,23 +16,21 @@ class BlogController extends Controller
     use APITrait;
     public function index()
     {
-        $blogs = Blog::where('status', 'publish')->with('tags')->get();
+        $blogs = Blog::with('tags')->get();
 
         return $this->sendSuccess("All Blogs.", compact('blogs'), 200);
     }
 
-	public function create() {
-		$categories = Category::all();
-		$admins = User::where('role_id', 1)->get();
-		
-		return $this->sendSuccess('', compact('categories','admins'));
-	}
-	
-    public function store(Request $request)
+    public function create()
     {
         $categories = Category::all();
         $admins = User::where('role_id', 1)->get();
 
+        return $this->sendSuccess('', compact('categories', 'admins'));
+    }
+
+    public function store(Request $request)
+    {
         $request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
@@ -62,28 +60,28 @@ class BlogController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id ?? auth()->user()->id,
-            'image' => $image ?? null,
+            'image' => asset($image) ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => $seo_image ?? null,
+            'seo_image' => asset($seo_image) ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => $facebook_image ?? null,
+            'facebook_image' => asset($facebook_image) ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => $twitter_image ?? null,
+            'twitter_image' => asset($twitter_image) ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
         $tags = $request->tags;
-         if ($tags) {
-             foreach ($tags as $tag) {
-                 Tag::create([
-                     'name' => $tag,
-                     'blog_id' => $blog->id,
-                 ]);
-             }
-         }
+        if ($tags) {
+            foreach ($tags as $tag) {
+                Tag::create([
+                    'name' => $tag,
+                    'blog_id' => $blog->id,
+                ]);
+            }
+        }
 
-        return $this->sendSuccess('Blog is created successfully', compact('blog', 'admins', 'categories'), 201);
+        return $this->sendSuccess('Blog is created successfully', compact('blog'), 201);
     }
 
     public function show(string $id)
@@ -97,11 +95,16 @@ class BlogController extends Controller
         }
     }
 
+    public function edit()
+    {
+        $categories = Category::all();
+        $admins = User::where('role_id', 1)->get();
+
+        return $this->sendSuccess('', compact('categories', 'admins'));
+    }
     public function update(Request $request, string $id)
     {
         $blog = Blog::findOrFail($id);
-        $categories = Category::all();
-        $admins = User::where('role_id', 1)->get();
         $request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
@@ -113,27 +116,27 @@ class BlogController extends Controller
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
             $blog->update([
-                'image' => $image
+                'image' => asset($image)
             ]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'blog-photos');
             $blog->update([
-                'seo_image' => $seo_image
+                'seo_image' => asset($seo_image)
             ]);
         }
 
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'blog-photos');
             $blog->update([
-                'facebook_image' => $facebook_image
+                'facebook_image' => asset($facebook_image)
             ]);
         }
 
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
             $blog->update([
-                'twitter_image' => $twitter_image
+                'twitter_image' => asset($twitter_image)
             ]);
         }
 

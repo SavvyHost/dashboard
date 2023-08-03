@@ -28,7 +28,7 @@ class CategoryController extends Controller
         $category = Category::create([
             'name' => $request->name,
             'slug' => $request->slug,
-            'image' => $save_url ?? null,
+            'image' => asset($save_url) ?? null,
         ]);
         return $this->sendSuccess('Category is created successfully', compact('category'), 201);
     }
@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'category-photos');
-            $category->update(['image' => $image]);
+            $category->update(['image' => asset($image)]);
         }
 
         $category->update([

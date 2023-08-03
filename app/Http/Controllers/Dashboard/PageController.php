@@ -50,17 +50,17 @@ class PageController extends Controller
                 'content' => $request->get('content'),
                 'searchable' => $request->searchable ?? 0,
                 'header_style' => $request->header_style,
-                'logo' => $logo ?? null,
+                'logo' => asset($logo) ?? null,
                 'featured_image' => $featured_image ?? null,
                 'publish' => $request->publish,
                 'seo_title' => $request->seo_title,
-                'seo_image' => $seo_image ?? null,
+                'seo_image' => asset($seo_image) ?? null,
                 'seo_description' => $request->seo_description,
                 'facebook_title' => $request->facebook_title,
-                'facebook_image' => $facebook_image ?? null,
+                'facebook_image' => asset($facebook_image) ?? null,
                 'facebook_description' => $request->facebook_description,
                 'twitter_title' => $request->twitter_title,
-                'twitter_image' => $twitter_image ?? null,
+                'twitter_image' => asset($twitter_image) ?? null,
                 'twitter_description' => $request->twitter_description,
             ]);
             return $this->sendSuccess('Page is created successfully', compact('page'), 201);
@@ -91,33 +91,33 @@ class PageController extends Controller
         if ($request->file('logo')) {
             $logo = uploadImage($request->file('logo'), 'page-photos');
             $page->update([
-                'logo' => $logo
+                'logo' => asset($logo)
             ]);
         }
         if ($request->file('featured_image')) {
             $featured_image = uploadImage($request->file('featured_image'), 'page-photos');
             $page->update([
-                'featured_image' => $featured_image
+                'featured_image' => asset($featured_image)
             ]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'page-photos');
             $page->update([
-                'seo_image' => $seo_image
+                'seo_image' => asset($seo_image)
             ]);
         }
 
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'page-photos');
             $page->update([
-                'facebook_image' => $facebook_image
+                'facebook_image' => asset($facebook_image)
             ]);
         }
 
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'page-photos');
             $page->update([
-                'twitter_image' => $twitter_image
+                'twitter_image' => asset($twitter_image)
             ]);
         }
 
