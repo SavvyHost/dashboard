@@ -7,7 +7,6 @@ use App\Http\Resources\BlogResource;
 use App\Http\Resources\Dashboard\CategoryResource;
 use App\Models\Tag;
 use App\Models\Blog;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -27,7 +26,6 @@ class BlogController extends Controller
 
     public function create()
     {
-
         $categories = CategoryResource::collection(Category::all());
         $admins = User::where('role_id', 1)->get();
 
@@ -40,8 +38,10 @@ class BlogController extends Controller
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
+            'user_id' => 'exists:users,id',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
+            'seo_image' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
@@ -65,15 +65,15 @@ class BlogController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id ?? auth()->user()->id,
-            'image' => asset($image) ?? null,
+            'image' => $image ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => asset($seo_image) ?? null,
+            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => asset($facebook_image) ?? null,
+            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => asset($twitter_image) ?? null,
+            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
 
@@ -101,7 +101,6 @@ class BlogController extends Controller
 
     public function edit($id)
     {
-
         try {
             $blog = new BlogResource(Blog::where('id', $id)->firstorFail());
         } catch (ModelNotFoundException $e) {
@@ -195,7 +194,7 @@ class BlogController extends Controller
             $blog->delete();
             return $this->sendSuccess('Blog deleted successfully.', []);
         } catch (ModelNotFoundException $e) {
-            return $this->sendError("Blog cann't deleted.", [], 404);
+            return $this->sendError("Blog Not Found.", [], 404);
         }
     }
 }
