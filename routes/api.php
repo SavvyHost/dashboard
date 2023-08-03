@@ -70,13 +70,16 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{id}', [DApp\Http\Controllers\Dashboard\CategoryController::class, 'update']);
         Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
     });
-    Route::group(['prefix' => 'blog'], function () {
-        Route::get('/index', [App\Http\Controllers\Dashboard\BlogController::class, 'index']);
-        Route::post('/store', [App\Http\Controllers\Dashboard\BlogController::class, 'store']);
-        Route::get('/show/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'show']);
-        Route::post('/update/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'update']);
-        Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'destroy']);
-    });
+	Route::group(['prefix' => 'blog'], function () {
+		Route::get('/', [Blog::class, 'index']);
+		Route::get('/create', [Blog::class, 'create']);
+		Route::get('/edit', [Blog::class, 'edit']);
+		Route::post('/store', [Blog::class, 'store']);
+		Route::get('/{id}', [Blog::class, 'show']);
+		Route::get('/{id}/edit', [Blog::class, 'edit']);
+		Route::put('/{id}', [Blog::class, 'update']);
+		Route::delete('/{id}', [Blog::class, 'destroy']);
+	});
     Route::group(['prefix' => 'event'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\EventController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\EventController::class, 'store']);
