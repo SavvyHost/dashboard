@@ -117,7 +117,8 @@ class BlogController extends Controller
 			return $this->sendError('Blog Not Found', [], 404);
 		}
 		
-			$request->validate([
+		return $request->all();
+		$request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
