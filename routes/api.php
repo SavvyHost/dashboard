@@ -77,7 +77,7 @@ Route::group(['prefix' => 'dashboard'], function () {
 		Route::post('/store', [Blog::class, 'store']);
 		Route::get('/{id}', [Blog::class, 'show']);
 		Route::get('/{id}/edit', [Blog::class, 'edit']);
-		Route::put('/{id}', [Blog::class, 'update']);
+		Route::post('/{id}', [Blog::class, 'update']);
 		Route::delete('/{id}', [Blog::class, 'destroy']);
 	});
 
