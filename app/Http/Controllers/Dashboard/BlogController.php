@@ -117,7 +117,6 @@ class BlogController extends Controller
 			return $this->sendError('Blog Not Found', [], 404);
 		}
 		
-		return $request->all();
 		$request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
@@ -170,17 +169,19 @@ class BlogController extends Controller
 
 		$blog->save();
 	
+		$blog->tags()->delete();
+	
 		$tags = $request->tags ?? [];
-		$tagIds = [];
 	
 		foreach ($tags as $tag) {
-			$tagModel = Tag::firstOrCreate(['name' => $tag]);
-			$tagIds[] = $tagModel->id;
+			Tag::create([
+				'name' => $tag,
+				'blog_id' => $blog->id,
+			]);
 		}
+		$blog = new BlogResource($blog);
 	
-		$blog->tags()->sync($tagIds);
-		
-        return $this->sendSuccess('Blog is updated successfully.', compact('blog'));
+		return $this->sendSuccess('Blog is updated successfully.', compact('blog'));
     }
 
     public function destroy(string $id)
