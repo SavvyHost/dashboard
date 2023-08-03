@@ -30,9 +30,10 @@ Route::group(['prefix' => 'blog'], function () {
     Route::get('/index', [BlogController::class, 'index']);
     Route::get('/create', [BlogController::class, 'create']);
     Route::post('/store', [BlogController::class, 'store']);
-    Route::get('/show/{id}', [BlogController::class, 'show']);
-    Route::post('/update/{id}', [BlogController::class, 'update']);
-    Route::get('/delete/{id}', [BlogController::class, 'destroy']);
+    Route::get('/{id}', [BlogController::class, 'show']);
+    Route::get('/{id}/edit', [BlogController::class, 'edit']);w
+    Route::put('/{id}', [BlogController::class, 'update']);
+    Route::delete('/{id}', [BlogController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'event'], function () {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Resources\BlogResource;
+use App\Http\Resources\Dashboard\CategoryResource;
 use App\Models\Tag;
 use App\Models\Blog;
 use App\Models\User;
@@ -16,14 +18,14 @@ class BlogController extends Controller
     use APITrait;
     public function index()
     {
-        $blogs = Blog::with('tags')->get();
+        $blogs = BlogResource::collection( Blog::all() );
 
-        return $this->sendSuccess("All Blogs.", compact('blogs'), 200);
+        return $this->sendSuccess("All Blogs.", compact('blogs'));
     }
 
     public function create()
     {
-        $categories = Category::all();
+		$categories = CategoryResource::collection( Category::all() );
         $admins = User::where('role_id', 1)->get();
 
         return $this->sendSuccess('', compact('categories', 'admins'));
@@ -60,47 +62,52 @@ class BlogController extends Controller
             'status' => $request->status,
             'category_id' => $request->category_id,
             'user_id' => $request->user_id ?? auth()->user()->id,
-            'image' => asset($image) ?? null,
+            'image' => $image ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => asset($seo_image) ?? null,
+            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => asset($facebook_image) ?? null,
+            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => asset($twitter_image) ?? null,
+            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
-        $tags = $request->tags;
-        if ($tags) {
-            foreach ($tags as $tag) {
-                Tag::create([
-                    'name' => $tag,
-                    'blog_id' => $blog->id,
-                ]);
-            }
-        }
+		
+        $tags = $request->tags ?? [];
+		foreach ($tags as $tag) {
+			Tag::create([
+				'name' => $tag,
+				'blog_id' => $blog->id,
+			]);
+		}
 
+		$blog = new BlogResource($blog);
         return $this->sendSuccess('Blog is created successfully', compact('blog'), 201);
     }
 
-    public function show(string $id)
+    public function show($id)
     {
         try {
-            // $casee=Casee::where('id',$id)->with('category','donationtype','user','item','caseimage')->first();
-            $blog = Blog::where('id', $id)->with('tags')->get();
+            $blog = new BlogResource( Blog::where('id', $id)->firstorFail() );
             return $this->sendSuccess('Blog Found', compact('blog'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Blog Not Found', [], 404);
         }
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $categories = Category::all();
+		try {
+			$blog = new BlogResource( Blog::where('id', $id)->firstorFail() );
+		} catch (ModelNotFoundException $e) {
+			return $this->sendError('Blog Not Found', [], 404);
+		}
+		
+        $categories = CategoryResource::collection( Category::all() );
         $admins = User::where('role_id', 1)->get();
 
-        return $this->sendSuccess('', compact('categories', 'admins'));
+        return $this->sendSuccess('', compact('categories', 'admins', 'blog'));
     }
     public function update(Request $request, string $id)
     {
@@ -116,27 +123,27 @@ class BlogController extends Controller
         if ($request->file('image')) {
             $image = uploadImage($request->file('image'), 'blog-photos');
             $blog->update([
-                'image' => asset($image)
+                'image' => $image
             ]);
         }
         if ($request->file('seo_image')) {
             $seo_image = uploadImage($request->file('seo_image'), 'blog-photos');
             $blog->update([
-                'seo_image' => asset($seo_image)
+                'seo_image' => $seo_image
             ]);
         }
 
         if ($request->file('facebook_image')) {
             $facebook_image = uploadImage($request->file('facebook_image'), 'blog-photos');
             $blog->update([
-                'facebook_image' => asset($facebook_image)
+                'facebook_image' => $facebook_image
             ]);
         }
 
         if ($request->file('twitter_image')) {
             $twitter_image = uploadImage($request->file('twitter_image'), 'blog-photos');
             $blog->update([
-                'twitter_image' => asset($twitter_image)
+                'twitter_image' => $twitter_image
             ]);
         }
 
@@ -154,21 +161,20 @@ class BlogController extends Controller
             'twitter_title' => $request->twitter_title,
             'twitter_description' => $request->twitter_description,
         ]);
-        $tags = $request->tags;
-        $blogs_id = Blog::where('blog_id', $blog->id)->get();
-        if ($tags) {
-            foreach ($blogs_id as $id) {
-                $id->delete();
-            }
-        }
-        foreach ($tags as $tag) {
-            Tag::create([
-                'tag_name' => $tag->tag_name,
-                'blog_id' => $blog->id,
-            ]);
-        }
-        $blog->save();
-        return $this->sendSuccess('Blog is updated successfully.', compact('blog', 'admins', 'categories'));
+
+		$blog->save();
+	
+		$tags = $request->tags ?? [];
+		$tagIds = [];
+	
+		foreach ($tags as $tag) {
+			$tagModel = Tag::firstOrCreate(['name' => $tag]);
+			$tagIds[] = $tagModel->id;
+		}
+	
+		$blog->tags()->sync($tagIds);
+		
+        return $this->sendSuccess('Blog is updated successfully.', compact('blog'));
     }
 
     public function destroy(string $id)
