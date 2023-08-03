@@ -35,7 +35,7 @@ Route::group(['prefix' => 'blog'], function () {
     Route::post('/store', [BlogController::class, 'store']);
     Route::get('/{id}', [BlogController::class, 'show']);
     Route::get('/{id}/edit', [BlogController::class, 'edit']);
-    Route::put('/{id}', [BlogController::class, 'update']);
+    Route::post('/{id}', [BlogController::class, 'update']);
     Route::delete('/{id}', [BlogController::class, 'destroy']);
 });
 
