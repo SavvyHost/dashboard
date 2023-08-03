@@ -27,11 +27,11 @@ Route::group(['prefix' => 'category'], function () {
 });
 
 Route::group(['prefix' => 'blog'], function () {
-    Route::get('/index', [BlogController::class, 'index']);
+    Route::get('/', [BlogController::class, 'index']);
     Route::get('/create', [BlogController::class, 'create']);
     Route::post('/store', [BlogController::class, 'store']);
     Route::get('/{id}', [BlogController::class, 'show']);
-    Route::get('/{id}/edit', [BlogController::class, 'edit']);w
+    Route::get('/{id}/edit', [BlogController::class, 'edit']);
     Route::put('/{id}', [BlogController::class, 'update']);
     Route::delete('/{id}', [BlogController::class, 'destroy']);
 });
