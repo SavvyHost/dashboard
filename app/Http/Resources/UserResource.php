@@ -15,26 +15,18 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
-
-
-        $country = Country::findorFail($this->country_id);
-        if ($this->gender == 1) {
-            $gender = "Male";
-        } else {
-            $gender = "Female";
-        }
         return [
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'country' => $country->country_name ?? null,
-            'gender' => $gender,
+            'avatar' => asset( $this->avatar ),
+            'country' => $this->country?->name,
+            'gender' => $this->gender ? "Male" : "Female",
             'status' => $this->status,
             'email' => $this->email,
             'username' => $this->username,
             'phone' => $this->phone,
-
+            'role' => $this->role->name,
         ];
     }
 }

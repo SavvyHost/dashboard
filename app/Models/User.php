@@ -53,31 +53,10 @@ class User extends Authenticatable
         'updated_at',
         'type',
     ];
-    public function countries()
+    public function country()
     {
-        return $this->hasMany(Country::class);
+        return $this->belongsTo(Country::class);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -89,9 +68,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function Role()
+    public function role()
     {
-        return $this->role_id;
+        return $this->belongsTo(Role::class);
     }
 
     public function bookings()
