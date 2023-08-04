@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('country_id')
-            $table->foreign('country_id')->constrained('apps_countries')->onDelete("cascade")->onUpdate('cascade');
+        Schema::table('apps_countries', function (Blueprint $table) {
+            $table->integer('id')->unsigned()->change();
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('country_id');
+        Schema::table('apps_countries', function (Blueprint $table) {
+            $table->dropColumn('id');
         });
     }
 };
