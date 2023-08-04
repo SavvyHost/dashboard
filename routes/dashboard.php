@@ -25,7 +25,7 @@ Route::group(['prefix' => 'category'], function () {
     Route::post('/store', [CategoryController::class, 'store']);
     Route::get('/show/{id}', [CategoryController::class, 'show']);
     Route::post('/update/{id}', [CategoryController::class, 'update']);
-    Route::get('/delete/{id}', [CategoryController::class, 'destroy']);
+    Route::delete('/delete/{id}', [CategoryController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'blog'], function () {
@@ -35,7 +35,7 @@ Route::group(['prefix' => 'blog'], function () {
     Route::post('/store', [BlogController::class, 'store']);
     Route::get('/{id}', [BlogController::class, 'show']);
     Route::get('/{id}/edit', [BlogController::class, 'edit']);
-    Route::post('/{id}', [BlogController::class, 'update']);
+    Route::put('/{id}', [BlogController::class, 'update']);
     Route::delete('/{id}', [BlogController::class, 'destroy']);
 });
 
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'event'], function () {
     Route::post('/store', [EventController::class, 'store']);
     Route::get('/show/{id}', [EventController::class, 'show']);
     Route::post('/update/{id}', [EventController::class, 'update']);
-    Route::get('/delete/{id}', [EventController::class, 'destroy']);
+    Route::delete('/delete/{id}', [EventController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'page'], function () {
@@ -52,5 +52,5 @@ Route::group(['prefix' => 'page'], function () {
     Route::post('/store', [PageController::class, 'store']);
     Route::get('/show/{id}', [PageController::class, 'show']);
     Route::post('/update/{id}', [PageController::class, 'update']);
-    Route::get('/delete/{id}', [PageController::class, 'destroy']);
+    Route::delete('/delete/{id}', [PageController::class, 'destroy']);
 });
