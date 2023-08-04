@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers;
+// namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
