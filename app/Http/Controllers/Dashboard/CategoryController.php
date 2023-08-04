@@ -21,15 +21,22 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate(['name' => 'required',]);
-
         if ($request->file('image')) {
             $save_url = uploadImage($request->file('image'), 'category-photos');
+            $category = Category::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'image' => asset($save_url) ?? null,
+            ]);
+        } else {
+            $category = Category::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                // 'image' => asset($save_url) ?? null,
+            ]);
         }
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'image' => asset($save_url) ?? null,
-        ]);
+
+
         return $this->sendSuccess('Category is created successfully', compact('category'), 201);
     }
     public function show($id)
