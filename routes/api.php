@@ -67,7 +67,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\CategoryController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\CategoryController::class, 'store']);
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'show']);
-        Route::post('/update/{id}', [DApp\Http\Controllers\Dashboard\CategoryController::class, 'update']);
+        Route::post('/update/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
     });
     Route::group(['prefix' => 'blog'], function () {
