@@ -19,19 +19,17 @@ class UserController extends Controller
     use APITrait;
     public function index()
     {
-        $all_users = UserResource::collection(User::with('countries')->get());
+        $all_users = UserResource::collection(User::all());
         return $this->sendSuccess("All admins and users.", compact('all_users'), 200);
     }
     public function index_admins()
     {
-        $admins = User::where('role_id', 1)->get();
-
+        $admins = UserResource::collection(User::where('role_id', 1)->get());
         return $this->sendSuccess("All Admins.", compact('admins'), 200);
     }
     public function index_users()
     {
-        $users = User::where('role_id', 2)->get();
-
+        $users = UserResource::collection(User::where('role_id', 2)->get());
         return $this->sendSuccess("All Users.", compact('users'), 200);
     }
     public function create()
@@ -50,7 +48,7 @@ class UserController extends Controller
             'phone'     =>  'required',
             'password'  =>  'required',
             'bio'       =>  'nullable',
-            'country'   =>  'required',
+            'country_id'   =>  'required',
             // 'gender'    =>  'required',
             // 'role_id'      =>  'required',
             'status' => 'in:active,suspend',
@@ -68,7 +66,7 @@ class UserController extends Controller
             'phone'     =>  $request->phone,
             'password'  =>  Hash::make($request->password),
             'bio'       =>  $request->bio,
-            'country'   =>  $request->country,
+            'country_id'   =>  $request->country_id,
             'gender'    =>  $request->gender,
             'role_id'   =>  $request->role_id,
             'created_at' =>  date('Y-m-d'),
@@ -104,7 +102,7 @@ class UserController extends Controller
                 'phone'     =>  'required',
                 'password'  =>  'required',
                 'bio'       =>  'nullable',
-                'country'   =>  'required',
+                'country_id'   =>  'required',
                 'status' => 'in:active,suspend',
             ]);
             if ($request->file('avatar')) {
@@ -122,7 +120,7 @@ class UserController extends Controller
                 'phone'     =>  $request->phone,
                 'password'  =>  Hash::make($request->password),
                 'bio'       =>  $request->bio,
-                'country'   =>  $request->country,
+                'country_id'   =>  $request->country_id,
                 'gender'    =>  $request->gender,
                 'role_id'   =>  $request->role_id,
                 'created_at' =>  date('Y-m-d'),

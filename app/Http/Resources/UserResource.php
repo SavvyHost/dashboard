@@ -18,10 +18,19 @@ class UserResource extends JsonResource
         // return parent::toArray($request);
 
 
+        $country = Country::findorFail($this->country_id);
+        if ($this->gender == 1) {
+            $gender = "Male";
+        } else {
+            $gender = "Female";
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'country' => $this->country?->country_name,
+            'type' => $this->type,
+            'country' => $country->country_name ?? null,
+            'gender' => $gender,
+            'status' => $this->status,
             'email' => $this->email,
             'username' => $this->username,
             'phone' => $this->phone,
