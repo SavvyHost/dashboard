@@ -29,13 +29,14 @@ Route::group(['prefix' => 'category'], function () {
 });
 
 Route::group(['prefix' => 'blog'], function () {
-    Route::get('/index', [BlogController::class, 'index']);
+    Route::get('/', [BlogController::class, 'index']);
     Route::get('/create', [BlogController::class, 'create']);
     Route::get('/edit', [BlogController::class, 'edit']);
     Route::post('/store', [BlogController::class, 'store']);
-    Route::get('/show/{id}', [BlogController::class, 'show']);
-    Route::post('/update/{id}', [BlogController::class, 'update']);
-    Route::get('/delete/{id}', [BlogController::class, 'destroy']);
+    Route::get('/{id}', [BlogController::class, 'show']);
+    Route::get('/{id}/edit', [BlogController::class, 'edit']);
+    Route::post('/{id}', [BlogController::class, 'update']);
+    Route::delete('/{id}', [BlogController::class, 'destroy']);
 });
 
 Route::group(['prefix' => 'event'], function () {
