@@ -53,43 +53,47 @@ use Illuminate\Support\Facades\Route;
 
 
 /**  Dashboard  */
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/index', [UserController::class, 'index']);
-    Route::get('/index/users', [UserController::class, 'index_users']);
-    Route::get('/index/admins', [UserController::class, 'index_admins']);
-    Route::post('/store', [UserController::class, 'store']);
-    Route::get('/show/{id}', [UserController::class, 'show']);
-    Route::post('/update/{id}', [UserController::class, 'update']);
-    Route::delete('/delete/{id}', [UserController::class, 'destroy']);
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/index', [UserController::class, 'index']);
+        Route::get('/index/users', [UserController::class, 'index_users']);
+        Route::get('/index/admins', [UserController::class, 'index_admins']);
+        Route::post('/store', [UserController::class, 'store']);
+        Route::get('/show/{id}', [UserController::class, 'show']);
+        Route::post('/update/{id}', [UserController::class, 'update']);
+        Route::delete('/delete/{id}', [UserController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/index', [DashboardCategoryController::class, 'index']);
+        Route::post('/store', [DashboardCategoryController::class, 'store']);
+        Route::get('/show/{id}', [DashboardCategoryController::class, 'show']);
+        Route::post('/update/{id}', [DashboardCategoryController::class, 'update']);
+        Route::get('/delete/{id}', [DashboardCategoryController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/index', [DashboardBlogController::class, 'index']);
+        Route::post('/store', [DashboardBlogController::class, 'store']);
+        Route::get('/show/{id}', [DashboardBlogController::class, 'show']);
+        Route::post('/update/{id}', [DashboardBlogController::class, 'update']);
+        Route::get('/delete/{id}', [DashboardBlogController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'event'], function () {
+        Route::get('/index', [DashboardEventController::class, 'index']);
+        Route::post('/store', [DashboardEventController::class, 'store']);
+        Route::get('/show/{id}', [DashboardEventController::class, 'show']);
+        Route::post('/update/{id}', [DashboardEventController::class, 'update']);
+        Route::get('/delete/{id}', [DashboardEventController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'page'], function () {
+        Route::get('/index', [DashboardPageController::class, 'index']);
+        Route::post('/store', [DashboardPageController::class, 'store']);
+        Route::get('/show/{id}', [DashboardPageController::class, 'show']);
+        Route::post('/update/{id}', [DashboardPageController::class, 'update']);
+        Route::get('/delete/{id}', [DashboardPageController::class, 'destroy']);
+    });
 });
-Route::group(['prefix' => 'category'], function () {
-    Route::get('/index', [DashboardCategoryController::class, 'index']);
-    Route::post('/store', [DashboardCategoryController::class, 'store']);
-    Route::get('/show/{id}', [DashboardCategoryController::class, 'show']);
-    Route::post('/update/{id}', [DashboardCategoryController::class, 'update']);
-    Route::get('/delete/{id}', [DashboardCategoryController::class, 'destroy']);
-});
-Route::group(['prefix' => 'blog'], function () {
-    Route::get('/index', [DashboardBlogController::class, 'index']);
-    Route::post('/store', [DashboardBlogController::class, 'store']);
-    Route::get('/show/{id}', [DashboardBlogController::class, 'show']);
-    Route::post('/update/{id}', [DashboardBlogController::class, 'update']);
-    Route::get('/delete/{id}', [DashboardBlogController::class, 'destroy']);
-});
-Route::group(['prefix' => 'event'], function () {
-    Route::get('/index', [DashboardEventController::class, 'index']);
-    Route::post('/store', [DashboardEventController::class, 'store']);
-    Route::get('/show/{id}', [DashboardEventController::class, 'show']);
-    Route::post('/update/{id}', [DashboardEventController::class, 'update']);
-    Route::get('/delete/{id}', [DashboardEventController::class, 'destroy']);
-});
-Route::group(['prefix' => 'page'], function () {
-    Route::get('/index', [DashboardPageController::class, 'index']);
-    Route::post('/store', [DashboardPageController::class, 'store']);
-    Route::get('/show/{id}', [DashboardPageController::class, 'show']);
-    Route::post('/update/{id}', [DashboardPageController::class, 'update']);
-    Route::get('/delete/{id}', [DashboardPageController::class, 'destroy']);
-});
+
+
 
 
 /**   *********************************************************************************************************************  **/
