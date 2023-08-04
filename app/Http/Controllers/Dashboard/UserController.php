@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\Country;
 use App\Models\Role;
 use App\Models\User;
@@ -18,8 +19,7 @@ class UserController extends Controller
     use APITrait;
     public function index()
     {
-        $all_users = User::all();
-
+        $all_users = UserResource::collection(User::with('countries')->get());
         return $this->sendSuccess("All admins and users.", compact('all_users'), 200);
     }
     public function index_admins()
@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         $countries = Country::all();
         $roles = Role::all();
-        return $this->sendSuccess('', compact('categories', 'roles', 'countries'));
+        return $this->sendSuccess('', compact('roles', 'countries'));
     }
 
     public function store(Request $request)
@@ -85,6 +85,13 @@ class UserController extends Controller
             return $this->sendError("User Not Found.",  404);
         }
     }
+    public function edit()
+    {
+        $countries = Country::all();
+        $roles = Role::all();
+        return $this->sendSuccess('', compact('roles', 'countries'));
+    }
+
 
     public function update(Request $request, string $id)
     {

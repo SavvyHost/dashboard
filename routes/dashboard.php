@@ -16,6 +16,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/show/{id}', [UserController::class, 'show']);
     Route::post('/update/{id}', [UserController::class, 'update']);
     Route::delete('/delete/{id}', [UserController::class, 'destroy']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::get('/edit', [UserController::class, 'edit']);
 });
 
 Route::group(['prefix' => 'category'], function () {
@@ -29,6 +31,7 @@ Route::group(['prefix' => 'category'], function () {
 Route::group(['prefix' => 'blog'], function () {
     Route::get('/index', [BlogController::class, 'index']);
     Route::get('/create', [BlogController::class, 'create']);
+    Route::get('/edit', [BlogController::class, 'edit']);
     Route::post('/store', [BlogController::class, 'store']);
     Route::get('/show/{id}', [BlogController::class, 'show']);
     Route::post('/update/{id}', [BlogController::class, 'update']);

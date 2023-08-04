@@ -53,6 +53,10 @@ class User extends Authenticatable
         'updated_at',
         'type',
     ];
+    public function countries()
+    {
+        return $this->hasMany(Country::class);
+    }
 
 
 
