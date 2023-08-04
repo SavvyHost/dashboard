@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-// namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard;
+
 
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\Dashboard\CategoryResource;
