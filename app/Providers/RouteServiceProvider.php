@@ -35,10 +35,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
-			
-			Route::middleware('api')
-				->prefix('dashboard')
-				->group(base_path('routes/dashboard.php'));
+
+            Route::middleware('api')
+                ->prefix('dashboard')
+                ->group(base_path('routes/dashboard.php'));
         });
     }
 
@@ -47,6 +47,20 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    public function map()
+    {
+        $this->mapApiRoutes();
+        $this->mapWebRoutes();
+        $this->mapMyCustomRoutes(); // Add this line
+    }
+
+    protected function mapMyCustomRoutes()
+    {
+        Route::middleware('api')
+            ->namespace('App\Http\Controllers\Dashboard')
+            ->prefix('dashboard')
+            ->group(base_path('routes/dashboard.php'));
+    }
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
