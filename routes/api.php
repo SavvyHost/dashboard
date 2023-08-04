@@ -55,41 +55,41 @@ use Illuminate\Support\Facades\Route;
 /**  Dashboard  */
 Route::group(['prefix' => 'dashboard'], function () {
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/index', [App\Http\Controllers\Dashboard\UserController::class, 'index']);
-        Route::get('/index/users', [App\Http\Controllers\Dashboard\UserController::class, 'index_users']);
-        Route::get('/index/admins', [App\Http\Controllers\Dashboard\UserController::class, 'index_admins']);
-        Route::post('/store', [App\Http\Controllers\Dashboard\UserController::class, 'store']);
-        Route::get('/show/{id}', [App\Http\Controllers\Dashboard\UserController::class, 'show']);
-        Route::post('/update/{id}', [App\Http\Controllers\Dashboard\UserController::class, 'update']);
-        Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\UserController::class, 'destroy']);
+        Route::get('/index', [UserController::class, 'index']);
+        Route::get('/index/users', [UserController::class, 'index_users']);
+        Route::get('/index/admins', [UserController::class, 'index_admins']);
+        Route::post('/store', [UserController::class, 'store']);
+        Route::get('/show/{id}', [UserController::class, 'show']);
+        Route::post('/update/{id}', [UserController::class, 'update']);
+        Route::delete('/delete/{id}', [UserController::class, 'destroy']);
     });
     Route::group(['prefix' => 'category'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\CategoryController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\CategoryController::class, 'store']);
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'show']);
         Route::post('/update/{id}', [DApp\Http\Controllers\Dashboard\CategoryController::class, 'update']);
-        Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
+        Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
     });
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\BlogController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\BlogController::class, 'store']);
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'update']);
-        Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'destroy']);
+        Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\BlogController::class, 'destroy']);
     });
     Route::group(['prefix' => 'event'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\EventController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\EventController::class, 'store']);
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'update']);
-        Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'destroy']);
+        Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'destroy']);
     });
     Route::group(['prefix' => 'page'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\PageController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\PageController::class, 'store']);
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'update']);
-        Route::get('/delete/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'destroy']);
+        Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'destroy']);
     });
 });
 
