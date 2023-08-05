@@ -57,16 +57,16 @@ class EventController extends Controller
             'location' => $request->location,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'image' => asset($image) ?? null,
-            'avatar' => asset($avatar) ?? null,
+            'image' => $image ?? null,
+            'avatar' => $avatar ?? null,
             'seo_title' => $request->seo_title,
-            'seo_image' => asset($seo_image) ?? null,
+            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => asset($facebook_image) ?? null,
+            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => asset($twitter_image) ?? null,
+            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
         return $this->sendSuccess('Event is created successfully', compact('event'), 201);
@@ -97,33 +97,33 @@ class EventController extends Controller
             if ($request->file('image')) {
                 $image = uploadImage($request->file('image'), 'event-photos');
                 $event->update([
-                    'image' => asset($image)
+                    'image' => $image
                 ]);
             }
             if ($request->file('avatar')) {
                 $avatar = uploadImage($request->file('avatar'), 'event-photos');
                 $event->update([
-                    'avatar' => asset($avatar)
+                    'avatar' => $avatar
                 ]);
             }
             if ($request->file('seo_image')) {
                 $seo_image = uploadImage($request->file('seo_image'), 'event-photos');
                 $event->update([
-                    'seo_image' => asset($seo_image)
+                    'seo_image' => $seo_image
                 ]);
             }
 
             if ($request->file('facebook_image')) {
                 $facebook_image = uploadImage($request->file('facebook_image'), 'event-photos');
                 $event->update([
-                    'facebook_image' => asset($facebook_image)
+                    'facebook_image' => $facebook_image
                 ]);
             }
 
             if ($request->file('twitter_image')) {
                 $twitter_image = uploadImage($request->file('twitter_image'), 'event-photos');
                 $event->update([
-                    'twitter_image' => asset($twitter_image)
+                    'twitter_image' => $twitter_image
                 ]);
             }
 
