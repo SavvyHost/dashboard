@@ -58,6 +58,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/index', [UserController::class, 'index']);
         Route::get('/index/users', [UserController::class, 'index_users']);
         Route::get('/index/admins', [UserController::class, 'index_admins']);
+        Route::get('/create', [UserController::class, 'create']);
         Route::post('/store', [UserController::class, 'store']);
         Route::get('/show/{id}', [UserController::class, 'show']);
         Route::post('/update/{id}', [UserController::class, 'update']);
