@@ -13,7 +13,7 @@ class Page extends Model
         'name',
         'searchable',
         'content',
-        'publish',
+        'status',
         'seo_title',
         'seo_description',
         'featured_image',

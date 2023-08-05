@@ -24,7 +24,7 @@ class PageController extends Controller
             $request->validate([
                 'name' => 'required|string|max:200',
                 'header_style' => 'in:transparent,normal',
-                'publish' => 'in:0,1',
+                'status' => 'in:publish,draft',
                 'seo_title' => 'requiredIf:searchable,1|max:200',
                 'seo_description' => 'requiredIf:searchable,1',
             ]);
@@ -53,7 +53,7 @@ class PageController extends Controller
                 'header_style' => $request->header_style,
                 'logo' => asset($logo) ?? null,
                 'featured_image' => $featured_image ?? null,
-                'publish' => $request->publish,
+                'status' => $request->status,
                 'seo_title' => $request->seo_title,
                 'seo_image' => asset($seo_image) ?? null,
                 'seo_description' => $request->seo_description,
@@ -84,7 +84,7 @@ class PageController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'header_style' => 'in:transparent,normal',
-            'publish' => 'in:0,1',
+            'status' => 'in:publish,draft',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
         ]);
@@ -127,7 +127,7 @@ class PageController extends Controller
             'content' => $request->get('content'),
             'searchable' => $request->searchable,
             'header_style' => $request->header_style,
-            'publish' => $request->publish,
+            'status' => $request->status,
             'seo_title' => $request->seo_title,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
