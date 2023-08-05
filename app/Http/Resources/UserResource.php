@@ -20,7 +20,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'avatar' => asset( $this->avatar ),
-            'country' => $this->country?->name,
+            'country' => $this->country?->country_name,
             'gender' => $this->gender ? "Male" : "Female",
             'status' => $this->status,
             'email' => $this->email,
