@@ -1,44 +1,45 @@
 <?php
 
-use App\Http\Controllers\admin\AdminsController;
-use App\Http\Controllers\admin\RolesController;
-use App\Http\Controllers\Api\BlogController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\EventController;
-use App\Http\Controllers\Api\FeatureController;
-use App\Http\Controllers\Api\PageController;
-use App\Http\Controllers\Api\PartnerController;
-use App\Http\Controllers\auth\LoginController;
-use App\Http\Controllers\auth\LogoutController;
-use App\Http\Controllers\auth\RegisterController;
-use App\Http\Controllers\booking\BookingController;
-use App\Http\Controllers\Dashboard\BlogController as Blog;
-use App\Http\Controllers\Dashboard\CategoryController as Category;
-use App\Http\Controllers\Dashboard\EventController as Event;
-use App\Http\Controllers\Dashboard\PageController as Page;
-use App\Http\Controllers\Dashboard\UserController;
-use App\Http\Controllers\hotels\AddHotelController;
-use App\Http\Controllers\hotels\AttributesController;
-use App\Http\Controllers\hotels\AvailabiltyController;
-use App\Http\Controllers\hotels\EditHotelController;
-use App\Http\Controllers\hotels\HotelsController;
-use App\Http\Controllers\hotels\TermsController;
-use App\Http\Controllers\rooms\AddRoomController;
-use App\Http\Controllers\rooms\RoomAttributesController;
-use App\Http\Controllers\rooms\RoomsController;
-use App\Http\Controllers\rooms\RoomTypeController;
-use App\Http\Controllers\tours\AddTourController;
-use App\Http\Controllers\tours\EditTourController;
-use App\Http\Controllers\tours\TourAttrController;
-use App\Http\Controllers\tours\TourCategoryController;
-use App\Http\Controllers\tours\TourController;
-use App\Http\Controllers\tours\TourTermController;
-use App\Http\Controllers\user\AddUserController;
-use App\Http\Controllers\user\EditUserController;
-use App\Http\Controllers\user\SubscribersController;
-use App\Http\Controllers\user\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\tours\TourController;
+use App\Http\Controllers\user\UsersController;
+use App\Http\Controllers\admin\RolesController;
+use App\Http\Controllers\Api\FeatureController;
+use App\Http\Controllers\Api\PartnerController;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\rooms\RoomsController;
+use App\Http\Controllers\admin\AdminsController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\hotels\TermsController;
+use App\Http\Controllers\user\AddUserController;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\hotels\HotelsController;
+use App\Http\Controllers\rooms\AddRoomController;
+use App\Http\Controllers\tours\AddTourController;
+use App\Http\Controllers\user\EditUserController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\rooms\RoomTypeController;
+use App\Http\Controllers\tours\EditTourController;
+use App\Http\Controllers\tours\TourAttrController;
+use App\Http\Controllers\tours\TourTermController;
+use App\Http\Controllers\booking\BookingController;
+use App\Http\Controllers\hotels\AddHotelController;
+use App\Http\Controllers\hotels\EditHotelController;
+use App\Http\Controllers\user\SubscribersController;
+use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\hotels\AttributesController;
+use App\Http\Controllers\hotels\AvailabiltyController;
+use App\Http\Controllers\tours\TourCategoryController;
+use App\Http\Controllers\rooms\RoomAttributesController;
+use App\Http\Controllers\Dashboard\BlogController as Blog;
+use App\Http\Controllers\Dashboard\PageController as Page;
+use App\Http\Controllers\Dashboard\EventController as Event;
+use App\Http\Controllers\Dashboard\CategoryController as Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,16 +73,16 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
     });
-	Route::group(['prefix' => 'blog'], function () {
-		Route::get('/', [Blog::class, 'index']);
-		Route::get('/create', [Blog::class, 'create']);
-		Route::get('/edit', [Blog::class, 'edit']);
-		Route::post('/store', [Blog::class, 'store']);
-		Route::get('/{id}', [Blog::class, 'show']);
-		Route::get('/{id}/edit', [Blog::class, 'edit']);
-		Route::post('/{id}', [Blog::class, 'update']);
-		Route::delete('/{id}', [Blog::class, 'destroy']);
-	});
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', [Blog::class, 'index']);
+        Route::get('/create', [Blog::class, 'create']);
+        Route::get('/edit', [Blog::class, 'edit']);
+        Route::post('/store', [Blog::class, 'store']);
+        Route::get('/{id}', [Blog::class, 'show']);
+        Route::get('/{id}/edit', [Blog::class, 'edit']);
+        Route::post('/{id}', [Blog::class, 'update']);
+        Route::delete('/{id}', [Blog::class, 'destroy']);
+    });
 
     Route::group(['prefix' => 'event'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\EventController::class, 'index']);
@@ -96,6 +97,14 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'destroy']);
+        Route::post('/rebuild/{page}', [App\Http\Controllers\Dashboard\PageController::class, 'rebuild']);
+    });
+    Route::group(['prefix' => 'section'], function () {
+        Route::get('/index', [SectionController::class, 'index']);
+        Route::post('/store', [SectionController::class, 'store']);
+        Route::get('/show/{id}', [SectionController::class, 'show']);
+        Route::post('/update/{id}', [SectionController::class, 'update']);
+        Route::delete('/destroy/{id}', [SectionController::class, 'destroy']);
     });
 });
 
