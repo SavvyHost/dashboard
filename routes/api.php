@@ -182,7 +182,7 @@ Route::group(['middleware', 'prefix' => 'dashboard'], function () {
 
     Route::get('/users', [UsersController::class, 'index_api']);
     Route::delete('/user/delete/{user_id}', [UsersController::class, 'delete_api']);
-    Route::put('/user/{user_id}', [EditUserController::class, 'update_api']);
+    // Route::put('/user/{user_id}', [EditUserController::class, 'update_api']);
     Route::post('/users/new', [AddUserController::class, 'save_api']);
 
     Route::get('/admins', [AdminsController::class, 'index_api']);
