@@ -12,4 +12,8 @@ class Supplier extends Model
     public function hotels() {
         return $this->hasMany(Hotel::class);
     }
+    
+    public function country() {
+        return $this->belongsTo(Country::class);
+    }
 }

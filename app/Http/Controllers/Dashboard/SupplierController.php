@@ -46,7 +46,7 @@ class SupplierController extends Controller
             $supplier = new SupplierResource( $supplier );
             return $this->sendSuccess('Supplier Saved', compact('supplier'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     
