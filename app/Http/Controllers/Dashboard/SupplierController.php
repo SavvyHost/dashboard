@@ -6,6 +6,7 @@ use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSupplierRequest;
 use App\Http\Requests\UpdateSupplierRequest;
+use App\Http\Resources\Dashboard\CountryResource;
 use App\Http\Resources\Dashboard\SupplierResource;
 use App\Models\Country;
 use App\Models\Supplier;
@@ -23,7 +24,7 @@ class SupplierController extends Controller
     
     public function create()
     {
-        $countries = Country::all();
+        $countries = CountryResource::collection( Country::all() );
         
         return $this->sendSuccess('', compact('countries'));
     
@@ -65,7 +66,7 @@ class SupplierController extends Controller
         try {
             $supplier = Supplier::findOrFail( $supplier );
             $supplier = new SupplierResource( $supplier );
-            $countries = Country::all();
+            $countries = CountryResource::collection( Country::all() );
             return $this->sendSuccess('Supplier Found', compact('supplier', 'countries'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Supplier Not Found', $e->getMessage(), 404);
