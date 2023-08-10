@@ -31,7 +31,6 @@ use App\Http\Controllers\booking\BookingController;
 use App\Http\Controllers\hotels\AddHotelController;
 use App\Http\Controllers\hotels\EditHotelController;
 use App\Http\Controllers\user\SubscribersController;
-use App\Http\Controllers\user\UsersController;
 use App\Http\Controllers\Dashboard\ZoneController as DashboardZoneController;
 use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
@@ -41,8 +40,6 @@ use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyContro
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\hotels\AttributesController;
 use App\Http\Controllers\hotels\AvailabiltyController;
