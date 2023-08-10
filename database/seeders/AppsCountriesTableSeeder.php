@@ -22,14 +22,14 @@ class AppsCountriesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'country_code' => 'EG',
-                'country_name' => 'Egypt',
+                'code' => 'EG',
+                'name' => 'Egypt',
             ),
             1 => 
             array (
                 'id' => 2,
-                'country_code' => 'US',
-                'country_name' => 'United States of America',
+                'code' => 'US',
+                'name' => 'United States of America',
             ),
         ));
         

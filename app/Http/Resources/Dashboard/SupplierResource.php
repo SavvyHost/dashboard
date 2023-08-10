@@ -19,7 +19,8 @@ class SupplierResource extends JsonResource
             'address' => $this->address,
             'phone' => $this->phone,
             'email' => $this->phone,
-            'country' => $this->country->country_name
+            'country' => $this->country->name,
+            'country_id' => $this->country_id
         ];
     }
 }
