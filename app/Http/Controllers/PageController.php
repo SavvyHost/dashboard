@@ -150,7 +150,7 @@ class PageController extends Controller
 
         $page->save();
 
-        return redirect()->route('pages.page.edit',$page->id);
+        return redirect()->route('pages.page.edit', $page->id);
     }
 
     public function destroy(Page $page)
