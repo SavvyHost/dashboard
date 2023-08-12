@@ -38,7 +38,7 @@ class MealController extends Controller
             $meal = new MealResource( $meal );
             return $this->sendSuccess('Meal Saved', compact('meal'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     

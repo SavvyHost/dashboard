@@ -76,7 +76,7 @@ class HotelController extends Controller
             $hotel = new HotelResource( $hotel );
             return $this->sendSuccess('Hotel Saved', compact('hotel'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     

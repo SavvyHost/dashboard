@@ -38,7 +38,7 @@ class DestinationController extends Controller
             $destination = new DestinationResource( $destination );
             return $this->sendSuccess('Destination Saved', compact('destination'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     

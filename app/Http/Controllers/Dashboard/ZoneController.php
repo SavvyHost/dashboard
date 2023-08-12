@@ -38,7 +38,7 @@ class ZoneController extends Controller
             $zone = new ZoneResource( $zone );
             return $this->sendSuccess('Zone Saved', compact('zone'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     

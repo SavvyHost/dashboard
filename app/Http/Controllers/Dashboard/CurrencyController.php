@@ -38,7 +38,7 @@ class CurrencyController extends Controller
             $currency = new CurrencyResource( $currency );
             return $this->sendSuccess('Currency Saved', compact('currency'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     

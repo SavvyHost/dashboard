@@ -50,7 +50,7 @@ class RoomDetailController extends Controller
             $room_detail = new RoomDetailResource($room_detail);
             return $this->sendSuccess('Room Detail Saved', compact('room_detail'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     
@@ -95,7 +95,7 @@ class RoomDetailController extends Controller
             
             return $this->sendSuccess('Room Detail Updated', new RoomDetailResource($room_detail));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     
