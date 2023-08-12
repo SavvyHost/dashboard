@@ -38,7 +38,7 @@ class HotelCategoryController extends Controller
             $hotel_category = new HotelCategoryResource( $hotel_category );
             return $this->sendSuccess('Hotel Category Saved', compact('hotel_category'));
         } catch (\Exception $e) {
-            return $this->sendError('Error Found', $e->getMessage(), $e->getCode());
+            return $this->sendError('Error Found', $e->getMessage());
         }
     }
     
