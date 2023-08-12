@@ -23,14 +23,14 @@ class HotelResource extends JsonResource
             'min_rate' => $this->min_rate,
             'max_rate' => $this->max_rate,
             'banner' => asset( $this->banner ) ,
-            'category_code' => $this->category->code,
-            'category' => $this->category->name,
+            'category_code' => $this->hotel_category->code,
+            'category' => $this->hotel_category->name,
             'zone_code' => $this->zone->code,
             'zone' => $this->zone->name,
             'currency_code' => $this->currency->code,
             'currency' => $this->currency->name,
             'supplier' => new SupplierResource( $this->supplier ),
-            'images' => ImageResource::collection( $this->images )
+            'images' => ImageResource::collection( $this->hotel_images )
         ];
     }
 }

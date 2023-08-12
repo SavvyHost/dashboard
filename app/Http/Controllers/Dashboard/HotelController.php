@@ -65,12 +65,13 @@ class HotelController extends Controller
             
             $hotel->save();
 
-            $images = $request->get('images', []);
+            $images = $request->file('images', []);
     
             foreach( $images as $image ) {
                 $img = new HotelImage();
                 $img->image = uploadImage($image, 'hotels-images');
                 $img->hotel_id = $hotel->id;
+                $img->save();
             }
             
             $hotel = new HotelResource( $hotel );

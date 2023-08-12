@@ -9,7 +9,7 @@ class Hotel extends Model
 {
     use HasFactory;
     
-    public function category()
+    public function hotel_category()
     {
         return $this->belongsTo(HotelCategory::class);
     }
@@ -39,7 +39,7 @@ class Hotel extends Model
         return $this->hasMany(Room::class);
     }
     
-    public function images() {
+    public function hotel_images() {
         return $this->hasMany(HotelImage::class);
     }
 }
