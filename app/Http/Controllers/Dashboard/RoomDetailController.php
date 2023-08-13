@@ -44,6 +44,7 @@ class RoomDetailController extends Controller
             $room_detail->room_id = $request->get('room_id');
             $room_detail->hotel_id = $request->get('hotel_id');
             $room_detail->supplier_id = $request->get('supplier_id');
+            $room_detail->rooms = $request->get('rooms');
             
             $room_detail->save();
             
@@ -90,6 +91,7 @@ class RoomDetailController extends Controller
             $room_detail->room_id = $request->get('room_id');
             $room_detail->hotel_id = $request->get('hotel_id');
             $room_detail->supplier_id = $request->get('supplier_id');
+            $room_detail->rooms = $request->get('rooms');
             
             $room_detail->save();
             

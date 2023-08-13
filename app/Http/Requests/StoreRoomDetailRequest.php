@@ -23,10 +23,11 @@ class StoreRoomDetailRequest extends FormRequest
     {
         return [
             'net' => 'required|numeric',
-            'cancellation_policy' => 'nullable|json',
+            'cancellation_policy' => 'nullable',
             'room_id' => 'required|exists:rooms,id',
-            'hotel_id' => 'required|exists:hotel,id',
-            'supplier_id' => 'required|exists:supplier,id'
+            'hotel_id' => 'required|exists:hotels,id',
+            'supplier_id' => 'required|exists:suppliers,id',
+            'rooms' => 'required|integer'
         ];
     
     }

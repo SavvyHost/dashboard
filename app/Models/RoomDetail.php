@@ -9,8 +9,16 @@ class RoomDetail extends Model
 {
     use HasFactory;
     
+    protected $casts = [
+        'cancellation_policy' => 'json',
+    ];
+    
     public function room() {
         return $this->belongsTo(Room::class);
+    }
+    
+    public function hotel() {
+        return $this->belongsTo(Hotel::class);
     }
     
     public function supplier() {
