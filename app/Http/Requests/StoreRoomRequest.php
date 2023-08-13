@@ -26,6 +26,8 @@ class StoreRoomRequest extends FormRequest
             'name' => 'required|string',
             'state' => 'required|string',
             'hotel_id' => 'required|exists:hotels,id',
+            'images' => 'array',
+            'images.*' => 'image',
         ];
     }
 }

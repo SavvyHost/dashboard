@@ -30,7 +30,8 @@ class HotelResource extends JsonResource
             'currency_code' => $this->currency->code,
             'currency' => $this->currency->name,
             'supplier' => new SupplierResource( $this->supplier ),
-            'images' => ImageResource::collection( $this->hotel_images )
+            'images' => ImageResource::collection( $this->hotel_images ),
+            'rooms' => RoomResource::collection( $this->rooms )
         ];
     }
 }

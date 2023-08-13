@@ -96,6 +96,7 @@ class HotelController extends Controller
     {
         try {
             $hotel = Hotel::findOrFail( $hotel );
+            $hotel = new HotelResource( $hotel );
             
             $hotelCategories = HotelCategoryResource::collection(HotelCategory::all());
             $destinations = DestinationResource::collection(Destination::all());

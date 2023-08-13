@@ -27,7 +27,7 @@ class RoomController extends Controller
     public function create()
     {
         $hotels = HotelResource::collection(Hotel::all());
-        return $this->sendSuccess('Rooms Found', compact('hotels'));
+        return $this->sendSuccess('Data Found', compact('hotels'));
     }
     
     public function store( StoreRoomRequest $request )
