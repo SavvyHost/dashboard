@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function index()
     {
         // $blogs = BlogResource::collection(Blog::all());
-        $blogs = Blog::all()->with('category');
+        $blogs = Blog::with('category')->all();
         return $this->sendSuccess("All Blogs.", compact('blogs'));
     }
 
