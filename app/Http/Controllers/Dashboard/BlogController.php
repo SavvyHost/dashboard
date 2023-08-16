@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-
 use App\Http\Resources\BlogResource;
 use App\Http\Resources\Dashboard\CategoryResource;
 use App\Models\Tag;
@@ -20,7 +19,6 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = BlogResource::collection(Blog::all());
-
         return $this->sendSuccess("All Blogs.", compact('blogs'));
     }
 
@@ -28,7 +26,6 @@ class BlogController extends Controller
     {
         $categories = CategoryResource::collection(Category::all());
         $admins = User::where('role_id', 1)->get();
-
         return $this->sendSuccess('', compact('categories', 'admins'));
     }
 
@@ -112,6 +109,7 @@ class BlogController extends Controller
 
         return $this->sendSuccess('', compact('categories', 'admins', 'blog'));
     }
+
     public function update(Request $request, string $id)
     {
         try {
