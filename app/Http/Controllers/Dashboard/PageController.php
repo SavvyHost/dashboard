@@ -25,7 +25,6 @@ class PageController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:200',
-            'header_style' => 'in:transparent,normal',
             'status' => 'in:publish,draft',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
@@ -84,7 +83,6 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
         $request->validate([
             'name' => 'required|string|max:200',
-            'header_style' => 'in:transparent,normal',
             'status' => 'in:publish,draft',
             'seo_title' => 'requiredIf:searchable,1|max:200',
             'seo_description' => 'requiredIf:searchable,1',
