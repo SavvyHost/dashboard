@@ -18,7 +18,8 @@ class BlogController extends Controller
     use APITrait;
     public function index()
     {
-        $blogs = BlogResource::collection(Blog::all());
+        // $blogs = BlogResource::collection(Blog::all());
+        $blogs = Blog::all();
         return $this->sendSuccess("All Blogs.", compact('blogs'));
     }
 
