@@ -26,13 +26,9 @@ class PageController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'status' => 'in:publish,draft',
-            // 'seo_title' => 'requiredIf:searchable,1|max:200',
             // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
-        // if ($request->file('logo')) {
-        //     $logo = uploadImage($request->file('logo'), 'page-photos');
-        // }
         if ($request->file('featured_image')) {
             $featured_image = uploadImage($request->file('featured_image'), 'page-photos');
         }
@@ -51,8 +47,6 @@ class PageController extends Controller
             'name' => $request->name,
             'content' => $request->get('content'),
             'searchable' => $request->searchable ?? 0,
-            // 'header_style' => $request->header_style,
-            // 'logo' => asset($logo) ?? null,
             'featured_image' => $featured_image ?? null,
             'status' => $request->status,
             'seo_title' => $request->seo_title,
@@ -85,15 +79,9 @@ class PageController extends Controller
             'name' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             // 'seo_title' => 'requiredIf:searchable,1|max:200',
-            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
-        // if ($request->file('logo')) {
-        //     $logo = uploadImage($request->file('logo'), 'page-photos');
-        //     $page->update([
-        //         'logo' => asset($logo)
-        //     ]);
-        // }
+
         if ($request->file('featured_image')) {
             $featured_image = uploadImage($request->file('featured_image'), 'page-photos');
             $page->update([
@@ -125,7 +113,6 @@ class PageController extends Controller
             'name' => $request->name,
             'content' => $request->get('content'),
             'searchable' => $request->searchable,
-            // 'header_style' => $request->header_style,
             'status' => $request->status,
             'seo_title' => $request->seo_title,
             'seo_description' => $request->seo_description,
