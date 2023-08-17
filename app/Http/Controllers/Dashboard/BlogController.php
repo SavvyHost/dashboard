@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Resources\BlogResource;
-use App\Http\Resources\Dashboard\CategoryResource;
 use App\Models\Tag;
 use App\Models\Blog;
 use App\Models\User;
@@ -11,6 +9,9 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BlogResource;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Dashboard\CategoryResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class BlogController extends Controller
@@ -28,7 +29,8 @@ class BlogController extends Controller
     {
         $categories = CategoryResource::collection(Category::all());
         $admins = User::where('role_id', 1)->get();
-        return $this->sendSuccess('', compact('categories', 'admins'));
+        $user_login = Auth::user()->id;
+        return $this->sendSuccess('', compact('categories', 'admins', 'user_login'));
     }
 
     public function store(Request $request)
