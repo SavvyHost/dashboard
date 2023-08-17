@@ -24,7 +24,6 @@ class Page extends Model
         'twitter_description',
         'twitter_image',
         'seo_image',
-        'header_style',
     ];
     public function sections()
     {
