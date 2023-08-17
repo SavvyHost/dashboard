@@ -131,6 +131,8 @@ class EventController extends Controller
                 'title' => $request->title,
                 'content' => $request->get('content'),
                 'searchable' => $request->searchable,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
                 'status' => $request->status,
                 'category_id' => $request->category_id,
                 'user_id' => $request->user_id,
