@@ -12,10 +12,9 @@ function uploadImage($image, $folder)
 function getImagePath($image, $path)
 {
     $image_name = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-    // $image->storeAs('public/' . $path, $image_name);
-    return $image->storeAs('public/' . $path, $image_name);
+    $image->storeAs('public/' . $path, $image_name);
 
-    // return 'storage/' . $path . "/" . $image_name;
+    return 'storage/' . $path . "/" . $image_name;
 }
 
 function createFolderIfNotExist($folder): string

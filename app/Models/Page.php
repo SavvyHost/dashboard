@@ -14,6 +14,7 @@ class Page extends Model
         'searchable',
         'content',
         'status',
+        'seo_image',
         'seo_title',
         'seo_description',
         'featured_image',
@@ -23,7 +24,7 @@ class Page extends Model
         'twitter_title',
         'twitter_description',
         'twitter_image',
-        'seo_image',
+
     ];
     public function sections()
     {
