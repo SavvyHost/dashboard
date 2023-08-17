@@ -50,7 +50,7 @@ class PageController extends Controller
             'featured_image' => $featured_image ?? null,
             'status' => $request->status,
             'seo_title' => $request->seo_title,
-            'seo_image' => asset($seo_image) ?? null,
+            'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
             'facebook_image' => asset($facebook_image) ?? null,
