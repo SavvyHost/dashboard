@@ -23,7 +23,7 @@ class Page extends Model
         'twitter_title',
         'twitter_description',
         'twitter_image',
-        'logo',
+        'seo_image',
         'header_style',
     ];
     public function sections()

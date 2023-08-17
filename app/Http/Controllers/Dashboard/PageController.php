@@ -30,9 +30,9 @@ class PageController extends Controller
             // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
-        if ($request->file('logo')) {
-            $logo = uploadImage($request->file('logo'), 'page-photos');
-        }
+        // if ($request->file('logo')) {
+        //     $logo = uploadImage($request->file('logo'), 'page-photos');
+        // }
         if ($request->file('featured_image')) {
             $featured_image = uploadImage($request->file('featured_image'), 'page-photos');
         }
@@ -52,7 +52,7 @@ class PageController extends Controller
             'content' => $request->get('content'),
             'searchable' => $request->searchable ?? 0,
             'header_style' => $request->header_style,
-            'logo' => asset($logo) ?? null,
+            // 'logo' => asset($logo) ?? null,
             'featured_image' => $featured_image ?? null,
             'status' => $request->status,
             'seo_title' => $request->seo_title,
@@ -88,12 +88,12 @@ class PageController extends Controller
             // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
-        if ($request->file('logo')) {
-            $logo = uploadImage($request->file('logo'), 'page-photos');
-            $page->update([
-                'logo' => asset($logo)
-            ]);
-        }
+        // if ($request->file('logo')) {
+        //     $logo = uploadImage($request->file('logo'), 'page-photos');
+        //     $page->update([
+        //         'logo' => asset($logo)
+        //     ]);
+        // }
         if ($request->file('featured_image')) {
             $featured_image = uploadImage($request->file('featured_image'), 'page-photos');
             $page->update([
