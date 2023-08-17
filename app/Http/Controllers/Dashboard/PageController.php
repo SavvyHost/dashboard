@@ -26,8 +26,8 @@ class PageController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'status' => 'in:publish,draft',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
-            'seo_description' => 'requiredIf:searchable,1',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('logo')) {
@@ -84,8 +84,8 @@ class PageController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             'status' => 'in:publish,draft',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
-            'seo_description' => 'requiredIf:searchable,1',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('logo')) {

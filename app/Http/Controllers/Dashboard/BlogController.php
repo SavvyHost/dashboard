@@ -38,9 +38,9 @@ class BlogController extends Controller
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
             'user_id' => 'exists:users,id',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
-            'seo_description' => 'requiredIf:searchable,1',
-            'seo_image' => 'requiredIf:searchable,1',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'seo_description' => 'requiredIf:searchable,1',
+            // 'seo_image' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
@@ -124,8 +124,8 @@ class BlogController extends Controller
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
             'category_id' => 'exists:categories,id',
-            'seo_title' => 'requiredIf:searchable,1|max:200',
-            'seo_description' => 'requiredIf:searchable,1',
+            // 'seo_title' => 'requiredIf:searchable,1|max:200',
+            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('image')) {
