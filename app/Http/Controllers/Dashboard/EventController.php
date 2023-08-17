@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class EventController extends Controller
     public function index()
     {
         try {
-            $events = Event::all();
+            $events = EventResource::collection(Event::all());
             return $this->sendSuccess('Events Found', compact('events'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError("Events Not Found.", [], 404);

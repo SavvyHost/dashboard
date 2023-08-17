@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\APITrait;
 use App\CMS\Sections\SectionFactory;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PageResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PageController extends Controller
@@ -17,7 +18,7 @@ class PageController extends Controller
     use APITrait;
     public function index()
     {
-        $pages = Page::all();
+        $pages = PageResource::collection(Page::all());
         return $this->sendSuccess('Pages Found', compact('pages'));
     }
 
