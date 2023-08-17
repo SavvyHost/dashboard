@@ -53,10 +53,10 @@ class PageController extends Controller
             'seo_image' => $seo_image ?? null,
             'seo_description' => $request->seo_description,
             'facebook_title' => $request->facebook_title,
-            'facebook_image' => asset($facebook_image) ?? null,
+            'facebook_image' => $facebook_image ?? null,
             'facebook_description' => $request->facebook_description,
             'twitter_title' => $request->twitter_title,
-            'twitter_image' => asset($twitter_image) ?? null,
+            'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
         return $this->sendSuccess('Page is created successfully', compact('page'), 201);
