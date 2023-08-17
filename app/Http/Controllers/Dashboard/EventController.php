@@ -76,7 +76,7 @@ class EventController extends Controller
     public function show(string $id)
     {
         try {
-            $event = Event::findorFail($id);
+            $event = EventResource::collection(Event::findorFail($id));
             return $this->sendSuccess('Event Found', compact('event'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError("Event not Found", [], 404);

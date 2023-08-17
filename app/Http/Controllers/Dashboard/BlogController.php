@@ -29,8 +29,8 @@ class BlogController extends Controller
     {
         $categories = CategoryResource::collection(Category::all());
         $admins = User::where('role_id', 1)->get();
-        $user_login = Auth::user()->id;
-        return $this->sendSuccess('', compact('categories', 'admins', 'user_login'));
+        // $user_login = Auth::user()->id;
+        return $this->sendSuccess('', compact('categories', 'admins'));
     }
 
     public function store(Request $request)
