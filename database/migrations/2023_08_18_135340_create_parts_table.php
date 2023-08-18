@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pages', function (Blueprint $table) {
-//            $table->string('seo_image')->nullable();
+        Schema::create('parts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('content');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pages', function (Blueprint $table) {
-//            $table->dropColumn('seo_image');
-        });
+        Schema::dropIfExists('parts');
     }
 };

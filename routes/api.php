@@ -16,6 +16,7 @@ use App\Http\Controllers\booking\BookingController;
 use App\Http\Controllers\Dashboard\ZoneController as DashboardZoneController;
 use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
+use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
 use App\Http\Controllers\Dashboard\HotelController as DashboardHotelController;
 use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyController;
@@ -179,6 +180,14 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('edit/{zone}', [DashboardZoneController::class, 'edit']);
         Route::post('/update/{zone}', [DashboardZoneController::class, 'update']);
         Route::delete('/delete/{zone}', [DashboardZoneController::class, 'destroy']);
+    });
+    
+    Route::group(['prefix' => 'part'], function() {
+        Route::get('/index', [DashboardPartController::class, 'index']);
+        Route::post('/store', [DashboardPartController::class, 'store']);
+        Route::get('/show', [DashboardPartController::class, 'show']);
+        Route::get('/edit', [DashboardPartController::class, 'edit']);
+        Route::post('/update', [DashboardPartController::class, 'update']);
     });
 });
 
