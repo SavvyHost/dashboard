@@ -185,9 +185,10 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::group(['prefix' => 'part'], function() {
         Route::get('/index', [DashboardPartController::class, 'index']);
         Route::post('/store', [DashboardPartController::class, 'store']);
-        Route::get('/show', [DashboardPartController::class, 'show']);
-        Route::get('/edit', [DashboardPartController::class, 'edit']);
+        Route::get('/show/{page}', [DashboardPartController::class, 'show']);
+        Route::get('/edit/{page}', [DashboardPartController::class, 'edit']);
         Route::post('/update', [DashboardPartController::class, 'update']);
+        Route::delete('/delete/{part}', [DashboardPartController::class, 'destroy']);
     });
 });
 

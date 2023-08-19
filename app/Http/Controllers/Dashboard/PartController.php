@@ -31,11 +31,15 @@ class PartController extends Controller
     {
         $parts = $request->all();
         
+        $page = $parts['page'];
+        unset($parts['page']);
+        
         $result = [];
         foreach ($parts as $name => $content) {
             $part = new Part();
             $part->name = $name;
             $part->content = $content;
+            $part->page = $page;
             
             $part->save();
             
@@ -47,20 +51,18 @@ class PartController extends Controller
         return $this->sendSuccess('Parts Saved', compact('parts'));
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $page)
     {
-        $parts = $request->get('parts');
-        $parts = Part::whereIn('name', $parts)->get();
+        $parts = Part::where('page', $page)->get();
         $parts = PartResource::collection($parts);
         
         return $this->sendSuccess('Parts Found', compact('parts'));
 
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $page)
     {
-        $parts = $request->get('parts');
-        $parts = Part::whereIn('name', $parts)->get();
+        $parts = Part::where('page', $page)->get();
         $parts = PartResource::collection($parts);
     
         return $this->sendSuccess('Parts Found', compact('parts'));
@@ -69,11 +71,12 @@ class PartController extends Controller
     public function update(UpdatePartRequest $request)
     {
         $parts = $request->all();
-    
+        $page = $parts['page'];
+        unset($parts['page']);
         $result = [];
         try {
             foreach ( $parts as $name => $content ) {
-                $part = Part::where('name', $name)->firstorFail();
+                $part = Part::where('name', $name)->where('page', $page)->firstorFail();
                 $part->content = $content;
                 $part->save();
                 $result[] = $part;
@@ -90,6 +93,9 @@ class PartController extends Controller
 
     public function destroy(Part $part)
     {
-        //
+        $part->delete();
+    
+        return $this->sendSuccess('Part Deleted', []);
+    
     }
 }

@@ -15,7 +15,9 @@ class PartResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            $this->name => $this->content
+            'id' => $this->id,
+            $this->name => $this->content,
+            'page' => $this->page
         ];
     }
 }

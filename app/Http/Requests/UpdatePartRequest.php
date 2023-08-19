@@ -22,7 +22,7 @@ class UpdatePartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'page' => 'required|string'
         ];
     }
 }
