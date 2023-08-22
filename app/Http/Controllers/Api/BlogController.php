@@ -21,7 +21,7 @@ class BlogController extends Controller
     public function show($id)
     {
         try {
-            $blog = Blog::findorFail($id);
+            $blog = new BlogResource(Blog::where('id', $id)->firstorFail());
             return $this->sendSuccess('Blog Found', compact('blog'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Blog Not Found', [], 404);

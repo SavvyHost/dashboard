@@ -35,7 +35,6 @@ class BlogResource extends JsonResource
             'twitter_image' => asset($this->twitter_image),
             'twitter_description' => $this->twitter_description,
             'created_at' => $this->created_at,
-
         ];
     }
 }
