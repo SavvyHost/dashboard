@@ -66,7 +66,7 @@ class PageController extends Controller
     public function show(string $id)
     {
         try {
-            $page = Page::findorFail($id);
+            $page = PageResource::collection(Page::findorFail($id));
             return $this->sendSuccess('Page Found', compact('page'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError("Page not Found", [], 404);
