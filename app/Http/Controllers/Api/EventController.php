@@ -10,21 +10,21 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class EventController extends Controller
 {
-	use APITrait;
-	
-	public function index()
-	{
-		$events = EventResource::collection( Event::get() );
-		return $this->sendSuccess('Events Found', compact('events'));
-	}
-	
-	public function show($id)
-	{
-		try {
-			$event = new EventResource( Event::find($id) );
-			return $this->sendSuccess('Event Found', compact('event'));
-		} catch (ModelNotFoundException $e) {
-			return $this->sendError("Event not Found", [], 404);
-		}
-	}
+    use APITrait;
+
+    public function index()
+    {
+        $events = EventResource::collection(Event::get());
+        return $this->sendSuccess('Events Found', compact('events'));
+    }
+
+    public function show($id)
+    {
+        try {
+            $event = new EventResource(Event::find($id));
+            return $this->sendSuccess('Event Found', compact('event'));
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError("Event not Found", [], 404);
+        }
+    }
 }
