@@ -13,18 +13,19 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\booking\BookingController;
-use App\Http\Controllers\Dashboard\ZoneController as DashboardZoneController;
-use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
+use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Dashboard\EventDomainController;
+use App\Http\Controllers\Dashboard\BlogController as Blog;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
 use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
+use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
+use App\Http\Controllers\Dashboard\ZoneController as DashboardZoneController;
 use App\Http\Controllers\Dashboard\HotelController as DashboardHotelController;
-use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyController;
+use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
-use App\Http\Controllers\Dashboard\SectionController;
-use App\Http\Controllers\Dashboard\BlogController as Blog;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +75,18 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'destroy']);
+        Route::get('/create', [App\Http\Controllers\Dashboard\EventController::class, 'create']);
+        Route::get('/edit/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'edit']);
     });
+
+    Route::group(['prefix' => 'event/domain'], function () {
+        Route::get('/index', [EventDomainController::class, 'index']);
+        Route::post('/store', [EventDomainController::class, 'store']);
+        Route::get('/show/{id}', [EventDomainController::class, 'show']);
+        Route::post('/update/{id}', [EventDomainController::class, 'update']);
+        Route::delete('/delete/{id}', [EventDomainController::class, 'destroy']);
+    });
+
     Route::group(['prefix' => 'page'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\PageController::class, 'index']);
         Route::post('/store', [App\Http\Controllers\Dashboard\PageController::class, 'store']);
@@ -90,8 +102,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{id}', [SectionController::class, 'update']);
         Route::delete('/destroy/{id}', [SectionController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'hotel'], function() {
+
+    Route::group(['prefix' => 'hotel'], function () {
         Route::get('/index', [DashboardHotelController::class, 'index']);
         Route::get('/create', [DashboardHotelController::class, 'create']);
         Route::post('/store', [DashboardHotelController::class, 'store']);
@@ -99,10 +111,9 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('edit/{hotel}', [DashboardHotelController::class, 'edit']);
         Route::post('/update/{hotel}', [DashboardHotelController::class, 'update']);
         Route::delete('/delete/{hotel}', [DashboardHotelController::class, 'destroy']);
-    
     });
-    
-    Route::group(['prefix' => 'currency'], function() {
+
+    Route::group(['prefix' => 'currency'], function () {
         Route::get('/index', [DashboardCurrencyController::class, 'index']);
         Route::get('/create', [DashboardCurrencyController::class, 'create']);
         Route::post('/store', [DashboardCurrencyController::class, 'store']);
@@ -111,8 +122,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{currency}', [DashboardCurrencyController::class, 'update']);
         Route::delete('/delete/{currency}', [DashboardCurrencyController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'destination'], function() {
+
+    Route::group(['prefix' => 'destination'], function () {
         Route::get('/index', [DashboardDestinationController::class, 'index']);
         Route::get('/create', [DashboardDestinationController::class, 'create']);
         Route::post('/store', [DashboardDestinationController::class, 'store']);
@@ -121,8 +132,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{destination}', [DashboardDestinationController::class, 'update']);
         Route::delete('/delete/{destination}', [DashboardDestinationController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'hotel_category'], function() {
+
+    Route::group(['prefix' => 'hotel_category'], function () {
         Route::get('/index', [DashboardHotelCategoryController::class, 'index']);
         Route::get('/create', [DashboardHotelCategoryController::class, 'create']);
         Route::post('/store', [DashboardHotelCategoryController::class, 'store']);
@@ -131,8 +142,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{hotel_category}', [DashboardHotelCategoryController::class, 'update']);
         Route::delete('/delete/{hotel_category}', [DashboardHotelCategoryController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'meal'], function() {
+
+    Route::group(['prefix' => 'meal'], function () {
         Route::get('/index', [DashboardMealController::class, 'index']);
         Route::get('/create', [DashboardMealController::class, 'create']);
         Route::post('/store', [DashboardMealController::class, 'store']);
@@ -141,8 +152,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{meal}', [DashboardMealController::class, 'update']);
         Route::delete('/delete/{meal}', [DashboardMealController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'room'], function() {
+
+    Route::group(['prefix' => 'room'], function () {
         Route::get('/index', [DashboardRoomController::class, 'index']);
         Route::get('/create', [DashboardRoomController::class, 'create']);
         Route::post('/store', [DashboardRoomController::class, 'store']);
@@ -151,8 +162,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{room}', [DashboardRoomController::class, 'update']);
         Route::delete('/delete/{room}', [DashboardRoomController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'room_detail'], function() {
+
+    Route::group(['prefix' => 'room_detail'], function () {
         Route::get('/index', [DashboardRoomDetailController::class, 'index']);
         Route::get('/create', [DashboardRoomDetailController::class, 'create']);
         Route::post('/store', [DashboardRoomDetailController::class, 'store']);
@@ -161,8 +172,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{room_detail}', [DashboardRoomDetailController::class, 'update']);
         Route::delete('/delete/{room_detail}', [DashboardRoomDetailController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'supplier'], function() {
+
+    Route::group(['prefix' => 'supplier'], function () {
         Route::get('/index', [DashboardSupplierController::class, 'index']);
         Route::get('/create', [DashboardSupplierController::class, 'create']);
         Route::post('/store', [DashboardSupplierController::class, 'store']);
@@ -171,8 +182,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{supplier}', [DashboardSupplierController::class, 'update']);
         Route::delete('/delete/{supplier}', [DashboardSupplierController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'zone'], function() {
+
+    Route::group(['prefix' => 'zone'], function () {
         Route::get('/index', [DashboardZoneController::class, 'index']);
         Route::get('/create', [DashboardZoneController::class, 'create']);
         Route::post('/store', [DashboardZoneController::class, 'store']);
@@ -181,8 +192,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{zone}', [DashboardZoneController::class, 'update']);
         Route::delete('/delete/{zone}', [DashboardZoneController::class, 'destroy']);
     });
-    
-    Route::group(['prefix' => 'part'], function() {
+
+    Route::group(['prefix' => 'part'], function () {
         Route::get('/index', [DashboardPartController::class, 'index']);
         Route::post('/store', [DashboardPartController::class, 'store']);
         Route::get('/show/{page}', [DashboardPartController::class, 'show']);

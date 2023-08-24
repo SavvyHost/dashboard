@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Dashboard;
 
 
+use App\Models\Event;
+use function uploadImage;
+use Illuminate\Http\Request;
+use App\Models\EventEventDomain;
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
-use App\Models\Event;
+use App\Models\EventDomain;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use function uploadImage;
 
 class EventController extends Controller
 {
@@ -24,13 +26,17 @@ class EventController extends Controller
         }
     }
 
+    public function create()
+    {
+        $domains = EventDomain::all();
+        return $this->sendSuccess('All domains', compact('domains'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:200',
             'status' => 'in:publish,draft',
-            // 'seo_title' => 'requiredIf:searchable,1|max:200',
-            // 'seo_description' => 'requiredIf:searchable,1',
         ]);
 
         if ($request->file('avatar')) {
@@ -70,17 +76,36 @@ class EventController extends Controller
             'twitter_image' => $twitter_image ?? null,
             'twitter_description' => $request->twitter_description,
         ]);
+        $domain_ids = $request->domain_ids ?? [];
+        foreach ($domain_ids as $domain_id) {
+            EventEventDomain::create([
+                'event_domain_id' => $domain_id,
+                'event_id' => $event->id,
+            ]);
+        }
         return $this->sendSuccess('Event is created successfully', compact('event'), 201);
     }
 
     public function show(string $id)
     {
         try {
-            $event = EventResource::collection(Event::findorFail($id));
+            $event =  new EventResource(Event::where('id', $id)->firstorFail());
+            // $eventDomains = $event->eventDomains()->pluck('name');
             return $this->sendSuccess('Event Found', compact('event'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError("Event not Found", [], 404);
         }
+    }
+
+    public function edit($id)
+    {
+        try {
+            $event = new EventResource(Event::where('id', $id)->firstorFail());
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('Event Not Found', [], 404);
+        }
+        $domains = EventDomain::all();
+        return $this->sendSuccess('Event Found', compact('event', 'domains'));
     }
 
     public function update(Request $request, string $id)
@@ -91,8 +116,6 @@ class EventController extends Controller
                 'title' => 'required|string|max:200',
                 'status' => 'in:publish,draft',
                 'category_id' => 'exists:categories,id',
-                // 'seo_title' => 'requiredIf:searchable,1|max:200',
-                // 'seo_description' => 'requiredIf:searchable,1',
             ]);
 
             if ($request->file('image')) {
@@ -146,6 +169,14 @@ class EventController extends Controller
                 'twitter_description' => $request->twitter_description,
             ]);
             $event->save();
+            $event->eventDomains()->delete();
+            $domain_ids = $request->domain_ids ?? [];
+            foreach ($domain_ids as $domain_id) {
+                EventEventDomain::create([
+                    'event_domain_id' => $domain_id,
+                    'event_id' => $event->id,
+                ]);
+            }
             return $this->sendSuccess('Event is updated successfully.', compact('event'));
         } catch (ModelNotFoundException $e) {
             return $this->sendError("Event cann't updated this event isn't exist.", [], 404);

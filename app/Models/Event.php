@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\EventDomain;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
@@ -28,4 +29,8 @@ class Event extends Model
         'twitter_description',
         'avatar'
     ];
+    public function eventDomains()
+    {
+        return $this->belongsToMany(EventDomain::class, 'event_event_domains');
+    }
 }
