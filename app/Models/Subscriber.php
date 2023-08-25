@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscriber extends Model
 {
     use HasFactory;
-    protected $table = 'subcribers';
+    protected $table = 'subscribers';
     /**
      * The primary key associated with the table.
      *
@@ -27,9 +27,7 @@ class Subscriber extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'name',
         'email',
-        'created_at',
     ];
 }

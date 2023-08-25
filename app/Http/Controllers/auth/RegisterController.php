@@ -17,7 +17,7 @@ class RegisterController extends Controller
     public function show()
     {
         $countries = Country::all();
-        return view('auth.register',compact('countries'));
+        return view('auth.register', compact('countries'));
     }
 
     public function save(Request $request)
@@ -43,30 +43,29 @@ class RegisterController extends Controller
             'country'   =>  $request->country,
             'gender'    =>  $request->gender,
             'role_id'   =>  2,
-            'created_at'=>  date('Y-m-d'),
+            'created_at' =>  date('Y-m-d'),
         ]);
         return redirect()->route('login.show');
-
     }
 
 
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all() , [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required',
-			'type' => 'required'
+            'type' => 'required'
         ]);
-		
-		if ($validator->fails() ) {
-			return response()->json([
-				'message' => 'Validation Error',
-				'errors' => $validator->errors()
-			
-			], 401);
-		}
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+
+            ], 401);
+        }
 
         #dd($request->bio);
         $user = User::create([
@@ -78,9 +77,9 @@ class RegisterController extends Controller
             'bio'       =>  $request->bio,
             'country'   =>  $request->country,
             'gender'    =>  $request->gender,
-			'type'    =>  $request->type,
-			'role_id'   =>  2,
-            'created_at'=>  date('Y-m-d'),
+            'type'    =>  $request->type,
+            'role_id'   =>  2,
+            'created_at' =>  date('Y-m-d'),
         ]);
         // return redirect()->route('login.show');
         $token = $user->createToken('authToken')->plainTextToken;

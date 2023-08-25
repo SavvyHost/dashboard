@@ -8,29 +8,23 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('subcribers', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->text('name');
-            $table->text('email');
-            $table->text('created_at');
-            $table->timestamp('updated_at')->useCurrent();
+        Schema::table('subcribers', function (Blueprint $table) {
+            Schema::dropIfExists('subcribers');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('subcribers', function (Blueprint $table) {
-            $table->dropTimestamps();
+            $table->integer('id', true);
+            $table->text('name');
+            $table->text('email');
             $table->text('created_at');
             $table->timestamp('updated_at')->useCurrent();
         });

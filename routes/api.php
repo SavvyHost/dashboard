@@ -10,12 +10,14 @@ use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\SubscriberController as ApiSubscriberController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\booking\BookingController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\EventDomainController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
+use App\Http\Controllers\Api\SubscriberController as Subscriber;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
 use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
 use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
@@ -26,6 +28,7 @@ use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierContro
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
+use App\Http\Controllers\Dashboard\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +53,10 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/edit/{id}', [UserController::class, 'edit']);
         Route::post('/update/{id}', [UserController::class, 'update']);
         Route::delete('/delete/{id}', [UserController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'subscriber'], function () {
+        Route::get('/index', [SubscriberController::class, 'index']);
+        Route::delete('/delete/{id}', [SubscriberController::class, 'destroy']);
     });
     Route::group(['prefix' => 'category'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\CategoryController::class, 'index']);
@@ -231,6 +238,8 @@ Route::group(['prefix' => 'section'], function () {
 
     Route::get('blog', [BlogController::class, 'index']);
     Route::get('blog/{id}', [BlogController::class, 'show']);
+
+    Route::post('subscriber/store', [Subscriber::class, 'store']);
 });
 
 Route::get('page', [PageController::class, 'page_by_data']);

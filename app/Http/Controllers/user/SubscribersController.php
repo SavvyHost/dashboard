@@ -18,7 +18,7 @@ class SubscribersController extends Controller
     public function show()
     {
         $subscribers = Subscriber::get();
-        return view('users.subscribers',compact('subscribers'));
+        return view('users.subscribers', compact('subscribers'));
     }
     // public function index()
     // {
@@ -28,14 +28,11 @@ class SubscribersController extends Controller
 
     // }
 
-
-
-
     public function index($id)
     {
         $subscriber = Subscriber::find($id);;
 
-        return view('users.edit-subscriber',compact('subscriber'));
+        return view('users.edit-subscriber', compact('subscriber'));
     }
 
 
@@ -59,7 +56,7 @@ class SubscribersController extends Controller
             'email' =>  $request->email,
             'created_at' =>  date('Y-m-d'),
         ]);
-        return redirect()->back()->with('success','Subscriber Added Successfully');
+        return redirect()->back()->with('success', 'Subscriber Added Successfully');
     }
 
 
@@ -108,8 +105,8 @@ class SubscribersController extends Controller
 
     public function show_api()
     {
-        $subscribers =SubscribersResource::collection(Subscriber::all());
-        return response()->json(['data'=>$subscribers,'error'=>''],200);
+        $subscribers = SubscribersResource::collection(Subscriber::all());
+        return response()->json(['data' => $subscribers, 'error' => ''], 200);
     }
 
 
@@ -127,13 +124,12 @@ class SubscribersController extends Controller
             'email' =>  $request->email,
             'created_at' =>  date('Y-m-d'),
         ]);
-        $craeted= new SubscribersResource($subscriber);
-        return response()->json(['data'=>$craeted,'error'=>''],200);
-
+        $craeted = new SubscribersResource($subscriber);
+        return response()->json(['data' => $craeted, 'error' => ''], 200);
     }
 
 
-    public function update_api(Request $request , $subscriber_id)
+    public function update_api(Request $request, $subscriber_id)
     {
         $subscriber = Subscriber::find($subscriber_id);
 
@@ -144,18 +140,19 @@ class SubscribersController extends Controller
                 'email',
                 'max:100',
                 Rule::unique('subcribers')->ignore($subscriber->id),
-            ],        ]);
-            $subscriber = Subscriber::find($subscriber_id);
+            ],
+        ]);
+        $subscriber = Subscriber::find($subscriber_id);
 
-            $subscriber->name = $request->input('name');
-            $subscriber->email = $request->input('email');
+        $subscriber->name = $request->input('name');
+        $subscriber->email = $request->input('email');
 
-            $subscriber->updated_at = date('Y-m-d');
-            $subscriber->save();
+        $subscriber->updated_at = date('Y-m-d');
+        $subscriber->save();
 
-            $updatedsubscriber =new SubscribersResource($subscriber);
+        $updatedsubscriber = new SubscribersResource($subscriber);
 
-            return response()->json(['data' => $updatedsubscriber, 'error' => ''], 200);
+        return response()->json(['data' => $updatedsubscriber, 'error' => ''], 200);
     }
 
 
@@ -173,6 +170,4 @@ class SubscribersController extends Controller
 
         return response()->json(['message' => 'subscriber deleted successfully'], 200);
     }
-
-
 }
