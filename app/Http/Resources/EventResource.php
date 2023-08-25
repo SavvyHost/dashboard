@@ -35,8 +35,8 @@ class EventResource extends JsonResource
             'twitter_title' => $this->twitter_title,
             'twitter_image' => asset($this->twitter_image),
             'twitter_description' => $this->twitter_description,
-            // 'domains' => $this->eventDomains,
-            'Domains of Event' => $this->eventDomains()->pluck('event_domain_id', 'name'),
+            'domains' => $this->eventDomains,
+            // 'Domains of Event' => $this->eventDomains()->pluck('event_domain_id', 'name'),
         ];
     }
 }
