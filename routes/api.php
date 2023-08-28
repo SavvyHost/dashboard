@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\EventController;
@@ -10,14 +11,17 @@ use App\Http\Controllers\Api\FeatureController;
 use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\SubscriberController as ApiSubscriberController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\booking\BookingController;
+use App\Http\Controllers\OAuth\SocialAuthController;
 use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Dashboard\Auth\AuthController;
+use App\Http\Controllers\Dashboard\SubscriberController;
 use App\Http\Controllers\Dashboard\EventDomainController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
 use App\Http\Controllers\Api\SubscriberController as Subscriber;
+use App\Http\Controllers\Api\SubscriberController as ApiSubscriberController;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
 use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
 use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
@@ -28,7 +32,7 @@ use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierContro
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
-use App\Http\Controllers\Dashboard\SubscriberController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +45,58 @@ use App\Http\Controllers\Dashboard\SubscriberController;
 |
 */
 
+/** OAuth */
+
+// Facebook Authentication
+
+Route::get('/login/facebook', [SocialAuthController::class, 'redirectToFacebook']);
+Route::get('/login/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
+
+// Route::get('/login/facebook', 'OAuth\SocialAuthController@redirectToFacebook');
+// Route::get('/login/facebook/callback', 'OAuth\SocialAuthController@handleFacebookCallback');
+
+// Google Authentication
+Route::get('/login/google', 'OAuth\SocialAuthController@redirectToGoogle');
+Route::get('/login/google/callback', 'OAuth\SocialAuthController@handleGoogleCallback');
+
+
+
+
+
+
+
+
+
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('google')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('google')->user();
+//     // $user->token
+// });
+
+
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('facebook')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('facebook')->user();
+//     // $user->token
+// });
+
+/** ************************************************************************** */
+
 /**  Dashboard  */
 Route::group(['prefix' => 'dashboard'], function () {
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    });
+
     Route::group(['prefix' => 'user'], function () {
         Route::get('/index', [UserController::class, 'index']);
         Route::get('/index/users', [UserController::class, 'index_users']);
