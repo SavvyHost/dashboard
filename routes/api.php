@@ -47,46 +47,14 @@ use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCate
 
 /** OAuth */
 
-// Facebook Authentication
-
+/*** Facebook Authentication ***/
 Route::get('/login/facebook', [SocialAuthController::class, 'redirectToFacebook']);
 Route::get('/login/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
 
-// Route::get('/login/facebook', 'OAuth\SocialAuthController@redirectToFacebook');
-// Route::get('/login/facebook/callback', 'OAuth\SocialAuthController@handleFacebookCallback');
+/*** Google Authentication ***/
+Route::get('/login/google', [SocialAuthController::class, 'redirectToGoogle']);
+Route::get('/login/google/callback', [SocialAuthController::class, 'handleGoogleCallback']);
 
-// Google Authentication
-Route::get('/login/google', 'OAuth\SocialAuthController@redirectToGoogle');
-Route::get('/login/google/callback', 'OAuth\SocialAuthController@handleGoogleCallback');
-
-
-
-
-
-
-
-
-
-// Route::get('/auth/redirect', function () {
-//     return Socialite::driver('google')->redirect();
-// });
-
-// Route::get('/auth/callback', function () {
-//     $user = Socialite::driver('google')->user();
-//     // $user->token
-// });
-
-
-// Route::get('/auth/redirect', function () {
-//     return Socialite::driver('facebook')->redirect();
-// });
-
-// Route::get('/auth/callback', function () {
-//     $user = Socialite::driver('facebook')->user();
-//     // $user->token
-// });
-
-/** ************************************************************************** */
 
 /**  Dashboard  */
 Route::group(['prefix' => 'dashboard'], function () {
