@@ -137,6 +137,12 @@ class PageController extends Controller
         }
     }
 
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Page::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Pages deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 
 
     public function rebuild(Request $request, Page $page)

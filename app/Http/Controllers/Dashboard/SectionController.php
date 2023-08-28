@@ -50,4 +50,11 @@ class SectionController extends Controller
             return $this->sendError("Section Not Found", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Section::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Sections deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

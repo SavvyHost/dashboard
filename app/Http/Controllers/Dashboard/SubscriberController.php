@@ -30,4 +30,11 @@ class SubscriberController extends Controller
             return $this->sendError("Subscriber Not Found", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Subscriber::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Subscribers deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

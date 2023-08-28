@@ -193,4 +193,11 @@ class EventController extends Controller
             return $this->sendError("Event cann't deleted.", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Event::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Events deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

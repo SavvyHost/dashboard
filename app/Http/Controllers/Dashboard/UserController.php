@@ -166,4 +166,11 @@ class UserController extends Controller
             return $this->sendError("User Not Found", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = User::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Users deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

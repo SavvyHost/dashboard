@@ -53,10 +53,12 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/edit/{id}', [UserController::class, 'edit']);
         Route::post('/update/{id}', [UserController::class, 'update']);
         Route::delete('/delete/{id}', [UserController::class, 'destroy']);
+        Route::post('/bulk/delete', [UserController::class, 'bulkDelete']);
     });
     Route::group(['prefix' => 'subscriber'], function () {
         Route::get('/index', [SubscriberController::class, 'index']);
         Route::delete('/delete/{id}', [SubscriberController::class, 'destroy']);
+        Route::post('/bulk/delete', [SubscriberController::class, 'bulkDelete']);
     });
     Route::group(['prefix' => 'category'], function () {
         Route::get('/index', [App\Http\Controllers\Dashboard\CategoryController::class, 'index']);
@@ -64,6 +66,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/show/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'show']);
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\CategoryController::class, 'destroy']);
+        Route::post('/bulk/delete', [App\Http\Controllers\Dashboard\CategoryController::class, 'bulkDelete']);
     });
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/', [Blog::class, 'index']);
@@ -74,6 +77,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/{id}/edit', [Blog::class, 'edit']);
         Route::post('/{id}', [Blog::class, 'update']);
         Route::delete('/{id}', [Blog::class, 'destroy']);
+        Route::post('/bulk/delete', [Blog::class, 'bulkDelete']);
     });
 
     Route::group(['prefix' => 'event'], function () {
@@ -84,6 +88,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'destroy']);
         Route::get('/create', [App\Http\Controllers\Dashboard\EventController::class, 'create']);
         Route::get('/edit/{id}', [App\Http\Controllers\Dashboard\EventController::class, 'edit']);
+        Route::post('/bulk/delete', [App\Http\Controllers\Dashboard\EventController::class, 'bulkDelete']);
     });
 
     Route::group(['prefix' => 'event/domain'], function () {
@@ -92,6 +97,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/show/{id}', [EventDomainController::class, 'show']);
         Route::post('/update/{id}', [EventDomainController::class, 'update']);
         Route::delete('/delete/{id}', [EventDomainController::class, 'destroy']);
+        Route::post('/bulk/delete', [EventDomainController::class, 'bulkDelete']);
     });
 
     Route::group(['prefix' => 'page'], function () {
@@ -101,6 +107,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'update']);
         Route::delete('/delete/{id}', [App\Http\Controllers\Dashboard\PageController::class, 'destroy']);
         Route::post('/rebuild/{page}', [App\Http\Controllers\Dashboard\PageController::class, 'rebuild']);
+        Route::post('/bulk/delete', [App\Http\Controllers\Dashboard\PageController::class, 'bulkDelete']);
     });
     Route::group(['prefix' => 'section'], function () {
         Route::get('/index', [SectionController::class, 'index']);
@@ -108,6 +115,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/show/{id}', [SectionController::class, 'show']);
         Route::post('/update/{id}', [SectionController::class, 'update']);
         Route::delete('/destroy/{id}', [SectionController::class, 'destroy']);
+        Route::post('/bulk/delete', [SectionController::class, 'bulkDelete']);
     });
 
     Route::group(['prefix' => 'hotel'], function () {

@@ -199,4 +199,11 @@ class BlogController extends Controller
             return $this->sendError("Blog Not Found.", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Blog::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Blogs deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

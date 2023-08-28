@@ -76,4 +76,11 @@ class CategoryController extends Controller
             return $this->sendError("Category cann't deleted.", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = Category::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Categorys deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }

@@ -83,4 +83,11 @@ class EventDomainController extends Controller
             return $this->sendError("Domain cann't deleted.", [], 404);
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids');
+        $deletedCount = EventDomain::whereIn('id', $ids)->delete();
+        return $this->sendSuccess('Domains deleted successfully.', ['deleted_count' => $deletedCount]);
+    }
 }
