@@ -32,15 +32,15 @@ return [
     ],
 
     'google' => [
-        'client_id'     => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect'      => env('GOOGLE_REDIRECT'),
+        'client_id'     => '548420885821-ekehnu5dc3mduuc6pm8rjip6pm7qnrtv.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect'      => 'https://dashboard.savvyhost.io/google/callback',
     ],
 
     'facebook' => [
-        'client_id'     => env('FB_CLIENT_ID'),
-        'client_secret' => env('FB_CLIENT_SECRET'),
-        'redirect'      => env('FB_REDIRECT'),
+        'client_id'     => '994206091897032',
+        'client_secret' => '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',
+        'redirect'      => 'https://dashboard.savvyhost.io/google/callback',
     ],
 
 ];
