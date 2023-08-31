@@ -39,8 +39,8 @@ return [
 
     'facebook' => [
         'client_id'     => '994206091897032',
-        'client_secret' => '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',
-        'redirect'      => 'https://dashboard.savvyhost.io/google/callback',
+        'client_secret' => '86089b2542560b6502f4901ef9dbec2c',
+        'redirect'      => 'https://dashboard.savvyhost.io/facebook/callback',
     ],
 
 ];
