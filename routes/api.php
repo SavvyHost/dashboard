@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HotelSearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BlogController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyContro
 use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
+use App\Http\Controllers\Dashboard\ApiProviderController as DashboardApiProviderController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
 
 /*
@@ -192,6 +194,14 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{zone}', [DashboardZoneController::class, 'update']);
         Route::delete('/delete/{zone}', [DashboardZoneController::class, 'destroy']);
     });
+    
+    Route::group(['prefix' => 'apiprovider'], function () {
+        Route::get('/index', [DashboardApiProviderController::class, 'index']);
+        Route::post('/store', [DashboardApiProviderController::class, 'store']);
+        Route::get('edit/{apiprovider}', [DashboardApiProviderController::class, 'edit']);
+        Route::post('/update/{apiprovider}', [DashboardApiProviderController::class, 'update']);
+        Route::delete('/delete/{apiprovider}', [DashboardApiProviderController::class, 'destroy']);
+    });
 
     Route::group(['prefix' => 'part'], function () {
         Route::get('/index', [DashboardPartController::class, 'index']);
@@ -201,6 +211,15 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update', [DashboardPartController::class, 'update']);
         Route::delete('/delete/{part}', [DashboardPartController::class, 'destroy']);
     });
+});
+
+Route::group(['prefix' => 'hotel'], function () {
+    Route::group(['prefix' => 'search'], function () {
+        Route::post('geolocation', [HotelSearchController::class, 'geolocation']);
+        Route::get('hotelsdetails/{codes}', [HotelSearchController::class, 'hotelsDetails']);
+    
+    });
+    
 });
 
 /**   *********************************************************************************************************************  **/
