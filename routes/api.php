@@ -31,6 +31,7 @@ use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyContro
 use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
+use App\Http\Controllers\Dashboard\HotelPolicyController as DashboardHotelPolicyController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
 
 
@@ -237,6 +238,15 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/edit/{page}', [DashboardPartController::class, 'edit']);
         Route::post('/update', [DashboardPartController::class, 'update']);
         Route::delete('/delete/{part}', [DashboardPartController::class, 'destroy']);
+    });
+    
+    Route::group(['prefix' => 'hotelpolicy'], function () {
+        Route::get('/index', [DashboardHotelPolicyController::class, 'index']);
+        Route::post('/store', [DashboardHotelPolicyController::class, 'store']);
+        Route::get('/show/{hotelpolicy}', [DashboardHotelPolicyController::class, 'show']);
+        Route::get('/edit/{hotelpolicy}', [DashboardHotelPolicyController::class, 'edit']);
+        Route::post('/update/{hotelpolicy}', [DashboardHotelPolicyController::class, 'update']);
+        Route::delete('/delete/{hotelpolicy}', [DashboardHotelPolicyController::class, 'destroy']);
     });
 });
 
