@@ -21,6 +21,7 @@ use App\Http\Controllers\Dashboard\SubscriberController;
 use App\Http\Controllers\Dashboard\EventDomainController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
 use App\Http\Controllers\Api\SubscriberController as Subscriber;
+use App\Http\Controllers\Dashboard\Hotel\SurroundingsTypeController;
 use App\Http\Controllers\Api\SubscriberController as ApiSubscriberController;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
 use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
@@ -268,7 +269,15 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{hotelTerm}', [DashboardHotelTermController::class, 'update']);
         Route::delete('/delete/{hotelTerm}', [DashboardHotelTermController::class, 'destroy']);
     });
-    
+
+    Route::group(['prefix' => 'surrounding/type'], function () {
+        Route::get('/index', [SurroundingsTypeController::class, 'index']);
+        Route::post('/store', [SurroundingsTypeController::class, 'store']);
+        Route::get('/show/{id}', [SurroundingsTypeController::class, 'show']);
+        Route::post('/update/{id}', [SurroundingsTypeController::class, 'update']);
+        Route::delete('/delete/{id}', [SurroundingsTypeController::class, 'destroy']);
+        Route::post('/bulk/delete', [SurroundingsTypeController::class, 'bulkDelete']);
+    });
 });
 
 /**   *********************************************************************************************************************  **/
