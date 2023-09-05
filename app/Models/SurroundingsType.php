@@ -5,12 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Currency extends Model
+class SurroundingsType extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'id',
-        'code',
-        'name',
-    ];
+    protected $fillable = ['name'];
 }
