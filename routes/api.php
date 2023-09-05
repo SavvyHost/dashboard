@@ -269,7 +269,6 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{hotelTerm}', [DashboardHotelTermController::class, 'update']);
         Route::delete('/delete/{hotelTerm}', [DashboardHotelTermController::class, 'destroy']);
     });
-    
 
     Route::group(['prefix' => 'surrounding/type'], function () {
         Route::get('/index', [SurroundingsTypeController::class, 'index']);
