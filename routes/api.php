@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\PartnerController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\booking\BookingController;
 use App\Http\Controllers\OAuth\SocialAuthController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Dashboard\SubscriberController;
 use App\Http\Controllers\Dashboard\EventDomainController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
 use App\Http\Controllers\Api\SubscriberController as Subscriber;
+use App\Http\Controllers\Dashboard\Hotel\HotelAttributeController;
 use App\Http\Controllers\Dashboard\Hotel\SurroundingsTypeController;
 use App\Http\Controllers\Api\SubscriberController as ApiSubscriberController;
 use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
@@ -242,7 +244,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update', [DashboardPartController::class, 'update']);
         Route::delete('/delete/{part}', [DashboardPartController::class, 'destroy']);
     });
-    
+
     Route::group(['prefix' => 'hotelpolicy'], function () {
         Route::get('/index', [DashboardHotelPolicyController::class, 'index']);
         Route::post('/store', [DashboardHotelPolicyController::class, 'store']);
@@ -251,16 +253,16 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{hotelpolicy}', [DashboardHotelPolicyController::class, 'update']);
         Route::delete('/delete/{hotelpolicy}', [DashboardHotelPolicyController::class, 'destroy']);
     });
-    
+
     Route::group(['prefix' => 'hotelattribute'], function () {
-        Route::get('/index', [DashboardHotelAttributeController::class, 'index']);
-        Route::post('/store', [DashboardHotelAttributeController::class, 'store']);
-        Route::get('/show/{hotelAttribute}', [DashboardHotelAttributeController::class, 'show']);
-        Route::get('/edit/{hotelAttribute}', [DashboardHotelAttributeController::class, 'edit']);
-        Route::post('/update/{hotelAttribute}', [DashboardHotelAttributeController::class, 'update']);
-        Route::delete('/delete/{hotelAttribute}', [DashboardHotelAttributeController::class, 'destroy']);
+        Route::get('/index', [HotelAttributeController::class, 'index']);
+        Route::post('/store', [HotelAttributeController::class, 'store']);
+        Route::get('/show/{hotelAttribute}', [HotelAttributeController::class, 'show']);
+        Route::get('/edit/{hotelAttribute}', [HotelAttributeController::class, 'edit']);
+        Route::post('/update/{hotelAttribute}', [HotelAttributeController::class, 'update']);
+        Route::delete('/delete/{hotelAttribute}', [HotelAttributeController::class, 'destroy']);
     });
-    
+
     Route::group(['prefix' => 'hotelterm'], function () {
         Route::get('/index', [DashboardHotelTermController::class, 'index']);
         Route::post('/store', [DashboardHotelTermController::class, 'store']);
@@ -277,6 +279,16 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::post('/update/{id}', [SurroundingsTypeController::class, 'update']);
         Route::delete('/delete/{id}', [SurroundingsTypeController::class, 'destroy']);
         Route::post('/bulk/delete', [SurroundingsTypeController::class, 'bulkDelete']);
+    });
+
+    Route::group(['prefix' => 'city'], function () {
+        Route::get('/index', [CityController::class, 'index']);
+        Route::get('/create', [CityController::class, 'create']);
+        Route::post('/store', [CityController::class, 'store']);
+        Route::get('/show/{id}', [CityController::class, 'show']);
+        Route::get('edit/{id}', [CityController::class, 'edit']);
+        Route::post('/update/{id}', [CityController::class, 'update']);
+        Route::delete('/delete/{id}', [CityController::class, 'destroy']);
     });
 });
 
