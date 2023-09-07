@@ -154,6 +154,8 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('edit/{hotel}', [DashboardHotelController::class, 'edit']);
         Route::post('/update/{hotel}', [DashboardHotelController::class, 'update']);
         Route::delete('/delete/{hotel}', [DashboardHotelController::class, 'destroy']);
+        
+        Route::post('terms/{hotel}', [DashboardHotelController::class, 'terms']);
     });
 
     Route::group(['prefix' => 'currency'], function () {

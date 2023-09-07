@@ -19,7 +19,9 @@ use App\Models\HotelImage;
 use App\Models\Zone;
 use App\Models\Currency;
 use App\Models\Supplier;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Validator;
 
 class HotelController extends Controller
 {
@@ -157,5 +159,28 @@ class HotelController extends Controller
         } catch (ModelNotFoundException $e) {
             return $this->sendError('Hotel Not Found', 404);
         }
+    }
+    
+    public function terms(Request $request, $hotel) {
+        try {
+            $hotel = Hotel::findOrFail( $hotel );
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('Hotel Not Found', 404);
+        }
+        
+        $validator = Validator::make($request->all(), [
+            'terms' => 'array',
+            'terms.*' => 'exists:hotel_terms,id'
+        ]);
+        
+        if ($validator->fails()) {
+            return $this->sendError('Error Found', $validator->errors());
+        }
+        
+        $hotel->hotel_terms()->sync($request->get('terms'));
+        
+        $hotel = new HotelResource($hotel);
+        
+        return $this->sendSuccess('Terms Updated', compact('hotel'));
     }
 }

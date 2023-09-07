@@ -26,20 +26,20 @@ class HotelAttributeController extends Controller
         $request->validate([
             'name' => 'required|string|max:200',
             // 'star_rate' => 'in:[1,2,3,4,5]',
-            'city_id' => 'exists:cities,id',
-            'currency_id' => 'exists:currencies,id',
+//            'city_id' => 'exists:cities,id',
+//            'currency_id' => 'exists:currencies,id',
         ]);
 
         $hotelAttribute = HotelAttribute::create([
             'name' => $request->name,
-            'description' => $request->description,
-            'banner' => $request->banner,
-            'star_rate' => $request->star_rate,
-            'youtube_video' => $request->youtube_video,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
-            'city_id' => $request->city_id,
-            'currency_id' => $request->currency_id,
+//            'description' => $request->description,
+//            'banner' => $request->banner,
+//            'star_rate' => $request->star_rate,
+//            'youtube_video' => $request->youtube_video,
+//            'latitude' => $request->latitude,
+//            'longitude' => $request->longitude,
+//            'city_id' => $request->city_id,
+//            'currency_id' => $request->currency_id,
         ]);
         $hotelAttribute = new HotelAttributeResource($hotelAttribute);
         return $this->sendSuccess('Attribute Saved', compact('hotelAttribute'), 201);

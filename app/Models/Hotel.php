@@ -42,4 +42,8 @@ class Hotel extends Model
     public function hotel_images() {
         return $this->hasMany(HotelImage::class);
     }
+    
+    public function hotel_terms() {
+        return $this->belongsToMany(HotelTerm::class);
+    }
 }

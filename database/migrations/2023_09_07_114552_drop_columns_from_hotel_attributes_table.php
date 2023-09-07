@@ -12,26 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('hotel_attributes', function (Blueprint $table) {
-            // $table->string('name');
-            $table->text('description');
-            $table->text('banner')->nullable();
-            $table->integer('star_rate');
-            $table->text('youtube_video')->nullable();
-            $table->double('latitude');
-            $table->double('longitude');
-            $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('currency_id');
-            $table->foreign('city_id')->references('id')->on('cities');
-            $table->foreign('currency_id')->references('id')->on('currencies');
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('hotel_attributes', function (Blueprint $table) {
             $table->dropForeign(['city_id']);
             $table->dropForeign(['currency_id']);
             $table->dropColumn('city_id');
@@ -42,6 +22,25 @@ return new class extends Migration
             $table->dropColumn('star_rate');
             $table->dropColumn('banner');
             $table->dropColumn('description');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('hotel_attributes', function (Blueprint $table) {
+            $table->text('description');
+            $table->text('banner')->nullable();
+            $table->integer('star_rate');
+            $table->text('youtube_video')->nullable();
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('currency_id');
+            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('currency_id')->references('id')->on('currencies');
         });
     }
 };

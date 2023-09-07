@@ -13,14 +13,14 @@ class HotelAttribute extends Model
 
     protected $fillable = [
         'name',
-        'description',
-        'banner',
-        'star_rate',
-        'youtube_video',
-        'latitude',
-        'longitude',
-        'city_id',
-        'currency_id'
+//        'description',
+//        'banner',
+//        'star_rate',
+//        'youtube_video',
+//        'latitude',
+//        'longitude',
+//        'city_id',
+//        'currency_id'
     ];
 
     public function hotelTerms()
