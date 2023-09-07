@@ -16,20 +16,20 @@ class HotelResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'code' => $this->code,
+//            'code' => $this->code,
             'name' => $this->name,
             'lat' => $this->lat,
             'lng' => $this->lng,
-            'min_rate' => $this->min_rate,
-            'max_rate' => $this->max_rate,
+//            'min_rate' => $this->min_rate,
+//            'max_rate' => $this->max_rate,
             'banner' => asset( $this->banner ) ,
-            'category_code' => $this->hotel_category->code,
-            'category' => $this->hotel_category->name,
-            'zone_code' => $this->zone->code,
-            'zone' => $this->zone->name,
+//            'category_code' => $this->hotel_category->code,
+//            'category' => $this->hotel_category->name,
+//            'zone_code' => $this->zone->code,
+//            'zone' => $this->zone->name,
             'currency_code' => $this->currency->code,
             'currency' => $this->currency->name,
-            'supplier' => new SupplierResource( $this->supplier ),
+//            'supplier' => new SupplierResource( $this->supplier ),
             'images' => ImageResource::collection( $this->hotel_images ),
             'rooms' => RoomResource::collection( $this->rooms )
         ];

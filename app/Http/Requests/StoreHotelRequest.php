@@ -22,18 +22,19 @@ class StoreHotelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|max:255',
+//            'code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'hotel_category_id' => 'required|integer|exists:hotel_categories,id',
-            'destination_id' => 'required|integer|exists:destinations,id',
-            'zone_id' => 'required|integer|exists:zones,id',
+            'description' => 'required|string',
+//            'hotel_category_id' => 'required|integer|exists:hotel_categories,id',
+//            'destination_id' => 'required|integer|exists:destinations,id',
+//            'zone_id' => 'required|integer|exists:zones,id',
             'currency_id' => 'required|integer|exists:currencies,id',
-            'supplier_id' => 'required|integer|exists:suppliers,id',
+//            'supplier_id' => 'required|integer|exists:suppliers,id',
             'lat' => 'required|string|max:255',
             'lng' => 'required|string|max:255',
             'banner' => 'nullable|image',
-            'min_rate' => 'required|numeric',
-            'max_rate' => 'required|numeric|gt:min_rate',
+//            'min_rate' => 'required|numeric',
+//            'max_rate' => 'required|numeric|gt:min_rate',
             'images' => 'array',
             'images.*' => 'image',
         ];

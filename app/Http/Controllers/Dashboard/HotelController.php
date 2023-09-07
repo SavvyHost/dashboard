@@ -49,17 +49,20 @@ class HotelController extends Controller
         try {
             $hotel = new Hotel();
             
-            $hotel->code = $request->get('code');
+//            $hotel->code = $request->get('code');
             $hotel->name = $request->get('name');
-            $hotel->hotel_category_id = $request->get('hotel_category_id');
-            $hotel->destination_id = $request->get('destination_id');
-            $hotel->zone_id = $request->get('zone_id');
+            $hotel->description = $request->get('description');
+            $hotel->star_rate = $request->get('star_rate');
+//            $hotel->hotel_category_id = $request->get('hotel_category_id');
+//            $hotel->destination_id = $request->get('destination_id');
+//            $hotel->zone_id = $request->get('zone_id');
             $hotel->currency_id = $request->get('currency_id');
-            $hotel->supplier_id = $request->get('supplier_id');
+//            $hotel->supplier_id = $request->get('supplier_id');
             $hotel->lat = $request->get('lat');
             $hotel->lng = $request->get('lng');
-            $hotel->min_rate = $request->get('min_rate');
-            $hotel->max_rate = $request->get('max_rate');
+            $hotel->city_id = $request->get('city_id');
+//            $hotel->min_rate = $request->get('min_rate');
+//            $hotel->max_rate = $request->get('max_rate');
             
             if ($request->hasFile('banner')) {
                 $hotel->banner = uploadImage($request->file('banner'), 'hotels-banners');
