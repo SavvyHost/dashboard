@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Hotel;
 
 use App\Http\Controllers\APITrait;
 use App\Http\Controllers\Controller;
@@ -27,7 +27,6 @@ class HotelPolicyController extends Controller
         $hotelPolicy->title = $request->get('title');
         $hotelPolicy->description = $request->get('description');
         $hotelPolicy->icon = uploadImage($request->file('icon'), 'hotel-policies');
-
         $hotelPolicy->save();
 
         $hotelPolicy = new HotelPolicyResource($hotelPolicy);

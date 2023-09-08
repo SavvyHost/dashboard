@@ -15,13 +15,14 @@ use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\booking\BookingController;
+use App\Http\Controllers\Dashboard\HotelController;
 use App\Http\Controllers\OAuth\SocialAuthController;
 use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\SubscriberController;
 use App\Http\Controllers\Dashboard\EventDomainController;
-use App\Http\Controllers\Dashboard\HotelPolicyController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
+use App\Http\Controllers\Dashboard\Hotel\HotelPolicyController;
 use App\Http\Controllers\Api\SubscriberController as Subscriber;
 use App\Http\Controllers\Dashboard\Hotel\HotelAttributeController;
 use App\Http\Controllers\Dashboard\Hotel\SurroundingsTypeController;
@@ -30,13 +31,12 @@ use App\Http\Controllers\Dashboard\MealController as DashboardMealController;
 use App\Http\Controllers\Dashboard\PartController as DashboardPartController;
 use App\Http\Controllers\Dashboard\RoomController as DashboardRoomController;
 use App\Http\Controllers\Dashboard\ZoneController as DashboardZoneController;
-use App\Http\Controllers\Dashboard\HotelController as DashboardHotelController;
 use App\Http\Controllers\Dashboard\CurrencyController as DashboardCurrencyController;
+use App\Http\Controllers\Dashboard\Hotel\HotelController as DashboardHotelController;
 use App\Http\Controllers\Dashboard\SupplierController as DashboardSupplierController;
 use App\Http\Controllers\Dashboard\HotelTermController as DashboardHotelTermController;
 use App\Http\Controllers\Dashboard\RoomDetailController as DashboardRoomDetailController;
 use App\Http\Controllers\Dashboard\DestinationController as DashboardDestinationController;
-use App\Http\Controllers\Dashboard\HotelPolicyController as DashboardHotelPolicyController;
 use App\Http\Controllers\Dashboard\HotelCategoryController as DashboardHotelCategoryController;
 use App\Http\Controllers\Dashboard\HotelAttributeController as DashboardHotelAttributeController;
 
@@ -148,15 +148,14 @@ Route::group(['prefix' => 'dashboard'], function () {
     });
 
     Route::group(['prefix' => 'hotel'], function () {
-        Route::get('/index', [DashboardHotelController::class, 'index']);
-        Route::get('/create', [DashboardHotelController::class, 'create']);
-        Route::post('/store', [DashboardHotelController::class, 'store']);
-        Route::get('/{hotel}', [DashboardHotelController::class, 'show']);
-        Route::get('edit/{hotel}', [DashboardHotelController::class, 'edit']);
-        Route::post('/update/{hotel}', [DashboardHotelController::class, 'update']);
-        Route::delete('/delete/{hotel}', [DashboardHotelController::class, 'destroy']);
-
-        Route::post('terms/{hotel}', [DashboardHotelController::class, 'terms']);
+        Route::get('/index', [HotelController::class, 'index']);
+        Route::get('/create', [HotelController::class, 'create']);
+        Route::post('/store', [HotelController::class, 'store']);
+        Route::get('/{hotel}', [HotelController::class, 'show']);
+        Route::get('edit/{hotel}', [HotelController::class, 'edit']);
+        Route::post('/update/{hotel}', [HotelController::class, 'update']);
+        Route::delete('/delete/{hotel}', [HotelController::class, 'destroy']);
+        Route::post('terms/{hotel}', [HotelController::class, 'terms']);
     });
 
     Route::group(['prefix' => 'currency'], function () {

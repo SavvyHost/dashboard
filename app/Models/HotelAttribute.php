@@ -11,17 +11,7 @@ class HotelAttribute extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-//        'description',
-//        'banner',
-//        'star_rate',
-//        'youtube_video',
-//        'latitude',
-//        'longitude',
-//        'city_id',
-//        'currency_id'
-    ];
+    protected $fillable = ['name'];
 
     public function hotelTerms()
     {
