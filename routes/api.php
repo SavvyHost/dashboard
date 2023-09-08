@@ -20,6 +20,7 @@ use App\Http\Controllers\Dashboard\SectionController;
 use App\Http\Controllers\Dashboard\Auth\AuthController;
 use App\Http\Controllers\Dashboard\SubscriberController;
 use App\Http\Controllers\Dashboard\EventDomainController;
+use App\Http\Controllers\Dashboard\HotelPolicyController;
 use App\Http\Controllers\Dashboard\BlogController as Blog;
 use App\Http\Controllers\Api\SubscriberController as Subscriber;
 use App\Http\Controllers\Dashboard\Hotel\HotelAttributeController;
@@ -154,7 +155,7 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('edit/{hotel}', [DashboardHotelController::class, 'edit']);
         Route::post('/update/{hotel}', [DashboardHotelController::class, 'update']);
         Route::delete('/delete/{hotel}', [DashboardHotelController::class, 'destroy']);
-        
+
         Route::post('terms/{hotel}', [DashboardHotelController::class, 'terms']);
     });
 
@@ -248,12 +249,12 @@ Route::group(['prefix' => 'dashboard'], function () {
     });
 
     Route::group(['prefix' => 'hotelpolicy'], function () {
-        Route::get('/index', [DashboardHotelPolicyController::class, 'index']);
-        Route::post('/store', [DashboardHotelPolicyController::class, 'store']);
-        Route::get('/show/{hotelpolicy}', [DashboardHotelPolicyController::class, 'show']);
-        Route::get('/edit/{hotelpolicy}', [DashboardHotelPolicyController::class, 'edit']);
-        Route::post('/update/{hotelpolicy}', [DashboardHotelPolicyController::class, 'update']);
-        Route::delete('/delete/{hotelpolicy}', [DashboardHotelPolicyController::class, 'destroy']);
+        Route::get('/index', [HotelPolicyController::class, 'index']);
+        Route::post('/store', [HotelPolicyController::class, 'store']);
+        Route::get('/show/{hotelpolicy}', [HotelPolicyController::class, 'show']);
+        Route::get('/edit/{hotelpolicy}', [HotelPolicyController::class, 'edit']);
+        Route::post('/update/{hotelpolicy}', [HotelPolicyController::class, 'update']);
+        Route::delete('/delete/{hotelpolicy}', [HotelPolicyController::class, 'destroy']);
     });
 
     Route::group(['prefix' => 'hotelattribute'], function () {

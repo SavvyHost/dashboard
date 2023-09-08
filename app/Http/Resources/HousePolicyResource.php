@@ -17,11 +17,9 @@ class HousePolicyResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-
-            'name' => $this->name,
+            'title' => $this->title,
             'description' => $this->description,
-            'hotel_id' => $this->hotel_id,
-
+            'icon' => $this->icon,
         ];
     }
 }
