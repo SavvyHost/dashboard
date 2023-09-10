@@ -188,4 +188,34 @@ class HotelController extends Controller
 
         return $this->sendSuccess('Terms Updated', compact('hotel'));
     }
+    
+    public function upload_images(Request $request, $hotel) {
+        try {
+            $hotel = Hotel::findOrFail($hotel);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendError('Hotel Not Found', 404);
+        }
+    
+        $validator = Validator::make($request->all(), [
+            'images' => 'array',
+            'images.*' => 'image'
+        ]);
+    
+        if ($validator->fails()) {
+            return $this->sendError('Error Found', $validator->errors());
+        }
+        
+        foreach ($request->file('images', []) as $image) {
+            $img = new HotelImage();
+            
+            $img->image = uploadImage($image, 'hotel-photos');
+            $img->hotel_id = $hotel->id;
+            
+            $img->save();
+        }
+    
+        $hotel = new HotelResource($hotel);
+    
+        return $this->sendSuccess('Images Uploaded', compact('hotel'));
+    }
 }
